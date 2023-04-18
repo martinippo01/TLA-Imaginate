@@ -60,19 +60,21 @@
 %%
 
 program: expression																						{ $$ = ProgramGrammarAction($1); }
+			 | assignment                                            { }
 			 ; 
 
 expression: expression[left] ADD expression[right]						{ $$ = AdditionExpressionGrammarAction($left, $right); }
 					| expression[left] SUB expression[right]						{ $$ = SubtractionExpressionGrammarAction($left, $right); }
 					| expression[left] MUL expression[right]						{ $$ = MultiplicationExpressionGrammarAction($left, $right); }
 					| expression[left] DIV expression[right]						{ $$ = DivisionExpressionGrammarAction($left, $right); }
-					| VAL { $$ = VariableAssignmentGrammarAction($1, $2); };
 					| factor																						{ $$ = FactorExpressionGrammarAction($1); }
 	;
 
 factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS { $$ = ExpressionFactorGrammarAction($2); }
 			| constant { $$ = ConstantFactorGrammarAction($1); }
 			;
+
+assignment: VAL VARIABLE EQUALS INTEGER { $$ = VariableAssignmentGrammarAction($2, $4); };
 
 constant: INTEGER													{ $$ = IntegerConstantGrammarAction($1); }
 				;

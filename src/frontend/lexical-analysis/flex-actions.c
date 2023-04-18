@@ -23,13 +23,14 @@ void BeginCommentPatternAction() {
 	LogDebug("BeginCommentPatternAction.");
 }
 
-token ValKeywordPatternAction(const char * yytext) {
-	printf("ValKeywordPatternAction: %s \n", yytext);
+token ValKeywordPatternAction(const char * lexeme) {
+	printf("ValKeywordPatternAction: %s \n", lexeme);
 	yylval.token = VAL;
 	return VAL;
 }
 
-token EqualOperatorPatternAction(const char * yytext) {
+token EqualOperatorPatternAction(const char * lexeme) {
+ printf("ValKeywordPatternAction: %s \n", lexeme);
  yylval.token = EQUALS;
  return EQUALS;
 }
