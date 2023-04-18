@@ -15,7 +15,7 @@
 int ProgramGrammarAction(const int value);
 
 
-void VariableAssignmentGrammarAction(const char * variable_name, const char variable_value);
+int VariableAssignmentGrammarAction(const char * variable_name, const char variable_value);
 
 // Expresión.
 int AdditionExpressionGrammarAction(const int leftValue, const int rightValue);

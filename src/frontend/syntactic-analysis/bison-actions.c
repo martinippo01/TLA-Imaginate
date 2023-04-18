@@ -47,8 +47,9 @@ int ProgramGrammarAction(const int value) {
 	return value;
 }
 
-void VariableAssignmentGrammarAction(const char * variable_name, const char variable_value) {
+int VariableAssignmentGrammarAction(const char * variable_name, const char variable_value) {
 		  printf("Value assignment: %s = %d\n", variable_name, variable_value);
+		  return 0;
 }
 
 int AdditionExpressionGrammarAction(const int leftValue, const int rightValue) {
