@@ -14,23 +14,27 @@
 	Constant constant;
 	...
 	*/
+  char* variable;
 
-	// No-terminales (frontend).
+// No-terminales (frontend).
 	int program;
 	int expression;
 	int factor;
 	int constant;
 
-	// Terminales.
+// Terminales.
 	token token;
 	int integer;
 }
 
 // IDs y tipos de los tokens terminales generados desde Flex.
 %token <token> ADD
+%token <token> START 
 %token <token> SUB
 %token <token> MUL
 %token <token> DIV
+
+%token <token> VARIABLE
 
 %token <token> OPEN_PARENTHESIS
 %token <token> CLOSE_PARENTHESIS
@@ -42,6 +46,8 @@
 %type <expression> expression
 %type <factor> factor
 %type <constant> constant
+%type <variable> variable
+
 
 // Reglas de asociatividad y precedencia (de menor a mayor).
 %left ADD SUB
@@ -53,20 +59,23 @@
 %%
 
 program: expression													{ $$ = ProgramGrammarAction($1); }
-	;
+			 ;
 
 expression: expression[left] ADD expression[right]					{ $$ = AdditionExpressionGrammarAction($left, $right); }
-	| expression[left] SUB expression[right]						{ $$ = SubtractionExpressionGrammarAction($left, $right); }
+					| expression[left] SUB expression[right]						{ $$ = SubtractionExpressionGrammarAction($left, $right); }
 	| expression[left] MUL expression[right]						{ $$ = MultiplicationExpressionGrammarAction($left, $right); }
 	| expression[left] DIV expression[right]						{ $$ = DivisionExpressionGrammarAction($left, $right); }
 	| factor														{ $$ = FactorExpressionGrammarAction($1); }
 	;
 
-factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS				{ $$ = ExpressionFactorGrammarAction($2); }
-	| constant														{ $$ = ConstantFactorGrammarAction($1); }
-	;
+factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS { $$ = ExpressionFactorGrammarAction($2); }
+| constant { $$ = ConstantFactorGrammarAction($1); }
+| variable { $$ = VariableFactorGrammarAction($1); };
+;
+
+variable: VARIABLE { $$ = VariableGrammarAction($1); };
 
 constant: INTEGER													{ $$ = IntegerConstantGrammarAction($1); }
-	;
+				;
 
 %%

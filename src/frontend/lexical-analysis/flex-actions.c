@@ -1,5 +1,6 @@
 #include "../../backend/support/logger.h"
 #include "flex-actions.h"
+#include <stdio.h>
 #include <stdlib.h>
 
 /**
@@ -20,6 +21,16 @@
 
 void BeginCommentPatternAction() {
 	LogDebug("BeginCommentPatternAction.");
+}
+
+token StartImaginate(const char * lexeme){
+	printf("comenzo el programa!");
+	return YYUNDEF;
+}
+
+token Variable(const char * lexeme) {
+ yylval.token = VARIABLE; 
+ return VARIABLE;
 }
 
 void EndCommentPatternAction() {

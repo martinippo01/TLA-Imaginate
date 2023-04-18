@@ -47,6 +47,14 @@ int ProgramGrammarAction(const int value) {
 	return value;
 }
 
+int VariableFactorGrammarAction(const int val) {
+	return 10;
+}
+
+int VariableGrammarAction(const char * variable_name) {
+	return 10;
+}
+
 int AdditionExpressionGrammarAction(const int leftValue, const int rightValue) {
 	LogDebug("\tAdditionExpressionGrammarAction(%d, %d)", leftValue, rightValue);
 	return Add(leftValue, rightValue);
