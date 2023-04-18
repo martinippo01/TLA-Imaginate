@@ -23,14 +23,25 @@ void BeginCommentPatternAction() {
 	LogDebug("BeginCommentPatternAction.");
 }
 
-token StartImaginate(const char * lexeme){
-	printf("comenzo el programa!");
-	return YYUNDEF;
+token ValKeywordPatternAction(const char * yytext) {
+	printf("ValKeywordPatternAction: %s \n", yytext);
+	yylval.token = VAL;
+	return VAL;
+}
+
+token EqualOperatorPatternAction(const char * yytext) {
+ yylval.token = EQUALS;
+ return EQUALS;
 }
 
 token Variable(const char * lexeme) {
  yylval.token = VARIABLE; 
  return VARIABLE;
+}
+
+token StartImaginate(const char * lexeme){
+	printf("comenzo el programa!");
+	return YYUNDEF;
 }
 
 void EndCommentPatternAction() {
