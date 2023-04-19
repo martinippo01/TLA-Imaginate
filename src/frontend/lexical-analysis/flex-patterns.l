@@ -1,6 +1,6 @@
 %{
 
-#include "./flex-actions.h"
+#include "flex-actions.h"
 
 %}
 
@@ -35,7 +35,7 @@ whitespace		[ \f\n\r\t\v]
 
 "val"                     { return ValKeywordPatternAction(yytext); }
 "="                       { return EqualOperatorPatternAction(yytext); }
-"a"    { return VariablePatternAction(yytext); }
+"a"    { return Variable(yytext); }
 
 "("											{ return OpenParenthesisPatternAction(yytext); }
 ")"											{ return CloseParenthesisPatternAction(yytext); }

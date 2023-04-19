@@ -36,7 +36,7 @@ token EqualOperatorPatternAction(const char * lexeme) {
  return EQUALS;
 }
 
-token VariablePatternAction(const char * lexeme) {
+token Variable(const char * lexeme) {
  yylval.token = VARIABLE; 
  return VARIABLE;
  }
