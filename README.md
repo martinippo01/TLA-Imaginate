@@ -42,8 +42,6 @@ Debería obtener el resultado correcto de evaluar el programa anterior: `122318`
 
 ## Testing
 
-En Linux:
-
 ```bash
 user@machine:path/ $ script/test.sh
 ```
