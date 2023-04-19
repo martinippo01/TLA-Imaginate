@@ -27,14 +27,15 @@ whitespace		[ \f\n\r\t\v]
 <COMMENT>.									{ ; }
 <COMMENT>{endline}							{ ; }
 <COMMENT>"*/"								{ EndCommentPatternAction(); BEGIN(INITIAL); }
-"Imaginate"                { return ImaginateOperatorPatternAction(yytext);}
 
 "+"											{ return AdditionOperatorPatternAction(yytext); }
 "-"											{ return SubtractionOperatorPatternAction(yytext); }
 "*"											{ return MultiplicationOperatorPatternAction(yytext); }
 "/"											{ return DivisionOperatorPatternAction(yytext); }
 
-[a-zA-Z_][a-zA-Z0-9_]*  { return Variable(yytext); }
+"val"                     { return ValKeywordPatternAction(yytext); }
+"="                       { return EqualOperatorPatternAction(yytext); }
+[a-zA-Z_][a-zA-Z0-9_]*    { return Variable(yytext); }
 
 "("											{ return OpenParenthesisPatternAction(yytext); }
 ")"											{ return CloseParenthesisPatternAction(yytext); }
