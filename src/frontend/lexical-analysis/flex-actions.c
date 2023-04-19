@@ -23,6 +23,7 @@ void BeginCommentPatternAction() {
 	LogDebug("BeginCommentPatternAction.");
 }
 
+
 token ValKeywordPatternAction(const char * lexeme) {
 	printf("ValKeywordPatternAction: %s \n", lexeme);
 	yylval.token = VAL;
@@ -38,12 +39,7 @@ token EqualOperatorPatternAction(const char * lexeme) {
 token Variable(const char * lexeme) {
  yylval.token = VARIABLE; 
  return VARIABLE;
-}
-
-token StartImaginate(const char * lexeme){
-	printf("comenzo el programa!");
-	return YYUNDEF;
-}
+ }
 
 void EndCommentPatternAction() {
 	LogDebug("EndCommentPatternAction.");
