@@ -21,6 +21,7 @@
 	int expression;
 	int factor;
 	int constant;
+	int assignment;
 
 // Terminales.
 	token token;
@@ -48,7 +49,7 @@
 %type <expression> expression
 %type <factor> factor
 %type <constant> constant
-%type <constant> variableAssignment
+%type <assignment> assignment 
 
 // Reglas de asociatividad y precedencia (de menor a mayor).
 %left ADD SUB
@@ -60,7 +61,7 @@
 %%
 
 program: expression																						{ $$ = ProgramGrammarAction($1); }
-			 | assignment                                            { }
+			 | assignment                                            { $$ = ProgramGrammarAction($1); }
 			 ; 
 
 expression: expression[left] ADD expression[right]						{ $$ = AdditionExpressionGrammarAction($left, $right); }

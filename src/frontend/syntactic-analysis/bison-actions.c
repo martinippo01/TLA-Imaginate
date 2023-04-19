@@ -46,10 +46,10 @@ int ProgramGrammarAction(const int value) {
 	state.result = value;
 	return value;
 }
+
 int VariableAssignmentGrammarAction(const char * variable_name, const int variable_value) {
 		  printf("Value assignment: %s = %d\n", variable_name, variable_value);
 		  return 0;
-
 }
 
 int AdditionExpressionGrammarAction(const int leftValue, const int rightValue) {
