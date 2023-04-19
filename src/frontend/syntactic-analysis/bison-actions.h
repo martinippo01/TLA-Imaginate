@@ -14,9 +14,7 @@
 // Programa.
 int ProgramGrammarAction(const int value);
 
-
-int VariableGrammarAction(const char * variable_name);
-int VariableFactorGrammarAction(const int val);
+int ImaginateExpressionGrammarAction();
 
 // Expresión.
 int AdditionExpressionGrammarAction(const int leftValue, const int rightValue);

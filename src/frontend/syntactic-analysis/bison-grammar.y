@@ -71,7 +71,6 @@ expression: expression[left] ADD expression[right]					{ $$ = AdditionExpression
 factor: OPEN_PARENTHESIS expression CLOSE_PARENTHESIS { $$ = ExpressionFactorGrammarAction($2); }
 | constant { $$ = ConstantFactorGrammarAction($1); }
 | variable { $$ = VariableFactorGrammarAction($1); };
-;
 
 variable: VARIABLE { $$ = VariableGrammarAction($1); };
 
