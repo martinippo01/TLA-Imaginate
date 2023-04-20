@@ -17,7 +17,7 @@ docker build -t imaginate .
 Por ultimo hay que correr el contenedor compartiendo el directorio donde se tienen los archivos a compilar y ejecutar
 
 ```
-docker run -v /path:/src --name imaginateN imaginate /bin/bash
+docker run -v /path:/src -ti --name imaginateN imaginate  /bin/bash
 ```
 
 Este comando va a abrir una sesion en el contenedor donde se va poder encontrar los archivos en /path de la computadora
