@@ -14,7 +14,7 @@
 // Programa.
 int ProgramGrammarAction(const int value);
 
-int VariableAssignmentGrammarAction(const char * variable_name, const int variable_value);
+int VariableAssignmentGrammarAction(const int variable_name, const int variable_value);
 
 
 // Expresión.
