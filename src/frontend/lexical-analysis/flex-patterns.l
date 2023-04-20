@@ -35,7 +35,7 @@ whitespace		[ \f\n\r\t\v]
 
 "val"                     { return ValKeywordPatternAction(yytext); }
 "="                       { return EqualOperatorPatternAction(yytext); }
-"a"    { return Variable(yytext); }
+"a"    { return VariablePatternAction(yytext); }
 
 "("											{ return OpenParenthesisPatternAction(yytext); }
 ")"											{ return CloseParenthesisPatternAction(yytext); }
