@@ -14,7 +14,7 @@
 	Constant constant;
 	...
 	*/
-  char* variable;
+  int variable;
 
 // No-terminales (frontend).
 	int program;
