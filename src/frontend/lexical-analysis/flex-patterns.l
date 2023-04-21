@@ -28,11 +28,7 @@ whitespace		[ \f\n\r\t\v]
 <COMMENT>{endline}							{ ; }
 <COMMENT>"*/"								{ EndCommentPatternAction(); BEGIN(INITIAL); }
 
-"+"											{ return AdditionOperatorPatternAction(yytext); }
-"-"											{ return SubtractionOperatorPatternAction(yytext); }
-"*"											{ return MultiplicationOperatorPatternAction(yytext); }
-"/"											{ return DivisionOperatorPatternAction(yytext); }
-
+".addFoco()"             { return addFocoPatternAction(yytext); }
 "Imaginate"               { return ImaginatePatternAction(yytext); }
 "val"                     { return ValKeywordPatternAction(yytext); }
 "="                       { return EqualOperatorPatternAction(yytext); }

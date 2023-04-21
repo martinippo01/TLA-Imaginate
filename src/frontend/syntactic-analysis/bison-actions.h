@@ -18,13 +18,7 @@ int VariableAssignmentGrammarAction(const int variable_name, const int variable_
 
 
 // Expresión.
-int AdditionExpressionGrammarAction(const int leftValue, const int rightValue);
-int SubtractionExpressionGrammarAction(const int leftValue, const int rightValue);
-int MultiplicationExpressionGrammarAction(const int leftValue, const int rightValue);
-int DivisionExpressionGrammarAction(const int leftValue, const int rightValue);
 int FactorExpressionGrammarAction(const int value);
-
-// Factores.
 int ExpressionFactorGrammarAction(const int value);
 int ConstantFactorGrammarAction(const int value);
 

@@ -28,12 +28,7 @@ token ValKeywordPatternAction(const char * yytext);
 token EqualOperatorPatternAction(const char * yytext); 
 token VariablePatternAction(const char * lexeme);
 
-token AdditionOperatorPatternAction(const char * lexeme);
-token AdditionOperatorPatternAction(const char * lexeme);
-token CloseParenthesisPatternAction(const char * lexeme);
-token DivisionOperatorPatternAction(const char * lexeme);
 token IntegerPatternAction(const char * lexeme, const int length);
-token MultiplicationOperatorPatternAction(const char * lexeme);
 token OpenParenthesisPatternAction(const char * lexeme);
 token SubtractionOperatorPatternAction(const char * lexeme);
 
