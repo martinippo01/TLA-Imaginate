@@ -23,6 +23,10 @@ void BeginCommentPatternAction() {
 	LogDebug("BeginCommentPatternAction.");
 }
 
+token ImaginatePatternAction(const char * yytext) {
+	yylval.token = IMAGINATE;
+	return IMAGINATE;
+}
 
 token ValKeywordPatternAction(const char * lexeme) {
 	printf("ValKeywordPatternAction: %s \n", lexeme);

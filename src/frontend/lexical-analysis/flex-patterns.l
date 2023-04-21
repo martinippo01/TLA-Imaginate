@@ -33,6 +33,7 @@ whitespace		[ \f\n\r\t\v]
 "*"											{ return MultiplicationOperatorPatternAction(yytext); }
 "/"											{ return DivisionOperatorPatternAction(yytext); }
 
+"Imaginate"               { return ImaginatePatternAction(yytext); }
 "val"                     { return ValKeywordPatternAction(yytext); }
 "="                       { return EqualOperatorPatternAction(yytext); }
 "a"    { return VariablePatternAction(yytext); }

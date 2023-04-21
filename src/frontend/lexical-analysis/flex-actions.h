@@ -23,14 +23,12 @@
 void BeginCommentPatternAction();
 void EndCommentPatternAction();
 
-// Patrones terminales del lenguaje diseñado.
+token ImaginatePatternAction(const char * yytext);
 token ValKeywordPatternAction(const char * yytext);
 token EqualOperatorPatternAction(const char * yytext); 
 token VariablePatternAction(const char * lexeme);
 
-token StartImaginate(const char * lexeme);
 token AdditionOperatorPatternAction(const char * lexeme);
-
 token AdditionOperatorPatternAction(const char * lexeme);
 token CloseParenthesisPatternAction(const char * lexeme);
 token DivisionOperatorPatternAction(const char * lexeme);
