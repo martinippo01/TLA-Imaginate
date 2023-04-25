@@ -16,6 +16,11 @@ int ProgramGrammarAction(const int value);
 
 int VariableAssignmentGrammarAction(const int variable_name, const int variable_value);
 
+int AssignmentsGrammarAction(const int assignment, const int assignments);
+int EmptyAssignmentsGrammarAction();
+int AssignmentGrammarAction(const int variableIdentifier, const int value);
+int ValueIntegerGrammarAction(const int ival);
+int ValueIntegerGrammarAction(const int ival);
 
 // Expresión.
 int AdditionExpressionGrammarAction(const int leftValue, const int rightValue);
