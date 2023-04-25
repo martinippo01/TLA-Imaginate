@@ -2,7 +2,7 @@
 
 ## Docker
 
-Primero es necesario hacer un pull de ubuntu
+ Primero es necesario hacer un pull de ubuntu
 
 ```
 docker pull ubuntu:latest
