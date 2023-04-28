@@ -34,7 +34,7 @@ whitespace		[ \f\n\r\t\v]
 [a-zA-Z]+               { return IdentifierPatternAction(yytext); }
 {digit}+                { return IntegerPatternAction(yytext, yyleng); }
 
-{whitespace}              { return IgnoredPatternAction(lexeme, yytext);}
+{whitespace}              { IgnoredPatternAction(yytext, yyleng);}
 .											{ return UnknownPatternAction(yytext, yyleng); }
 
 %%
