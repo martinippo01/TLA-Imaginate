@@ -28,12 +28,13 @@ whitespace		[ \f\n\r\t\v]
 <COMMENT>{endline}							{ ; }
 <COMMENT>"*/"								{ EndCommentPatternAction(); BEGIN(INITIAL); }
 
-{whitespace}              { return IgnoredPatternAction(lexeme, yytext);}
 "val"                   { return ValKeywordPatternAction(yytext); }
 ":"                     { return ColonOperatorPatternAction(yytext); }
 "\""                    { return StringDelimiterPatternAction(yytext); }
 [a-zA-Z]+               { return IdentifierPatternAction(yytext); }
 {digit}+                { return IntegerPatternAction(yytext, yyleng); }
+
+{whitespace}              { return IgnoredPatternAction(lexeme, yytext);}
 .											{ return UnknownPatternAction(yytext, yyleng); }
 
 %%
