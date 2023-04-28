@@ -1,0 +1,11 @@
+def blackAndWhite():
+    imaginate.addContrast(10, 20).addGrayScale(20)
+
+Imaginate
+    .foreachFoco(“./luna.png”,”./zapatillas.png”,”./reloj.png”)
+    .addBackground(“./darkblue.png”)
+    .addFlavour(“./nubes.png”)
+    .pickFlavour(“./estrellas.png”, “./truenos.png”, “./lluvia.png”)w
+    .addFlavour(“./niebla.png)
+    .blackAndWhite()
+    .renderAll()
