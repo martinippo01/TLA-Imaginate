@@ -37,8 +37,8 @@ token ColonOperatorPatternAction(const char * lexeme) {
 
 token StringDelimiterPatternAction(const char * lexeme) {
     LogDebug("StringDelimiterPatternAction: %s \n", lexeme);
-    yylval.token = STRING_DELIMITER;
-    return STRING_DELIMITER;
+    yylval.token = STRING_IDENTIFIER;
+    return STRING_IDENTIFIER;
 }
 
 token IdentifierPatternAction(const char * lexeme) {

@@ -40,9 +40,9 @@
 
 %%
 
-program: assignments       { $$ = ProgramGrammarAction($1, $2, $3); };
+program: assignments       { $$ = ProgramGrammarAction($1); };
 
-assignments: assignment assignments             { $$ = AssignmentsGrammarAction($1, $2); }
+assignments: assignment assignments             { $$ =  AssignmentsGrammarAction($1, $2); }
            | /* empty */                        { $$ = EmptyAssignmentsGrammarAction(); };
 
 assignment: VAL variableIdentifier COLON value  { $$ = AssignmentGrammarAction($2, $4); };

@@ -28,6 +28,7 @@ whitespace		[ \f\n\r\t\v]
 <COMMENT>{endline}							{ ; }
 <COMMENT>"*/"								{ EndCommentPatternAction(); BEGIN(INITIAL); }
 
+{whitespace}              { return IgnoredPatternAction(lexeme, yytext);}
 "val"                   { return ValKeywordPatternAction(yytext); }
 ":"                     { return ColonOperatorPatternAction(yytext); }
 "\""                    { return StringDelimiterPatternAction(yytext); }

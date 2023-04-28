@@ -21,19 +21,22 @@ void yyerror(const char * string) {
 	}
 	LogErrorRaw("\n\n");
 }
+
 int AssignmentsGrammarAction(const int assignment, const int assignments) {
     // Your implementation here
     return 0;
 }
 
+int AssignmentGrammarAction(const int assignment, const int assignments) {
+	return 0;
+}
 int EmptyAssignmentsGrammarAction() {
     // Your implementation here
     return 0;
 }
 
-int AssignmentGrammarAction(const int variableIdentifier, const int value) {
-    // Your implementation here
-    return 0;
+int VariableIdentifierGrammarAction(const int variable) {
+	return 0;
 }
 
 int ValueStringGrammarAction(const int sval) {
