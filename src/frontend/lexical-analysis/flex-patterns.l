@@ -28,22 +28,12 @@ whitespace		[ \f\n\r\t\v]
 <COMMENT>{endline}							{ ; }
 <COMMENT>"*/"								{ EndCommentPatternAction(); BEGIN(INITIAL); }
 
-"+"											{ return AdditionOperatorPatternAction(yytext); }
-"-"											{ return SubtractionOperatorPatternAction(yytext); }
-"*"											{ return MultiplicationOperatorPatternAction(yytext); }
-"/"											{ return DivisionOperatorPatternAction(yytext); }
-
-"val"                     { return ValKeywordPatternAction(yytext); }
-"="                       { return EqualOperatorPatternAction(yytext); }
-"a"    { return VariablePatternAction(yytext); }
-
-"("											{ return OpenParenthesisPatternAction(yytext); }
-")"											{ return CloseParenthesisPatternAction(yytext); }
-
-{digit}+									{ return IntegerPatternAction(yytext, yyleng); }
-
-{whitespace}								{ IgnoredPatternAction(yytext, yyleng); }
-
+{whitespace}              { return IgnoredPatternAction(lexeme, yytext);}
+"val"                   { return ValKeywordPatternAction(yytext); }
+":"                     { return ColonOperatorPatternAction(yytext); }
+"\""                    { return StringDelimiterPatternAction(yytext); }
+[a-zA-Z]+               { return IdentifierPatternAction(yytext); }
+{digit}+                { return IntegerPatternAction(yytext, yyleng); }
 .											{ return UnknownPatternAction(yytext, yyleng); }
 
 %%

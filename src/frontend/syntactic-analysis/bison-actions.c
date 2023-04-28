@@ -22,6 +22,32 @@ void yyerror(const char * string) {
 	LogErrorRaw("\n\n");
 }
 
+int AssignmentsGrammarAction(const int assignment, const int assignments) {
+    // Your implementation here
+    return 0;
+}
+
+int AssignmentGrammarAction(const int assignment, const int assignments) {
+	return 0;
+}
+int EmptyAssignmentsGrammarAction() {
+    // Your implementation here
+    return 0;
+}
+
+int VariableIdentifierGrammarAction(const int variable) {
+	return 0;
+}
+
+int ValueStringGrammarAction(const int sval) {
+    // Your implementation here
+    return 0;
+}
+
+int ValueIntegerGrammarAction(const int ival) {
+    // Your implementation here
+    return 0;
+}
 /**
 * Esta acción se corresponde con el no-terminal que representa el símbolo
 * inicial de la gramática, y por ende, es el último en ser ejecutado, lo que

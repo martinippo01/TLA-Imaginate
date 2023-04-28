@@ -23,68 +23,38 @@ void BeginCommentPatternAction() {
 	LogDebug("BeginCommentPatternAction.");
 }
 
-
 token ValKeywordPatternAction(const char * lexeme) {
-	printf("ValKeywordPatternAction: %s \n", lexeme);
-	yylval.token = VAL;
-	return VAL;
+    LogDebug("ValKeywordPatternAction: %s \n", lexeme);
+    yylval.token = VAL;
+    return VAL;
 }
 
-token EqualOperatorPatternAction(const char * lexeme) {
- printf("ValKeywordPatternAction: %s \n", lexeme);
- yylval.token = EQUALS;
- return EQUALS;
+token ColonOperatorPatternAction(const char * lexeme) {
+    LogDebug("ColonOperatorPatternAction: %s \n", lexeme);
+    yylval.token = COLON;
+    return COLON;
 }
 
-token VariablePatternAction(const char * lexeme) {
- yylval.token = VARIABLE; 
- return VARIABLE;
- }
+token StringDelimiterPatternAction(const char * lexeme) {
+    LogDebug("StringDelimiterPatternAction: %s \n", lexeme);
+    yylval.token = STRING_IDENTIFIER;
+    return STRING_IDENTIFIER;
+}
+
+token IdentifierPatternAction(const char * lexeme) {
+    LogDebug("IdentifierPatternAction: %s \n", lexeme);
+    yylval.token = IDENTIFIER;
+    return IDENTIFIER;
+}
+
+token IntegerPatternAction(const char * lexeme, int length) {
+    LogDebug("IntegerPatternAction: %s \n", lexeme);
+    yylval.integer = atoi(lexeme);
+    return INTEGER;
+}
 
 void EndCommentPatternAction() {
 	LogDebug("EndCommentPatternAction.");
-}
-
-token AdditionOperatorPatternAction(const char * lexeme) {
-	LogDebug("AdditionOperatorPatternAction: '%s'.", lexeme);
-	yylval.token = ADD;
-	return ADD;
-}
-
-token CloseParenthesisPatternAction(const char * lexeme) {
-	LogDebug("CloseParenthesisPatternAction: '%s'.", lexeme);
-	yylval.token = CLOSE_PARENTHESIS;
-	return CLOSE_PARENTHESIS;
-}
-
-token DivisionOperatorPatternAction(const char * lexeme) {
-	LogDebug("DivisionOperatorPatternAction: '%s'.", lexeme);
-	yylval.token = DIV;
-	return DIV;
-}
-
-token IntegerPatternAction(const char * lexeme, const int length) {
-	LogDebug("IntegerPatternAction: '%s' (length = %d).", lexeme, length);
-	yylval.integer = atoi(lexeme);
-	return INTEGER;
-}
-
-token MultiplicationOperatorPatternAction(const char * lexeme) {
-	LogDebug("MultiplicationOperatorPatternAction: '%s'.", lexeme);
-	yylval.token = MUL;
-	return MUL;
-}
-
-token OpenParenthesisPatternAction(const char * lexeme) {
-	LogDebug("OpenParenthesisPatternAction: '%s'.", lexeme);
-	yylval.token = OPEN_PARENTHESIS;
-	return OPEN_PARENTHESIS;
-}
-
-token SubtractionOperatorPatternAction(const char * lexeme) {
-	LogDebug("SubtractionOperatorPatternAction: '%s'.", lexeme);
-	yylval.token = SUB;
-	return SUB;
 }
 
 token UnknownPatternAction(const char * lexeme, const int length) {

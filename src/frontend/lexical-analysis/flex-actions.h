@@ -23,21 +23,11 @@
 void BeginCommentPatternAction();
 void EndCommentPatternAction();
 
-// Patrones terminales del lenguaje diseñado.
-token ValKeywordPatternAction(const char * yytext);
-token EqualOperatorPatternAction(const char * yytext); 
-token VariablePatternAction(const char * lexeme);
-
-token StartImaginate(const char * lexeme);
-token AdditionOperatorPatternAction(const char * lexeme);
-
-token AdditionOperatorPatternAction(const char * lexeme);
-token CloseParenthesisPatternAction(const char * lexeme);
-token DivisionOperatorPatternAction(const char * lexeme);
-token IntegerPatternAction(const char * lexeme, const int length);
-token MultiplicationOperatorPatternAction(const char * lexeme);
-token OpenParenthesisPatternAction(const char * lexeme);
-token SubtractionOperatorPatternAction(const char * lexeme);
+token ValKeywordPatternAction(const char * lexeme);
+token ColonOperatorPatternAction(const char * lexeme);
+token StringDelimiterPatternAction(const char * lexeme);
+token IdentifierPatternAction(const char * lexeme);
+token IntegerPatternAction(const char * lexeme, int length);
 
 // Patrón desconocido, permite abortar debido a un error de sintaxis.
 token UnknownPatternAction(const char * lexeme, const int length);
