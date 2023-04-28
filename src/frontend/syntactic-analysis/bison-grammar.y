@@ -34,6 +34,7 @@
 %token <token> SUB
 %token <token> MUL
 %token <token> DIV
+%token <token> ADDFOCO
 
 %token <token> OPEN_PARENTHESIS
 %token <token> CLOSE_PARENTHESIS
@@ -46,7 +47,6 @@
 
 // Tipos de dato para los no-terminales generados desde Bison.
 %type <program> program
-%type <expression> expression
 %type <factor> factor
 %type <constant> constant
 %type <assignment> assignment 
@@ -60,11 +60,17 @@
 
 %%
 
+//"imaginate" -> IMAGINATE 
+
+// program -> imaginate | assignment 
+// assignment -> VAL VARIABLE EQUALS INTEGER
+
 program: imaginate                                    { $$ = ProgramGrammarAction($1); }
 			 | assignment                                            { $$ = ProgramGrammarAction($1); }
 			 ; 
-imaginate: IMAGINATE ADDFOCO 													{ $$ = ImaginateSingleFocoGrammarAction($1, $4); }
+imaginate: IMAGINATE ADDFOCO 													{ $$ = ImaginateSingleFocoGrammarAction($1, $2); }
 assignment: VAL VARIABLE EQUALS INTEGER 							{ $$ = VariableAssignmentGrammarAction($2, $4); };
+					//val a = 12312
 
 constant: INTEGER													{ $$ = IntegerConstantGrammarAction($1); }
 				;

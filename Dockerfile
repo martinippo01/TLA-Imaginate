@@ -11,5 +11,5 @@ RUN apt-get update && \
     make
 
 # Set the working directory inside the container
-WORKDIR /project
+WORKDIR /
 
