@@ -17,6 +17,7 @@ int AssignmentsGrammarAction(const int assignment, const int assignments);
 int EmptyAssignmentsGrammarAction();
 int AssignmentGrammarAction(const int variableIdentifier, const int value);
 int ValueIntegerGrammarAction(const int ival);
+int ValueStringGrammarAction(const int sval);
 int DefinitionsGrammarAction(const int definition, const int definitions);
 int EmptyDefinitionsGrammarAction();
 int DefinitionGrammarAction(const int variableIdentifier, const int methodChain);

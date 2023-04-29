@@ -12,14 +12,21 @@
 	int program;
 	int assignment;
 	int assignments;
+	int definitions;
 	int variableIdentifier;
+	int value;
+	int definition;
 	int methodIdentifier;
 	int param;
-	int definition;
-	int definitions;
-
-	int value;
-
+	int params;
+	int paramsBlock;
+	int optional;
+	int emptyParams;
+	int methodChain;
+	int focus;
+	int method;
+int render;
+int imaginate;
 // Terminales.
 	token token;
 	int integer;
@@ -51,15 +58,17 @@
 
 
 %type <definition> definition 
-%type <assignments> assignments
 %type <methodIdentifier> methodIdentifier
 %type <param> param
 %type <params> params
-
+%type <paramsBlock> paramsBlock
+%type <optional> optional
 %type <emptyParams> emptyParams
 %type <methodChain> methodChain
+%type <method> method
 %type <focus> focus
 %type <render> render
+%type <imaginate> imaginate
 
 
 // El símbolo inicial de la gramatica.
@@ -121,5 +130,4 @@ methodIdentifier: ADDBACKGROUND   { $$ = MethodIdentifierGrammarAction($1); }
                  | ADDGRAYSCALE    { $$ = MethodIdentifierGrammarAction($1); }
                  | ADDCONTRAST     { $$ = MethodIdentifierGrammarAction($1); };
 
-%%
 %%

@@ -23,7 +23,7 @@ void yyerror(const char * string) {
 }
 
 int AssignmentsGrammarAction(const int assignment, const int assignments) {
-    // Your implementation here
+    
     return 0;
 }
 
@@ -31,7 +31,7 @@ int AssignmentGrammarAction(const int assignment, const int assignments) {
 	return 0;
 }
 int EmptyAssignmentsGrammarAction() {
-    // Your implementation here
+    
     return 0;
 }
 
@@ -40,117 +40,107 @@ int VariableIdentifierGrammarAction(const int variable) {
 }
 
 int ValueStringGrammarAction(const int sval) {
-    // Your implementation here
+    
     return 0;
 }
 
 int ValueIntegerGrammarAction(const int ival) {
-    // Your implementation here
+    
     return 0;
 }
 
 int DefinitionsGrammarAction(const int definition, const int definitions) {
-    // Your implementation here
+    
     return 0;
 }
 
 int EmptyDefinitionsGrammarAction() {
-    // Your implementation here
+    
     return 0;
 }
 
 int DefinitionGrammarAction(const int variableIdentifier, const int methodChain) {
-    // Your implementation here
+    
     return 0;
 }
 
 int EmptyParamsGrammarAction() {
-    // Your implementation here
+    
     return 0;
 }
 
 int ImaginateGrammarAction(const int focus, const int methodChain, const int render) {
-    // Your implementation here
+    
     return 0;
 }
 
 int FocusAddGrammarAction(const int paramsBlock) {
-    // Your implementation here
+    
     return 0;
 }
 
 int FocusForEachGrammarAction(const int paramsBlock) {
-    // Your implementation here
+    
     return 0;
 }
 
 int MethodChainGrammarAction(const int method, const int methodChain) {
-    // Your implementation here
+    
     return 0;
 }
 
 int EmptyMethodChainGrammarAction() {
-    // Your implementation here
+    
     return 0;
 }
 
 int MethodGrammarAction(const int optional, const int methodIdentifier, const int paramsBlock) {
-    // Your implementation here
+    
     return 0;
 }
 
 int ParamsBlockGrammarAction(const int params) {
-    // Your implementation here
+    
     return 0;
 }
 
 int OptionalQuestionSignGrammarAction() {
-    // Your implementation here
+    
     return 0;
 }
 
 int EmptyOptionalGrammarAction() {
-    // Your implementation here
+    
     return 0;
 }
 
 int ParamsGrammarAction(const int param, const int params) {
-    // Your implementation here
-    return 0;
-}
-
-int EmptyParamsGrammarAction() {
-    // Your implementation here
+    
     return 0;
 }
 
 int ParamStringGrammarAction(const int sval) {
-    // Your implementation here
+    
     return 0;
 }
 
 int ParamIntegerGrammarAction(const int ival) {
-    // Your implementation here
+    
     return 0;
 }
 
 int RenderGrammarAction() {
-    // Your implementation here
+    
     return 0;
 }
 
 int RenderAllGrammarAction() {
-    // Your implementation here
-    return 0;
-}
-
-int VariableIdentifierGrammarAction(const int sval) {
-    // Your implementation here
+    
     return 0;
 }
 
 int MethodIdentifierGrammarAction(const int sval) {
-    // Your implementation here
+    
     return 0;
 }
 
