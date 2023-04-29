@@ -122,8 +122,6 @@ param: STRING_IDENTIFIER          { $$ = ParamStringGrammarAction($1); }
 render: RENDER emptyParams        { $$ = RenderGrammarAction(); }
       | RENDER_ALL emptyParams    { $$ = RenderAllGrammarAction(); };
 
-variableIdentifier: IDENTIFIER    { $$ = VariableIdentifierGrammarAction($1); };
-
 methodIdentifier: ADDBACKGROUND   { $$ = MethodIdentifierGrammarAction($1); }
                  | ADDFLAVOUR      { $$ = MethodIdentifierGrammarAction($1); }
                  | PICKFLAVOUR     { $$ = MethodIdentifierGrammarAction($1); }
