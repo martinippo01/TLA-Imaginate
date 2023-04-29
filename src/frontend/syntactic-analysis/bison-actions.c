@@ -48,14 +48,121 @@ int ValueIntegerGrammarAction(const int ival) {
     // Your implementation here
     return 0;
 }
+
+int DefinitionsGrammarAction(const int definition, const int definitions) {
+    // Your implementation here
+    return 0;
+}
+
+int EmptyDefinitionsGrammarAction() {
+    // Your implementation here
+    return 0;
+}
+
+int DefinitionGrammarAction(const int variableIdentifier, const int methodChain) {
+    // Your implementation here
+    return 0;
+}
+
+int EmptyParamsGrammarAction() {
+    // Your implementation here
+    return 0;
+}
+
+int ImaginateGrammarAction(const int focus, const int methodChain, const int render) {
+    // Your implementation here
+    return 0;
+}
+
+int FocusAddGrammarAction(const int paramsBlock) {
+    // Your implementation here
+    return 0;
+}
+
+int FocusForEachGrammarAction(const int paramsBlock) {
+    // Your implementation here
+    return 0;
+}
+
+int MethodChainGrammarAction(const int method, const int methodChain) {
+    // Your implementation here
+    return 0;
+}
+
+int EmptyMethodChainGrammarAction() {
+    // Your implementation here
+    return 0;
+}
+
+int MethodGrammarAction(const int optional, const int methodIdentifier, const int paramsBlock) {
+    // Your implementation here
+    return 0;
+}
+
+int ParamsBlockGrammarAction(const int params) {
+    // Your implementation here
+    return 0;
+}
+
+int OptionalQuestionSignGrammarAction() {
+    // Your implementation here
+    return 0;
+}
+
+int EmptyOptionalGrammarAction() {
+    // Your implementation here
+    return 0;
+}
+
+int ParamsGrammarAction(const int param, const int params) {
+    // Your implementation here
+    return 0;
+}
+
+int EmptyParamsGrammarAction() {
+    // Your implementation here
+    return 0;
+}
+
+int ParamStringGrammarAction(const int sval) {
+    // Your implementation here
+    return 0;
+}
+
+int ParamIntegerGrammarAction(const int ival) {
+    // Your implementation here
+    return 0;
+}
+
+int RenderGrammarAction() {
+    // Your implementation here
+    return 0;
+}
+
+int RenderAllGrammarAction() {
+    // Your implementation here
+    return 0;
+}
+
+int VariableIdentifierGrammarAction(const int sval) {
+    // Your implementation here
+    return 0;
+}
+
+int MethodIdentifierGrammarAction(const int sval) {
+    // Your implementation here
+    return 0;
+}
+
 /**
 * Esta acción se corresponde con el no-terminal que representa el símbolo
 * inicial de la gramática, y por ende, es el último en ser ejecutado, lo que
 * indica que efectivamente el programa de entrada se pudo generar con esta
 * gramática, o lo que es lo mismo, que el programa pertenece al lenguaje.
 */
-int ProgramGrammarAction(const int value) {
-	LogDebug("\tProgramGrammarAction(%d)", value);
+	int ProgramGrammarAction(const int assignments, const int definitions, const int imaginate) {
+
+	LogDebug("\tProgramGrammarAction(%d, %d, %d)", assignments, definitions, imaginate);
 	/*
 	* "state" es una variable global que almacena el estado del compilador,
 	* cuyo campo "succeed" indica si la compilación fue o no exitosa, la cual
@@ -69,51 +176,7 @@ int ProgramGrammarAction(const int value) {
 	* la expresión se computa on-the-fly, y es la razón por la cual esta
 	* variable es un simple entero, en lugar de un nodo.
 	*/
-	state.result = value;
-	return value;
+	state.result = imaginate;
+	return imaginate;
 }
 
-int VariableAssignmentGrammarAction(const int variable_name, const int variable_value) {
-		  printf("Value assignment: %d = %d\n", variable_name, variable_value);
-		  return 0;
-}
-
-int AdditionExpressionGrammarAction(const int leftValue, const int rightValue) {
-	LogDebug("\tAdditionExpressionGrammarAction(%d, %d)", leftValue, rightValue);
-	return Add(leftValue, rightValue);
-}
-
-int SubtractionExpressionGrammarAction(const int leftValue, const int rightValue) {
-	LogDebug("\tSubtractionExpressionGrammarAction(%d, %d)", leftValue, rightValue);
-	return Subtract(leftValue, rightValue);
-}
-
-int MultiplicationExpressionGrammarAction(const int leftValue, const int rightValue) {
-	LogDebug("\tMultiplicationExpressionGrammarAction(%d, %d)", leftValue, rightValue);
-	return Multiply(leftValue, rightValue);
-}
-
-int DivisionExpressionGrammarAction(const int leftValue, const int rightValue) {
-	LogDebug("\tDivisionExpressionGrammarAction(%d, %d)", leftValue, rightValue);
-	return Divide(leftValue, rightValue);
-}
-
-int FactorExpressionGrammarAction(const int value) {
-	LogDebug("\tFactorExpressionGrammarAction(%d)", value);
-	return value;
-}
-
-int ExpressionFactorGrammarAction(const int value) {
-	LogDebug("\tExpressionFactorGrammarAction(%d)", value);
-	return value;
-}
-
-int ConstantFactorGrammarAction(const int value) {
-	LogDebug("\tConstantFactorGrammarAction(%d)", value);
-	return value;
-}
-
-int IntegerConstantGrammarAction(const int value) {
-	LogDebug("\tIntegerConstantGrammarAction(%d)", value);
-	return value;
-}
