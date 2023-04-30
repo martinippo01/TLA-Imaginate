@@ -1,7 +1,5 @@
 %{
-
 #include "flex-actions.h"
-
 %}
 
 /* Obliga a crear una regla explícita para manejar lexemas desconocidos. */
@@ -14,26 +12,26 @@
 %option yylineno
 
 /* Contextos de Flex. */
-%x COMMENT
 
 /* Patrones reutilizables. */
 digit			[0-9]
 endline			[\n]
 whitespace		[ \f\n\r\t\v]
+variable        [a-zA-Z]
+str             .+
 
 %%
 "val"                   { return ValKeywordPatternAction(yytext); }
 ":"                     { return ColonOperatorPatternAction(yytext); }
 "\""                    { return StringDelimiterPatternAction(yytext); }
-[a-zA-Z]+               { return IdentifierPatternAction(yytext); }
 "def"                   { return DefKeywordPatternAction(yytext); }
 "("                     { return OpenParenthesisPatternAction(yytext); }
 ")"                     { return CloseParenthesisPatternAction(yytext); }
 "."                     { return DotPatternAction(yytext); }
 ","                     { return CommaPatternAction(yytext); }
 "?"                     { return QuestionSignPatternAction(yytext); }
-"render"                { return RenderKeywordPatternAction(yytext); }
-"renderAll"             { return RenderAllKeywordPatternAction(yytext); }
+".render"                { return RenderKeywordPatternAction(yytext); }
+".renderAll"             { return RenderAllKeywordPatternAction(yytext); }
 "Imaginate"             { return ImaginateKeywordPatternAction(yytext); }
 "addFocus"              { return AddFocusKeywordPatternAction(yytext); }
 "forEachFocus"          { return ForEachFocusKeywordPatternAction(yytext); }
@@ -44,4 +42,6 @@ whitespace		[ \f\n\r\t\v]
 "addContrast"           { return AddContrastKeywordPatternAction(yytext); }
 {digit}+                { return IntegerPatternAction(yytext, yyleng); }
 {whitespace}+                   /* ignore whitespace */;
+{variable}+	            { return IdentifierPatternAction(yytext); }
+\"{str}\"                   {return StringDelimiterPatternAction(yytext);}
 %%

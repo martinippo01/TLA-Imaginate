@@ -112,6 +112,7 @@ int OptionalQuestionSignGrammarAction() {
     return 0;
 }
 
+
 int EmptyOptionalGrammarAction() {
     LogDebug("EmptyOptionalGrammarAction");
     return 0;
@@ -119,6 +120,11 @@ int EmptyOptionalGrammarAction() {
 
 int ParamsGrammarAction(const int param, const int params) {
     LogDebug("ParamsGrammarAction: param = %d, params = %d", param, params);
+    return 0;
+}
+
+int ParamGrammarAction(const int param) {
+    LogDebug("ParamsGrammarAction: param = %d", param);
     return 0;
 }
 

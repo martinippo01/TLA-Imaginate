@@ -38,6 +38,7 @@ int imaginate;
 %token <token> COLON
 %token <token> IDENTIFIER
 %token <token> STRING_IDENTIFIER 
+%token <token> STRING_DELIMITER 
 %token <token> DEF_KEYWORD
 %token <token> OPEN_PARENTHESES CLOSE_PARENTHESES
 %token <token> DOT COMMA QUESTION_SIGN
@@ -113,7 +114,8 @@ paramsBlock: OPEN_PARENTHESES params CLOSE_PARENTHESES
 optional: QUESTION_SIGN           { $$ = OptionalQuestionSignGrammarAction(); }
         | /* empty */              { $$ = EmptyOptionalGrammarAction(); };
 
-params: param COMMA params        { $$ = ParamsGrammarAction($1, $3); }
+params: param         { $$ = ParamGrammarAction($1); }
+	  | param COMMA params        { $$ = ParamsGrammarAction($1, $3); }
       | /* empty */               { $$ = EmptyParamsGrammarAction(); };
 
 param: STRING_IDENTIFIER          { $$ = ParamStringGrammarAction($1); }
