@@ -22,19 +22,26 @@ endline			[\n]
 whitespace		[ \f\n\r\t\v]
 
 %%
-
-"/*"										{ BEGIN(COMMENT); BeginCommentPatternAction(); }
-<COMMENT>.									{ ; }
-<COMMENT>{endline}							{ ; }
-<COMMENT>"*/"								{ EndCommentPatternAction(); BEGIN(INITIAL); }
-
 "val"                   { return ValKeywordPatternAction(yytext); }
 ":"                     { return ColonOperatorPatternAction(yytext); }
 "\""                    { return StringDelimiterPatternAction(yytext); }
 [a-zA-Z]+               { return IdentifierPatternAction(yytext); }
+"def"                   { return DefKeywordPatternAction(yytext); }
+"("                     { return OpenParenthesisPatternAction(yytext); }
+")"                     { return CloseParenthesisPatternAction(yytext); }
+"."                     { return DotPatternAction(yytext); }
+","                     { return CommaPatternAction(yytext); }
+"?"                     { return QuestionSignPatternAction(yytext); }
+"render"                { return RenderKeywordPatternAction(yytext); }
+"renderAll"             { return RenderAllKeywordPatternAction(yytext); }
+"Imaginate"             { return ImaginateKeywordPatternAction(yytext); }
+"addFocus"              { return AddFocusKeywordPatternAction(yytext); }
+"forEachFocus"          { return ForEachFocusKeywordPatternAction(yytext); }
+"addBackground"         { return AddBackgroundKeywordPatternAction(yytext); }
+"addFlavour"            { return AddFlavourKeywordPatternAction(yytext); }
+"pickFlavour"           { return PickFlavourKeywordPatternAction(yytext); }
+"addGrayscale"          { return AddGrayscaleKeywordPatternAction(yytext); }
+"addContrast"           { return AddContrastKeywordPatternAction(yytext); }
 {digit}+                { return IntegerPatternAction(yytext, yyleng); }
-
-{whitespace}              { IgnoredPatternAction(yytext, yyleng);}
-.											{ return UnknownPatternAction(yytext, yyleng); }
-
+{whitespace}+                   /* ignore whitespace */;
 %%

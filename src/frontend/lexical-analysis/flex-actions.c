@@ -23,30 +23,6 @@ void BeginCommentPatternAction() {
 	LogDebug("BeginCommentPatternAction.");
 }
 
-token ValKeywordPatternAction(const char * lexeme) {
-    LogDebug("ValKeywordPatternAction: %s \n", lexeme);
-    yylval.token = VAL;
-    return VAL;
-}
-
-token ColonOperatorPatternAction(const char * lexeme) {
-    LogDebug("ColonOperatorPatternAction: %s \n", lexeme);
-    yylval.token = COLON;
-    return COLON;
-}
-
-token StringDelimiterPatternAction(const char * lexeme) {
-    LogDebug("StringDelimiterPatternAction: %s \n", lexeme);
-    yylval.token = STRING_IDENTIFIER;
-    return STRING_IDENTIFIER;
-}
-
-token IdentifierPatternAction(const char * lexeme) {
-    LogDebug("IdentifierPatternAction: %s \n", lexeme);
-    yylval.token = IDENTIFIER;
-    return IDENTIFIER;
-}
-
 token IntegerPatternAction(const char * lexeme, int length) {
     LogDebug("IntegerPatternAction: %s \n", lexeme);
     yylval.integer = atoi(lexeme);
@@ -67,4 +43,126 @@ token UnknownPatternAction(const char * lexeme, const int length) {
 void IgnoredPatternAction(const char * lexeme, const int length) {
 	LogDebug("IgnoredPatternAction: '%s' (length = %d).", lexeme, length);
 	// Como no debe hacer nada con el patrón, solo se loguea en consola.
+}
+
+//_____________________________________________________________________________
+token ValKeywordPatternAction(const char * lexeme) {
+    LogDebug("ValKeywordPatternAction: %s \n", lexeme);
+    yylval.token = VAL;
+    return VAL;
+}
+
+token ColonOperatorPatternAction(const char * lexeme) {
+    LogDebug("ColonOperatorPatternAction: %s \n", lexeme);
+    yylval.token = COLON;
+    return COLON;
+}
+
+token StringDelimiterPatternAction(const char * lexeme) {
+    LogDebug("StringDelimiterPatternAction: %s \n", lexeme);
+    //ESTE NO VA
+    yylval.token = STRING_IDENTIFIER;
+    return STRING_IDENTIFIER;
+}
+
+token IdentifierPatternAction(const char * lexeme) {
+    LogDebug("IdentifierPatternAction: %s \n", lexeme);
+    yylval.token = IDENTIFIER;
+    return IDENTIFIER;
+}
+
+token DefKeywordPatternAction(const char * lexeme) {
+    LogDebug("DefKeywordPatternAction: %s \n", lexeme);
+    yylval.token = DEF_KEYWORD;
+    return DEF_KEYWORD;
+}
+
+token OpenParenthesisPatternAction(const char * lexeme) {
+    LogDebug("OpenParenthesisPatternAction: %s \n", lexeme);
+    yylval.token = OPEN_PARENTHESES;
+    return OPEN_PARENTHESES;
+}
+
+token CloseParenthesisPatternAction(const char * lexeme) {
+    LogDebug("CloseParenthesisPatternAction: %s \n", lexeme);
+    yylval.token = CLOSE_PARENTHESES;
+    return CLOSE_PARENTHESES;
+}
+
+token DotPatternAction(const char * lexeme) {
+    LogDebug("DotPatternAction: %s \n", lexeme);
+    yylval.token = DOT;
+    return DOT;
+}
+
+token CommaPatternAction(const char * lexeme) {
+    LogDebug("CommaPatternAction: %s \n", lexeme);
+    yylval.token = COMMA;
+    return COMMA;
+}
+
+token QuestionSignPatternAction(const char * lexeme) {
+    LogDebug("QuestionSignPatternAction: %s \n", lexeme);
+    yylval.token = QUESTION_SIGN;
+    return QUESTION_SIGN;
+}
+
+token RenderKeywordPatternAction(const char * lexeme) {
+    LogDebug("RenderKeywordPatternAction: %s \n", lexeme);
+    yylval.token = RENDER;
+    return RENDER;
+}
+
+token RenderAllKeywordPatternAction(const char * lexeme) {
+    LogDebug("RenderAllKeywordPatternAction: %s \n", lexeme);
+    yylval.token = RENDER_ALL;
+    return RENDER_ALL;
+}
+
+token ImaginateKeywordPatternAction(const char * lexeme) {
+    LogDebug("ImaginateKeywordPatternAction: %s \n", lexeme);
+    yylval.token = IMAGINATE;
+    return IMAGINATE;
+}
+
+token AddFocusKeywordPatternAction(const char * lexeme) {
+    LogDebug("AddFocusKeywordPatternAction: %s \n", lexeme);
+    yylval.token = ADDFOCUS;
+    return ADDFOCUS;
+}
+
+token ForEachFocusKeywordPatternAction(const char * lexeme) {
+    LogDebug("ForEachFocusKeywordPatternAction: %s \n", lexeme);
+    yylval.token = FOREACHFOCUS;
+    return FOREACHFOCUS;
+}
+
+token AddBackgroundKeywordPatternAction(const char * lexeme) {
+    LogDebug("AddBackgroundKeywordPatternAction: %s \n", lexeme);
+    yylval.token = ADDBACKGROUND;
+    return ADDBACKGROUND;
+}
+
+token AddFlavourKeywordPatternAction(const char * lexeme) {
+    LogDebug("AddFlavourKeywordPatternAction: %s \n", lexeme);
+    yylval.token = ADDFLAVOUR;
+    return ADDFLAVOUR;
+}
+
+token PickFlavourKeywordPatternAction(const char * lexeme) {
+    LogDebug("PickFlavourKeywordPatternAction: %s \n", lexeme);
+    yylval.token = PICKFLAVOUR;
+    return PICKFLAVOUR;
+}
+
+token AddGrayscaleKeywordPatternAction(const char * lexeme) {
+    LogDebug("AddGrayscaleKeywordPatternAction: %s \n", lexeme);
+    yylval.token = ADDGRAYSCALE;
+    return ADDGRAYSCALE;
+}
+
+token AddContrastKeywordPatternAction(const char * lexeme) {
+    LogDebug("AddContrastKeywordPatternAction: %s \n", lexeme);
+    yylval.token = ADDCONTRAST;
+    return ADDCONTRAST;
 }
