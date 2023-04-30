@@ -32,6 +32,7 @@ int ParamsBlockGrammarAction(const int params);
 int OptionalQuestionSignGrammarAction();
 int EmptyOptionalGrammarAction();
 int ParamsGrammarAction(const int param, const int params);
+int ParamGrammarAction(const int param);
 int EmptyParamsGrammarAction();
 int ParamStringGrammarAction(const int sval);
 int ParamIntegerGrammarAction(const int ival);

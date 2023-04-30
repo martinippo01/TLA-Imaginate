@@ -23,16 +23,35 @@
 void BeginCommentPatternAction();
 void EndCommentPatternAction();
 
-token ValKeywordPatternAction(const char * lexeme);
-token ColonOperatorPatternAction(const char * lexeme);
-token StringDelimiterPatternAction(const char * lexeme);
-token IdentifierPatternAction(const char * lexeme);
-token IntegerPatternAction(const char * lexeme, int length);
-
 // Patrón desconocido, permite abortar debido a un error de sintaxis.
 token UnknownPatternAction(const char * lexeme, const int length);
 
 // Regla que no hace nada, permite ignorar parte de la entrada.
 void IgnoredPatternAction(const char * lexeme, const int length);
+
+
+typedef int token;
+
+token ValKeywordPatternAction(const char * lexeme);
+token ColonOperatorPatternAction(const char * lexeme);
+token StringDelimiterPatternAction(const char * lexeme);
+token IdentifierPatternAction(const char * lexeme);
+token DefKeywordPatternAction(const char * lexeme);
+token OpenParenthesisPatternAction(const char * lexeme);
+token CloseParenthesisPatternAction(const char * lexeme);
+token DotPatternAction(const char * lexeme);
+token CommaPatternAction(const char * lexeme);
+token QuestionSignPatternAction(const char * lexeme);
+token RenderKeywordPatternAction(const char * lexeme);
+token RenderAllKeywordPatternAction(const char * lexeme);
+token ImaginateKeywordPatternAction(const char * lexeme);
+token AddFocusKeywordPatternAction(const char * lexeme);
+token ForEachFocusKeywordPatternAction(const char * lexeme);
+token AddBackgroundKeywordPatternAction(const char * lexeme);
+token AddFlavourKeywordPatternAction(const char * lexeme);
+token PickFlavourKeywordPatternAction(const char * lexeme);
+token AddGrayscaleKeywordPatternAction(const char * lexeme);
+token AddContrastKeywordPatternAction(const char * lexeme);
+token IntegerPatternAction(const char * lexeme, int length);
 
 #endif
