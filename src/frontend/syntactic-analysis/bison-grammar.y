@@ -120,6 +120,7 @@ params: param         { $$ = ParamGrammarAction($1); }
 
 param: STRING_IDENTIFIER          { $$ = ParamStringGrammarAction($1); }
       | INTEGER                   { $$ = ParamIntegerGrammarAction($1); };
+      | variableIdentifier        { $$ = ParamVariableGrammarAction($1); };
 
 render: RENDER emptyParams        { $$ = RenderGrammarAction(); }
       | RENDER_ALL emptyParams    { $$ = RenderAllGrammarAction(); };

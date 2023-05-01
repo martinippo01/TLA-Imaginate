@@ -22,6 +22,10 @@ void yyerror(const char * string) {
 	LogErrorRaw("\n\n");
 }
 
+int ParamVariableGrammarAction(const int variableIdentifier) {
+    LogDebug("ParamVariableGrammarAction: variableIdentifier = %d", variableIdentifier);
+ 		return 0;
+}
 int AssignmentsGrammarAction(const int assignment, const int assignments) {
     LogDebug("AssignmentsGrammarAction: assignment = %d, assignments = %d", assignment, assignments);
     return 0;

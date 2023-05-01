@@ -12,6 +12,7 @@
  */
 
 // Programa.
+int ParamVariableGrammarAction(const int variableIdentifier);
 int ProgramGrammarAction(const int assignments, const int definitions, const int imaginate);
 int AssignmentsGrammarAction(const int assignment, const int assignments);
 int EmptyAssignmentsGrammarAction();
