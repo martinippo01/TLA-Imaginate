@@ -7,8 +7,8 @@
 // Tipos de dato utilizados en las variables semánticas ($$, $1, $2, etc.).
 %union {
   	int variable;
-	
-   // No-terminales (frontend).
+
+// No-terminales (frontend).
 	int program;
 	int assignment;
 	int assignments;
@@ -25,8 +25,9 @@
 	int methodChain;
 	int focus;
 	int method;
-int render;
-int imaginate;
+  int render;
+  int imaginate;
+  int customMethodIdentifier;
 // Terminales.
 	token token;
 	int integer;
@@ -59,6 +60,7 @@ int imaginate;
 
 
 %type <definition> definition 
+%type <customMethodIdentifier> customMethodIdentifier
 %type <methodIdentifier> methodIdentifier
 %type <param> param
 %type <params> params
@@ -92,8 +94,8 @@ value: STRING_IDENTIFIER                        { $$ = ValueStringGrammarAction(
 definitions: definition definitions             { $$ = DefinitionsGrammarAction($1, $2); }
            | /* empty */                        { $$ = EmptyDefinitionsGrammarAction(); };
 
-definition: DEF_KEYWORD variableIdentifier emptyParams COLON methodChain
-                                                  { $$ = DefinitionGrammarAction($2, $5); };
+definition: DEF_KEYWORD customMethodIdentifier emptyParams COLON methodChain
+          { $$ = DefinitionGrammarAction($2, $5); };
 
 emptyParams: OPEN_PARENTHESES CLOSE_PARENTHESES  { $$ = EmptyParamsGrammarAction(); };
 
@@ -106,30 +108,33 @@ methodChain: method methodChain  { $$ = MethodChainGrammarAction($1, $2); }
            | /* empty */          { $$ = EmptyMethodChainGrammarAction(); };
 
 method: DOT optional methodIdentifier paramsBlock
-                                  { $$ = MethodGrammarAction($2, $3, $4); };
+      { $$ = MethodGrammarAction($2, $3, $4); };
 
 paramsBlock: OPEN_PARENTHESES params CLOSE_PARENTHESES
-                                  { $$ = ParamsBlockGrammarAction($2); };
+           { $$ = ParamsBlockGrammarAction($2); };
 
 optional: QUESTION_SIGN           { $$ = OptionalQuestionSignGrammarAction(); }
         | /* empty */              { $$ = EmptyOptionalGrammarAction(); };
 
 params: param         { $$ = ParamGrammarAction($1); }
-	  | param COMMA params        { $$ = ParamsGrammarAction($1, $3); }
+	  	| param COMMA params        { $$ = ParamsGrammarAction($1, $3); }
       | /* empty */               { $$ = EmptyParamsGrammarAction(); };
 
 param: STRING_IDENTIFIER          { $$ = ParamStringGrammarAction($1); }
-      | INTEGER                   { $$ = ParamIntegerGrammarAction($1); };
+     | INTEGER                   { $$ = ParamIntegerGrammarAction($1); };
       | variableIdentifier        { $$ = ParamVariableGrammarAction($1); };
 
 render: RENDER emptyParams        { $$ = RenderGrammarAction(); }
       | RENDER_ALL emptyParams    { $$ = RenderAllGrammarAction(); };
 
 methodIdentifier: ADDBACKGROUND   { $$ = MethodIdentifierGrammarAction($1); }
-                 | ADDFLAVOUR      { $$ = MethodIdentifierGrammarAction($1); }
+                | ADDFLAVOUR      { $$ = MethodIdentifierGrammarAction($1); }
                  | PICKFLAVOUR     { $$ = MethodIdentifierGrammarAction($1); }
                  | ADDGRAYSCALE    { $$ = MethodIdentifierGrammarAction($1); }
                  | ADDBLACKANDWHITE { $$ = MethodIdentifierGrammarAction($1); }
-                 | ADDCONTRAST     { $$ = MethodIdentifierGrammarAction($1); };
+                 | ADDCONTRAST     { $$ = MethodIdentifierGrammarAction($1); } 
+                 | customMethodIdentifier { $$ = MethodIdentifierGrammarAction($1); };
+
+customMethodIdentifier: IDENTIFIER { $$ = VariableIdentifierGrammarAction($1); };
 
 %%
