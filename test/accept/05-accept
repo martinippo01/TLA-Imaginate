@@ -6,4 +6,5 @@ Imaginate
     .addFlavour("./niebla.png")
     .addContrast(10, 20)
     .addGrayscale(20)
+    .blackAndWhite()
     .renderAll()

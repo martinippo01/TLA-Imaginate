@@ -40,6 +40,7 @@ str             .+
 "pickFlavour"           { return PickFlavourKeywordPatternAction(yytext); }
 "addGrayscale"          { return AddGrayscaleKeywordPatternAction(yytext); }
 "addContrast"           { return AddContrastKeywordPatternAction(yytext); }
+"blackAndWhite"       { return AddBlackAndWhitePatternAction(yytext); }
 {digit}+                { return IntegerPatternAction(yytext, yyleng); }
 {whitespace}+                   /* ignore whitespace */;
 {variable}+	            { return IdentifierPatternAction(yytext); }

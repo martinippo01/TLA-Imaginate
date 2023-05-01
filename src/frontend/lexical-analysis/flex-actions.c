@@ -166,3 +166,9 @@ token AddContrastKeywordPatternAction(const char * lexeme) {
     yylval.token = ADDCONTRAST;
     return ADDCONTRAST;
 }
+
+token AddBlackAndWhitePatternAction(const char * lexeme) {
+    LogDebug("AddBlackAndWhitePatternAction: %s \n", lexeme);
+    yylval.token = ADDBLACKANDWHITE;
+    return ADDBLACKANDWHITE;
+}

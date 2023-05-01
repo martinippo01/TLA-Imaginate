@@ -44,7 +44,7 @@ int imaginate;
 %token <token> DOT COMMA QUESTION_SIGN
 %token <token> RENDER RENDER_ALL
 %token <token> IMAGINATE ADDFOCUS FOREACHFOCUS
-%token <token> ADDBACKGROUND ADDFLAVOUR PICKFLAVOUR ADDGRAYSCALE ADDCONTRAST
+%token <token> ADDBACKGROUND ADDFLAVOUR PICKFLAVOUR ADDGRAYSCALE ADDCONTRAST ADDBLACKANDWHITE
 
 
 
@@ -129,6 +129,7 @@ methodIdentifier: ADDBACKGROUND   { $$ = MethodIdentifierGrammarAction($1); }
                  | ADDFLAVOUR      { $$ = MethodIdentifierGrammarAction($1); }
                  | PICKFLAVOUR     { $$ = MethodIdentifierGrammarAction($1); }
                  | ADDGRAYSCALE    { $$ = MethodIdentifierGrammarAction($1); }
+                 | ADDBLACKANDWHITE { $$ = MethodIdentifierGrammarAction($1); }
                  | ADDCONTRAST     { $$ = MethodIdentifierGrammarAction($1); };
 
 %%

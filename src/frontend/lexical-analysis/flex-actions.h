@@ -32,6 +32,7 @@ void IgnoredPatternAction(const char * lexeme, const int length);
 
 typedef int token;
 
+token AddBlackAndWhitePatternAction(const char * lexeme);
 token ValKeywordPatternAction(const char * lexeme);
 token ColonOperatorPatternAction(const char * lexeme);
 token StringDelimiterPatternAction(const char * lexeme);
