@@ -1,9 +1,10 @@
 Imaginate
-    .addFoco("./luna.png")
+    .addFocus("./luna.png")
     .addBackground("./darkblue.png")
     .addFlavour("./nubes.png")
     .pickFlavour("./estrellas.png", "./truenos.png", "./lluvia.png")
     .addFlavour("./niebla.png")
     .addContrast(10, 20)
-    .addGrayScale(20)
+    .addGrayscale(10, 20)
     .render()
+

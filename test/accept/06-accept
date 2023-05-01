@@ -1,8 +1,8 @@
 def blackAndWhite():
-    imaginate.addContrast(10, 20).addGrayScale(20)
+    imaginate.addContrast(10, 20).addGrayscale(20)
 
 Imaginate
-    .foreachFoco("./luna.png","./zapatillas.png","./reloj.png")
+    .foreachFocus("./luna.png","./zapatillas.png","./reloj.png")
     .addBackground("./darkblue.png")
     .addFlavour("./nubes.png")
     .pickFlavour("./estrellas.png", "./truenos.png", "./lluvia.png")
