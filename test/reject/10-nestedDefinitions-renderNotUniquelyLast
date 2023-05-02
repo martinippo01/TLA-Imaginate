@@ -1,0 +1,25 @@
+val img1: "./luna.png"
+val img2: "./zapatillas.png"
+val img3: "./reloj.png"
+val bg: "./darkblue.png"
+val flavor1: "./nubes.png"
+val flavor2: "./estrellas.png"
+val flavor3: "./truenos.png"
+val flavor4: "./lluvia.png"
+val flavor5: "./niebla.png"
+
+def addFlavours():
+    .addFlavour(flavor1).pickFlavour(flavor2, flavor3, flavor4).addFlavour(flavor5)
+
+def applyGrayscaleAndContrast():
+    .addGrayscale(20).addContrast(10, 20).render()
+
+def customEffects():
+    .addFlavours().applyGrayscaleAndContrast()
+
+Imaginate
+    .forEachFocus(img1, img2, img3)
+    .addBackground(bg)
+    .customEffects()
+    .renderAll()
+
