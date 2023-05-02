@@ -17,7 +17,8 @@
 digit			[0-9]
 endline			[\n]
 whitespace		[ \f\n\r\t\v]
-variable        [a-zA-Z]
+letter        [a-zA-Z]
+alphanumeric [a-zA-Z0-9]
 str             .+
 
 %%
@@ -43,6 +44,6 @@ str             .+
 "blackAndWhite"       { return AddBlackAndWhitePatternAction(yytext); }
 {digit}+                { return IntegerPatternAction(yytext, yyleng); }
 {whitespace}+                   /* ignore whitespace */;
-{variable}+	            { return IdentifierPatternAction(yytext); }
+{letter}({alphanumeric}|-)* { return IdentifierPatternAction(yytext); }
 \"{str}\"                   {return StringDelimiterPatternAction(yytext);}
 %%
