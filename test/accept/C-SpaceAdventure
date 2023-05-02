@@ -1,0 +1,45 @@
+val earth: "./earth.png"
+val mars: "./mars.png"
+val jupiter: "./jupiter.png"
+val saturn: "./saturn.png"
+val neptune: "./neptune.png"
+val spaceBackground: "./spaceBackground.png"
+val galaxy: "./galaxy.png"
+val asteroid: "./asteroid.png"
+val comet: "./comet.png"
+val alienShip: "./alienShip.png"
+val spaceShuttle: "./spaceShuttle.png"
+val astronaut: "./astronaut.png"
+val spaceStation: "./spaceStation.png"
+val blackHole: "./blackHole.png"
+val starField: "./starField.png"
+
+def addBackgroundElement(element):
+    .addBackground(element)
+
+def addCelestialBodies(bodies):
+    .addFlavour(bodies)
+
+def addSpaceObjects(objects):
+    .pickFlavour(objects, objects, objects)
+
+def addSpacecraft(spacecraft):
+    .addFlavour(spacecraft)
+
+def createSpaceAdventure(background, celestialBodies, objects, spacecraft):
+    .addBackgroundElement(background)
+    .addCelestialBodies(celestialBodies)
+    .addSpaceObjects(objects)
+    .addSpacecraft(spacecraft)
+
+Imaginate
+    .forEachFocus(earth, mars, jupiter, saturn, neptune)
+    .createSpaceAdventure(spaceBackground, galaxy, asteroid, spaceShuttle)
+    .addGrayscale(10)
+    .addContrast(15, 25)
+    .?addFlavour(astronaut)
+    .?addFlavour(spaceStation)
+    .addFlavour(blackHole)
+    .?addFlavour(starField)
+    .renderAll()
+

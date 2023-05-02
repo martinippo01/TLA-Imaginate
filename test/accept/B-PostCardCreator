@@ -1,0 +1,40 @@
+val eiffelTower: "./eiffelTower.png"
+val bigBen: "./bigBen.png"
+val colosseum: "./colosseum.png"
+val istanbul: "./istanbul.png"
+val tajMahal: "./tajMahal.png"
+val greatWall: "./greatWall.png"
+val ferrari: "./ferrari.png"
+val hotAirBalloon: "./hotAirBalloon.png"
+val cloudyNight2002: "./cloudyNight2002.png"
+val sunsetGlow: "./sunsetGlow.png"
+val brightDay: "./brightDay.png"
+val starryNight: "./starryNight.png"
+val oceanWaves: "./oceanWaves.png"
+
+def addLandmark(landmark):
+    .addBackground(landmark)
+
+def addTransportation(transport):
+    .addFlavour(transport)
+
+def applyWeather(weather):
+    .pickFlavour(weather, weather, weather)
+
+def applyTimeOfDay(timeOfDay):
+    .addFlavour(timeOfDay)
+
+def createTravelPostcard(landmark, transport, weather, timeOfDay):
+    .addLandmark(landmark)
+    .addTransportation(transport)
+    .applyWeather(weather)
+    .applyTimeOfDay(timeOfDay)
+
+Imaginate
+    .forEachFocus(eiffelTower, bigBen, colosseum, istanbul, tajMahal, greatWall)
+    .createTravelPostcard(oceanWaves, ferrari, cloudyNight2002, sunsetGlow)
+    .addGrayscale(5)
+    .addContrast(10, 20)
+    .addFlavour(hotAirBalloon)
+    .renderAll()
+

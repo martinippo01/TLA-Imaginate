@@ -22,6 +22,55 @@ void yyerror(const char * string) {
 	LogErrorRaw("\n\n");
 }
 
+int ParamInlineObjectGrammarAction(const int inlineObject) {
+    LogDebug("ParamInlineObjectGrammarAction: valueObject = %d", inlineObject);
+    return 0;
+}
+int InlineObjectGrammarAction(const int objectIdentifier) {
+    LogDebug("InlineObject: valueObject = %d", objectIdentifier);
+    return 0;
+}
+ 
+int ValueObjectGrammarAction(const int valueObject) {
+    LogDebug("ValueObjectGrammarAction: valueObject = %d", valueObject);
+    return 0;
+}
+
+int ParamObjectGrammarAction(const int paramObject) {
+    LogDebug("ParamObjectGrammarAction: paramObject = %d", paramObject);
+    return 0;
+}
+
+int ObjectIdentifierGrammarAction(const int objectIdentifier) {
+    LogDebug("ObjectIdentifierGrammarAction: objectIdentifier = %d", objectIdentifier);
+    return 0;
+}
+
+int ObjectContentGrammarAction(const int objectAssignment, const int objectContent) {
+    LogDebug("ObjectContentGrammarAction: objectAssignment = %d, objectContent = %d", objectAssignment, objectContent);
+    return 0;
+}
+
+int EmptyObjectContentGrammarAction() {
+    LogDebug("EmptyObjectContentGrammarAction");
+    return 0;
+}
+
+int ParamObjectElementGrammarAction(const int objectElement) {
+    LogDebug("ParamObjectElementGrammarAction: objectElement = %d", objectElement);
+    return 0;
+}
+
+int ObjectElementGrammarAction(const int variableIdentifier, const int objectElement) {
+    LogDebug("ObjectElementGrammarAction: variableIdentifier = %d, objectElement = %d", variableIdentifier, objectElement);
+    return 0;
+}
+
+int ObjectAssignmentGrammarAction(const int variableIdentifier, const int value) {
+    LogDebug("ObjectAssignmentGrammarAction: variableIdentifier = %d, value = %d", variableIdentifier, value);
+    return 0;
+}
+
 int ParamVariableGrammarAction(const int variableIdentifier) {
     LogDebug("ParamVariableGrammarAction: variableIdentifier = %d", variableIdentifier);
  		return 0;

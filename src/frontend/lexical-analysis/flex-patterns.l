@@ -28,6 +28,8 @@ str             .+
 "def"                   { return DefKeywordPatternAction(yytext); }
 "("                     { return OpenParenthesisPatternAction(yytext); }
 ")"                     { return CloseParenthesisPatternAction(yytext); }
+"{"                     { return OpenCurlyBracePatternAction(yytext); }
+"}"                     { return CloseCurlyBracePatternAction(yytext); }
 "."                     { return DotPatternAction(yytext); }
 ","                     { return CommaPatternAction(yytext); }
 "?"                     { return QuestionSignPatternAction(yytext); }

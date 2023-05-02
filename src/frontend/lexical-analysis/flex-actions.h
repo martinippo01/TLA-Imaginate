@@ -40,6 +40,8 @@ token IdentifierPatternAction(const char * lexeme);
 token DefKeywordPatternAction(const char * lexeme);
 token OpenParenthesisPatternAction(const char * lexeme);
 token CloseParenthesisPatternAction(const char * lexeme);
+token OpenCurlyBracePatternAction(const char * lexeme);
+token CloseCurlyBracePatternAction(const char * lexeme);
 token DotPatternAction(const char * lexeme);
 token CommaPatternAction(const char * lexeme);
 token QuestionSignPatternAction(const char * lexeme);

@@ -28,6 +28,11 @@
   int render;
   int imaginate;
   int customMethodIdentifier;
+  int objectIdentifier;
+  int objectContent;
+  int objectAssignment;
+  int objectElement;
+  int inlineObject;
 // Terminales.
 	token token;
 	int integer;
@@ -41,7 +46,7 @@
 %token <token> STRING_IDENTIFIER 
 %token <token> STRING_DELIMITER 
 %token <token> DEF_KEYWORD
-%token <token> OPEN_PARENTHESES CLOSE_PARENTHESES
+%token <token> OPEN_PARENTHESES CLOSE_PARENTHESES CLOSE_CURLY_BRACE OPEN_CURLY_BRACE
 %token <token> DOT COMMA QUESTION_SIGN
 %token <token> RENDER RENDER_ALL
 %token <token> IMAGINATE ADDFOCUS FOREACHFOCUS
@@ -72,8 +77,11 @@
 %type <focus> focus
 %type <render> render
 %type <imaginate> imaginate
-
-
+%type <objectIdentifier> objectIdentifier
+%type <objectAssignment> objectAssignment
+%type <objectContent> objectContent
+%type <objectElement> objectElement
+%type <inlineObject> inlineObject
 // El símbolo inicial de la gramatica.
 %start program
 
@@ -89,12 +97,13 @@ assignment: VAL variableIdentifier COLON value  { $$ = AssignmentGrammarAction($
 variableIdentifier: IDENTIFIER    { $$ = VariableIdentifierGrammarAction($1); };
 
 value: STRING_IDENTIFIER                        { $$ = ValueStringGrammarAction($1); }
-     | INTEGER                                  { $$ = ValueIntegerGrammarAction($1); };
+     | INTEGER                                  { $$ = ValueIntegerGrammarAction($1); }
+     | objectIdentifier                         { $$ = ValueObjectGrammarAction($1); };
 
 definitions: definition definitions             { $$ = DefinitionsGrammarAction($1, $2); }
            | /* empty */                        { $$ = EmptyDefinitionsGrammarAction(); };
 
-definition: DEF_KEYWORD customMethodIdentifier emptyParams COLON methodChain
+definition: DEF_KEYWORD customMethodIdentifier paramsBlock COLON methodChain
           { $$ = DefinitionGrammarAction($2, $5); };
 
 emptyParams: OPEN_PARENTHESES CLOSE_PARENTHESES  { $$ = EmptyParamsGrammarAction(); };
@@ -121,8 +130,14 @@ params: param         { $$ = ParamGrammarAction($1); }
       | /* empty */               { $$ = EmptyParamsGrammarAction(); };
 
 param: STRING_IDENTIFIER          { $$ = ParamStringGrammarAction($1); }
-     | INTEGER                   { $$ = ParamIntegerGrammarAction($1); };
-      | variableIdentifier        { $$ = ParamVariableGrammarAction($1); };
+      | INTEGER                   { $$ = ParamIntegerGrammarAction($1); }
+      | variableIdentifier        { $$ = ParamVariableGrammarAction($1); }
+      | objectElement             { $$ = ParamObjectElementGrammarAction($1); }
+      | inlineObject              { $$ = ParamInlineObjectGrammarAction($1); };
+
+inlineObject: OPEN_CURLY_BRACE objectContent CLOSE_CURLY_BRACE { $$ = InlineObjectGrammarAction($2); };
+
+objectElement: variableIdentifier DOT variableIdentifier { $$ = ObjectElementGrammarAction($1, $3); };
 
 render: RENDER emptyParams        { $$ = RenderGrammarAction(); }
       | RENDER_ALL emptyParams    { $$ = RenderAllGrammarAction(); };
@@ -136,5 +151,16 @@ methodIdentifier: ADDBACKGROUND   { $$ = MethodIdentifierGrammarAction($1); }
                  | customMethodIdentifier { $$ = MethodIdentifierGrammarAction($1); };
 
 customMethodIdentifier: IDENTIFIER { $$ = VariableIdentifierGrammarAction($1); };
+
+objectIdentifier: OPEN_CURLY_BRACE objectContent CLOSE_CURLY_BRACE { $$ = ObjectIdentifierGrammarAction($2); };
+
+objectContent: objectAssignment objectContent { $$ = ObjectContentGrammarAction($1, $2); }
+             | /* empty */                   { $$ = EmptyObjectContentGrammarAction(); };
+
+objectAssignment: variableIdentifier COLON value COMMA { $$ = ObjectAssignmentGrammarAction($1, $3); }
+                | variableIdentifier COLON value        { $$ = ObjectAssignmentGrammarAction($1, $3); }
+								| variableIdentifier COLON variableIdentifier COMMA { $$ = ObjectAssignmentGrammarAction($1, $3); }
+                | variableIdentifier COLON variableIdentifier       { $$ = ObjectAssignmentGrammarAction($1, $3); };
+
 
 %%

@@ -12,7 +12,19 @@
  */
 
 // Programa.
+int ValueObjectGrammarAction(const int valueObject);
+int ParamObjectGrammarAction(const int paramObject);
+int ObjectIdentifierGrammarAction(const int objectIdentifier);
+int ObjectContentGrammarAction(const int objectAssignment, const int objectContent);
+int EmptyObjectContentGrammarAction();
+int ObjectAssignmentGrammarAction(const int  variableIdentifier, const int value);
 int ParamVariableGrammarAction(const int variableIdentifier);
+int ParamObjectElementGrammarAction(const int objectElement);
+int ObjectElementGrammarAction(const int variableIdentifier, const int objectElement);
+int ObjectAssignmentGrammarAction(const int variableIdentifier, const int value);
+int InlineObjectGrammarAction(const int objectIdentifier);
+int ParamInlineObjectGrammarAction(const int inlineObject);
+
 int ProgramGrammarAction(const int assignments, const int definitions, const int imaginate);
 int AssignmentsGrammarAction(const int assignment, const int assignments);
 int EmptyAssignmentsGrammarAction();

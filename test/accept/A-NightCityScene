@@ -1,0 +1,28 @@
+val sky: "./sky.png"
+val moon: "./moon.png"
+val stars1: "./starsExploding.png"
+val stars2: "./starsFew.png"
+val clouds: "./clouds.png"
+val city: "./city.png"
+val rain: "./rain.png"
+
+def applyMoonAndStars():
+    .addBackground(moon)
+    .pickFlavour(stars1, stars2)
+
+def applyCloudsAndRain():
+    .addFlavour(clouds)
+    .addFlavour(rain)
+    .addGrayscale(15)
+    .addContrast(5, 10)
+
+def createNightCityScene():
+    .applyMoonAndStars()
+    .applyCloudsAndRain()
+
+Imaginate
+    .addFocus(sky)
+    .addBackground(city)
+    .createNightCityScene()
+    .render()
+

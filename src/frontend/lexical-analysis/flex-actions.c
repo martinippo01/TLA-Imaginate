@@ -89,6 +89,18 @@ token CloseParenthesisPatternAction(const char * lexeme) {
     return CLOSE_PARENTHESES;
 }
 
+token OpenCurlyBracePatternAction(const char * lexeme) {
+    LogDebug("OpenCurlyBracePatternAction: %s \n", lexeme);
+    yylval.token = OPEN_CURLY_BRACE;
+    return OPEN_CURLY_BRACE;
+}
+
+token CloseCurlyBracePatternAction(const char * lexeme) {
+    LogDebug("CloseCurlyBracePatternAction: %s \n", lexeme);
+    yylval.token = CLOSE_CURLY_BRACE;
+    return CLOSE_CURLY_BRACE;
+}
+
 token DotPatternAction(const char * lexeme) {
     LogDebug("DotPatternAction: %s \n", lexeme);
     yylval.token = DOT;
