@@ -1,6 +1,6 @@
 # Imaginate
 
-Imaginate es un lenguaje pensado tanto para produccion de imagenes, como para el proceso creativo del diseñador grafico. Mediante el lenguaje, podras crear de forma deterministica, podiendo aplicar operaciones como filtros, efectos, flavours, etc. Si no que tambien permite crear imagenes de forma no deterministica, es decir, poder obtener una imagen producto de un pool de filtros, efectos y demas, donde se aplicaran los dichos de forma aleatoria.
+Imaginate es un lenguaje pensado tanto para produccion de imagenes, como para el proceso creativo del diseñador grafico. Mediante el lenguaje, podras crear de forma deterministica, pudiendo aplicar operaciones como filtros, efectos, flavours, etc. Si no que tambien permite crear imagenes de forma no deterministica, es decir, poder obtener una imagen producto de un pool de filtros, efectos y demas, donde se aplicaran los dichos de forma aleatoria.
 
 ## Docker y Construccion
 
@@ -42,7 +42,7 @@ Debería obtener el valor de retorno valido (0) para dicho programa. En caso de 
 
 ## Testing
 
-Para poder testear el correcto funcionamiento del compilador interpretando la sintaxis, se proveen en el directorio test casos de aceptacion y rechazo. Para validar esto, la catedra ha provisto el siguiente script ./script/test.sh que tratara de compilar todos los casos de aceptacion y rechazo y mostrara por stdout en cuales se acepto y cuales se rechazo.
+Para poder testear el correcto funcionamiento del compilador interpretando la sintaxis, se proveen en el directorio test casos de aceptacion y rechazo. Para validar esto, la catedra ha provisto el siguiente script `./script/test.sh` que tratara de compilar todos los casos de aceptacion y rechazo y mostrara por stdout en cuales se acepto y cuales se rechazo.
 
 ```bash
 root@docker-session:path/ $ ./script/test.sh
