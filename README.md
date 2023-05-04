@@ -1,49 +1,51 @@
-# TLA-Imaginate
+# Imaginate
 
-## Docker
+Imaginate es un lenguaje pensado tanto para produccion de imagenes, como para el proceso creativo del diseñador grafico. Mediante el lenguaje, podras crear de forma deterministica, podiendo aplicar operaciones como filtros, efectos, flavours, etc. Si no que tambien permite crear imagenes de forma no deterministica, es decir, poder obtener una imagen producto de un pool de filtros, efectos y demas, donde se aplicaran los dichos de forma aleatoria.
 
- Primero es necesario hacer un pull de ubuntu
+## Docker y Construccion
 
-```
-docker pull ubuntu:latest
-```
-
-Luego se debe compilar el `Dockerfile` para tener un docker con todas las dependencias (parados en el root del directorio)
+ Primero es necesario hacer un pull de la siguiente imagen de docker. La cual es cortesia del grupo de Alejo Flores Lucey, al cual agradecemos por compartirnos dicha imagen de docker con todo configurado para poder compilar ambos proyectos.
 
 ```
-docker build -t imaginate .
+$ docker pull alejofl/tla-compiler
 ```
 
-Por ultimo hay que correr el contenedor compartiendo el directorio donde se tienen los archivos a compilar y ejecutar
+Para construir el proyecto por completo, ejecute en la raíz del repositorio los siguientes comandos:
 
-```
-docker run -v /path:/src -ti --name imaginateN imaginate  /bin/bash
+```bash
+$ chmod u+x --recursive script
+$ docker run -v "${PWD}:/root" -ti --rm alejofl/tla-compiler
+$ ./script/build.sh
 ```
 
-Este comando va a abrir una sesion en el contenedor donde se va poder encontrar los archivos en /path de la computadora
-en la carpeta /src en el docker.
+Este comando va a abrir una sesion en el contenedor donde se va podra correr los scripts .sh directamente desde ahi.
 
 
 ## Ejecución
 
 Para compilar un programa, primero cree un archivo vacío denominado `program` (o el nombre que desee), con el siguiente contenido:
 
-```
-123123 + 123 - 2 * (454 + 890 / 89)
+```Imaginate
+Imaginate
+    .addFocus("./Hola")
+    .addContrast()
+    .renderAll()
 ```
 
-Luego, ejecute el compilador desde el directorio raíz del proyecto, o desde cualquier otro lugar indicando el path hacia el script `start.sh` y pasando por parámetro el path hacia el programa a compilar:
+Luego, ejecute el compilador indicando el path hacia el script `start.sh` y pasando por parámetro el path hacia el programa a compilar:
 
 ```bash
-user@machine:path/ $ script/start.sh program
+root@docker-session:path/ $ ./script/start.sh program
 ```
 
-Debería obtener el resultado correcto de evaluar el programa anterior: `122318`.
+Debería obtener el valor de retorno valido (0) para dicho programa. En caso de que se modifque la sintaxis del programa por una incorrecta, el valor de retorno sera diferente de 0.
 
 ## Testing
 
+Para poder testear el correcto funcionamiento del compilador interpretando la sintaxis, se proveen en el directorio test casos de aceptacion y rechazo. Para validar esto, la catedra ha provisto el siguiente script ./script/test.sh que tratara de compilar todos los casos de aceptacion y rechazo y mostrara por stdout en cuales se acepto y cuales se rechazo.
+
 ```bash
-user@machine:path/ $ script/test.sh
+root@docker-session:path/ $ ./script/test.sh
 ```
 
 
