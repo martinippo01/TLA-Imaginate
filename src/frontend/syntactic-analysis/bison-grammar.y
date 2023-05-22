@@ -16,6 +16,9 @@
 	struct FocusNode * focus;
   struct MethodChainNode * methodChain;
   struct RenderNode * render;
+
+  
+
 	int variableIdentifier;
 	int value;
 	int methodIdentifier;
@@ -101,14 +104,13 @@ value: STRING_IDENTIFIER                        { $$ = ValueStringGrammarAction(
 definitions: definition definitions             { $$ = DefinitionsGrammarAction($1, $2); }
            | /* empty */                        { $$ = EmptyDefinitionsGrammarAction(); };
 
-definition: DEF_KEYWORD customMethodIdentifier paramsBlock COLON methodChain
-          { $$ = DefinitionGrammarAction($2, $5); };
+definition: DEF_KEYWORD customMethodIdentifier paramsBlock COLON methodChain { $$ = DefinitionGrammarAction($2, $3, $5); };
 
 emptyParams: OPEN_PARENTHESES CLOSE_PARENTHESES  { $$ = EmptyParamsGrammarAction(); };
 
 imaginate: IMAGINATE focus methodChain render    { $$ = ImaginateGrammarAction($2, $3, $4); };
 
-focus: DOT ADDFOCUS paramsBlock                  { $$ = FocusAddGrammarAction($2); }
+focus: DOT ADDFOCUS paramsBlock                  { $$ = FocusAddGrammarAction($3); }
      | DOT FOREACHFOCUS paramsBlock              { $$ = FocusForEachGrammarAction($2); };
 
 methodChain: method methodChain  { $$ = MethodChainGrammarAction($1, $2); }

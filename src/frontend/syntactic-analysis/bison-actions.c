@@ -76,10 +76,6 @@ int ParamVariableGrammarAction(const int variableIdentifier) {
  		return 0;
 }
 
-int AssignmentGrammarAction(const int assignment, const int assignments) {
-    LogDebug("AssignmentGrammarAction: assignment = %d, assignments = %d", assignment, assignments);
-    return 0;
-}
 
 int EmptyAssignmentsGrammarAction() {
     LogDebug("EmptyAssignmentsGrammarAction");
@@ -106,28 +102,14 @@ int EmptyDefinitionsGrammarAction() {
     return 0;
 }
 
-int DefinitionGrammarAction(const int variableIdentifier, const int methodChain) {
-    LogDebug("DefinitionGrammarAction: variableIdentifier = %d, methodChain = %d", variableIdentifier, methodChain);
-    return 0;
-}
 
 int EmptyParamsGrammarAction() {
     LogDebug("EmptyParamsGrammarAction");
     return 0;
 }
 
-int FocusAddGrammarAction(const int paramsBlock) {
-    LogDebug("FocusAddGrammarAction: paramsBlock = %d", paramsBlock);
-    return 0;
-}
-
 int FocusForEachGrammarAction(const int paramsBlock) {
     LogDebug("FocusForEachGrammarAction: paramsBlock = %d", paramsBlock);
-    return 0;
-}
-
-int MethodChainGrammarAction(const int method, const int methodChain) {
-    LogDebug("MethodChainGrammarAction: method = %d, methodChain = %d", method, methodChain);
     return 0;
 }
 
@@ -177,11 +159,6 @@ int ParamIntegerGrammarAction(const int ival) {
     return 0;
 }
 
-int RenderGrammarAction() {
-    LogDebug("RenderGrammarAction");
-    return 0;
-}
-
 int RenderAllGrammarAction() {
     LogDebug("RenderAllGrammarAction");
     return 0;
@@ -192,6 +169,43 @@ int MethodIdentifierGrammarAction(const int sval) {
     return 0;
 }
 
+AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ExpressionNode* expression) {
+    LogDebug("AssignmentGrammarAction: assignment = %d, assignments = %d", identifier, expression);
+    AssignmentNode* assignment = malloc(sizeof(AssignmentNode));
+    assignment->identifier = identifier;
+    assignment->expression = expression;
+    return assignment;
+}
+
+DefinitionNode* DefinitionGrammarAction(IdentifierNode * identifier, ParamsNode* params, MethodChainNode * methodChain) {
+    LogDebug("DefinitionGrammarAction: variableIdentifier = %d, methodChain = %d", identifier, methodChain);
+    DefinitionNode* definition = malloc(sizeof(DefinitionNode));
+    definition->identifier = identifier;
+    definition->params = params;
+    definition->methodChain = methodChain;
+    return definition;
+}
+
+FocusNode* FocusAddGrammarAction(ValueNode * val) {
+    LogDebug("FocusAddGrammarAction: paramsBlock = %d", val);
+    FocusNode* focus = malloc(sizeof(FocusNode));
+    focus->var = val;
+    return focus;
+}
+
+MethodChainNode* MethodChainGrammarAction(MethodNode* method, MethodChainNode* next) {
+    LogDebug("MethodChainGrammarAction: method = %d, methodChain = %d", method, next);
+    MethodChainNode* methodChain = malloc(sizeof(MethodChainNode));
+    methodChain->method = method;
+    methodChain->next = next;
+    return methodChain;
+}
+
+RenderNode* RenderGrammarAction() {
+    LogDebug("RenderGrammarAction");
+    RenderNode* render = malloc(sizeof(RenderNode));
+    return render;
+}
 
 AssignmentsNode* AssignmentsGrammarAction(AssignmentNode* assignment, AssignmentsNode* next) {
     LogDebug("AssignmentsGrammarAction: assignment = %d, assignments = %d", assignment, next);

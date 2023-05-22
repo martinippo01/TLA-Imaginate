@@ -76,24 +76,41 @@ typedef struct ImaginateNode {
     struct RenderNode* render;
 } ImaginateNode;
 
-typedef struct DefinitionNode {
-	int a;
-} DefinitionNode;
-
-typedef struct AssignmentNode{
-	int a;
+typedef struct AssignmentNode {
+  	struct IdentifierNode * identifier;
+    struct ExpressionNode* expression;
 } AssignmentNode;
 
+typedef struct DefinitionNode {
+  	struct IdentifierNode * identifier;
+    struct ParamsNode* params;
+    struct MethodChainNode * methodChain;
+} DefinitionNode;
 
 typedef struct FocusNode {
-	int a;
+    struct ValueNode* var;
 } FocusNode;
 
-typedef struct MethodChainNode{
-	int a;
+typedef struct MethodChainNode {
+    struct MethodNode* method;
+    struct MethodChainNode* next;
 } MethodChainNode;
 
-typedef struct RenderNode{
-	int a;
+typedef struct RenderNode {
 } RenderNode;
+
+typedef struct MethodNode{
+} MethodNode;
+
+typedef struct IdentifierNode {
+} IdentifierNode;
+
+typedef struct ValueNode{
+} ValueNode;
+
+typedef struct ExpressionNode{
+} ExpressionNode;
+
+typedef struct ParamsNode{
+} ParamsNode;
 #endif

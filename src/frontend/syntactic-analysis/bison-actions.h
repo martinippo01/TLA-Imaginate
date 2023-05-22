@@ -16,6 +16,13 @@ AssignmentsNode* AssignmentsGrammarAction(AssignmentNode* assignment, Assignment
 DefinitionsNode* DefinitionsGrammarAction(DefinitionNode* definition, DefinitionsNode* next);
 ImaginateNode* ImaginateGrammarAction(FocusNode* focus, MethodChainNode* methodChain, RenderNode* render);
 
+AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ExpressionNode* expression);
+
+DefinitionNode* DefinitionGrammarAction(IdentifierNode * identifier, ParamsNode* params, MethodChainNode * methodChain);
+FocusNode* FocusAddGrammarAction(ValueNode* var);
+MethodChainNode* MethodChainGrammarAction(MethodNode* method, MethodChainNode* next);
+RenderNode* RenderGrammarAction();
+
 // TODO convert them to nodes in AST.
 int ValueObjectGrammarAction(const int valueObject);
 int ParamObjectGrammarAction(const int paramObject);
@@ -30,15 +37,11 @@ int ObjectAssignmentGrammarAction(const int variableIdentifier, const int value)
 int InlineObjectGrammarAction(const int objectIdentifier);
 int ParamInlineObjectGrammarAction(const int inlineObject);
 int EmptyAssignmentsGrammarAction();
-int AssignmentGrammarAction(const int variableIdentifier, const int value);
 int ValueIntegerGrammarAction(const int ival);
 int ValueStringGrammarAction(const int sval);
 int EmptyDefinitionsGrammarAction();
-int DefinitionGrammarAction(const int variableIdentifier, const int methodChain);
 int EmptyParamsGrammarAction();
-int FocusAddGrammarAction(const int paramsBlock);
 int FocusForEachGrammarAction(const int paramsBlock);
-int MethodChainGrammarAction(const int method, const int methodChain);
 int EmptyMethodChainGrammarAction();
 int MethodGrammarAction(const int optional, const int methodIdentifier, const int paramsBlock);
 int ParamsBlockGrammarAction(const int params);
@@ -49,7 +52,6 @@ int ParamGrammarAction(const int param);
 int EmptyParamsGrammarAction();
 int ParamStringGrammarAction(const int sval);
 int ParamIntegerGrammarAction(const int ival);
-int RenderGrammarAction();
 int RenderAllGrammarAction();
 int VariableIdentifierGrammarAction(const int sval);
 int MethodIdentifierGrammarAction(const int sval);
