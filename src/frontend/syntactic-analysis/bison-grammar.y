@@ -25,14 +25,14 @@
   struct ParamsBlockNode * paramsBlock;
   struct OptionalNode * optional;
 
-	int emptyParams;
-	int method;
-  int customMethodIdentifier;
-  int objectIdentifier;
-  int objectContent;
-  int objectAssignment;
-  int objectElement;
-  int inlineObject;
+	struct EmptyParamsNode * emptyParams;
+	struct MethodNode * method;
+  struct CustomMethodIdentifierNode * customMethodIdentifier;
+  struct ObjectIdentifierNode * objectIdentifier;
+  struct ObjectContentNode * objectContent;
+  struct ObjectAssignmentNode * objectAssignment;
+  struct ObjectElementNode * objectElement;
+  struct InlineObjectNode * inlineObject;
 
 // Terminales.
 	token token;
