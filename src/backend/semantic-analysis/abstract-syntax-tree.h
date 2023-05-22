@@ -59,4 +59,41 @@ typedef struct ProgramNode {
     struct DefinitionsNode* definitions;
     struct ImaginateNode* imaginate;
 } ProgramNode;
+
+typedef struct AssignmentsNode {
+    struct AssignmentNode* assignment;
+    struct AssignmentsNode* next;
+} AssignmentsNode;
+
+typedef struct DefinitionsNode {
+    struct DefinitionNode* definition;
+    struct DefinitionsNode* next;
+} DefinitionsNode;
+
+typedef struct ImaginateNode {
+    struct FocusNode* focus;
+    struct MethodChainNode* methodChain;
+    struct RenderNode* render;
+} ImaginateNode;
+
+typedef struct DefinitionNode {
+	int a;
+} DefinitionNode;
+
+typedef struct AssignmentNode{
+	int a;
+} AssignmentNode;
+
+
+typedef struct FocusNode {
+	int a;
+} FocusNode;
+
+typedef struct MethodChainNode{
+	int a;
+} MethodChainNode;
+
+typedef struct RenderNode{
+	int a;
+} RenderNode;
 #endif

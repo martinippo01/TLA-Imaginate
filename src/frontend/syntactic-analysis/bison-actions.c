@@ -75,10 +75,6 @@ int ParamVariableGrammarAction(const int variableIdentifier) {
     LogDebug("ParamVariableGrammarAction: variableIdentifier = %d", variableIdentifier);
  		return 0;
 }
-int AssignmentsGrammarAction(const int assignment, const int assignments) {
-    LogDebug("AssignmentsGrammarAction: assignment = %d, assignments = %d", assignment, assignments);
-    return 0;
-}
 
 int AssignmentGrammarAction(const int assignment, const int assignments) {
     LogDebug("AssignmentGrammarAction: assignment = %d, assignments = %d", assignment, assignments);
@@ -105,11 +101,6 @@ int ValueIntegerGrammarAction(const int ival) {
     return 0;
 }
 
-int DefinitionsGrammarAction(const int definition, const int definitions) {
-    LogDebug("DefinitionsGrammarAction: definition = %d, definitions = %d", definition, definitions);
-    return 0;
-}
-
 int EmptyDefinitionsGrammarAction() {
     LogDebug("EmptyDefinitionsGrammarAction");
     return 0;
@@ -122,11 +113,6 @@ int DefinitionGrammarAction(const int variableIdentifier, const int methodChain)
 
 int EmptyParamsGrammarAction() {
     LogDebug("EmptyParamsGrammarAction");
-    return 0;
-}
-
-int ImaginateGrammarAction(const int focus, const int methodChain, const int render) {
-    LogDebug("ImaginateGrammarAction: focus = %d, methodChain = %d, render = %d", focus, methodChain, render);
     return 0;
 }
 
@@ -205,13 +191,42 @@ int MethodIdentifierGrammarAction(const int sval) {
     LogDebug("MethodIdentifierGrammarAction: sval = %d", sval);
     return 0;
 }
+
+
+AssignmentsNode* AssignmentsGrammarAction(AssignmentNode* assignment, AssignmentsNode* next) {
+    LogDebug("AssignmentsGrammarAction: assignment = %d, assignments = %d", assignment, next);
+    AssignmentsNode* assignments = malloc(sizeof(AssignmentsNode));
+    assignments->assignment = assignment;
+    assignments->next = next;
+    return assignments;
+}
+
+DefinitionsNode* DefinitionsGrammarAction(DefinitionNode* definition, DefinitionsNode* next) {
+    LogDebug("DefinitionsGrammarAction: definition = %d, definitions = %d", definition, next);
+    DefinitionsNode* definitions = malloc(sizeof(DefinitionsNode));
+    definitions->definition = definition;
+    definitions->next = next;
+    return definitions;
+}
+
+ImaginateNode* ImaginateGrammarAction(FocusNode* focus, MethodChainNode* methodChain, RenderNode* render) {
+    LogDebug("ImaginateGrammarAction: focus = %d, methodChain = %d, render = %d", focus, methodChain, render);
+    ImaginateNode* imaginate = malloc(sizeof(ImaginateNode));
+    imaginate->focus = focus;
+    imaginate->methodChain = methodChain;
+    imaginate->render = render;
+    return imaginate;
+}
+
+// Other grammar actions go here...
+
 /**
 * Esta acción se corresponde con el no-terminal que representa el símbolo
 * inicial de la gramática, y por ende, es el último en ser ejecutado, lo que
 * indica que efectivamente el programa de entrada se pudo generar con esta
 * gramática, o lo que es lo mismo, que el programa pertenece al lenguaje.
 */
-	ProgramNode * ProgramGrammarAction(const int assignments, const int definitions, const int imaginate) {
+ ProgramNode* ProgramGrammarAction(AssignmentsNode* assignments, DefinitionsNode* definitions, ImaginateNode* imaginate) {
 
 	LogDebug("\tProgramGrammarAction(%d, %d, %d)", assignments, definitions, imaginate);
 	/*
@@ -228,10 +243,9 @@ int MethodIdentifierGrammarAction(const int sval) {
 	* variable es un simple entero, en lugar de un nodo.
 	*/
 
-	state.result = imaginate;
     ProgramNode* program = malloc(sizeof(ProgramNode));
-    // program->assignments = assignments;
-    // program->definitions = definitions;
-    // program->imaginate = imaginate;
+    program->assignments = assignments;
+    program->definitions = definitions;
+    program->imaginate = imaginate;
     return program;
 }

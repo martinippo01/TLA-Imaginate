@@ -11,7 +11,12 @@
  * abstracta (i.e., el AST).
  */
 
-// Programa.
+ProgramNode* ProgramGrammarAction(AssignmentsNode* assignments, DefinitionsNode* definitions, ImaginateNode* imaginate);
+AssignmentsNode* AssignmentsGrammarAction(AssignmentNode* assignment, AssignmentsNode* next);
+DefinitionsNode* DefinitionsGrammarAction(DefinitionNode* definition, DefinitionsNode* next);
+ImaginateNode* ImaginateGrammarAction(FocusNode* focus, MethodChainNode* methodChain, RenderNode* render);
+
+// TODO convert them to nodes in AST.
 int ValueObjectGrammarAction(const int valueObject);
 int ParamObjectGrammarAction(const int paramObject);
 int ObjectIdentifierGrammarAction(const int objectIdentifier);
@@ -24,18 +29,13 @@ int ObjectElementGrammarAction(const int variableIdentifier, const int objectEle
 int ObjectAssignmentGrammarAction(const int variableIdentifier, const int value);
 int InlineObjectGrammarAction(const int objectIdentifier);
 int ParamInlineObjectGrammarAction(const int inlineObject);
-
-ProgramNode * ProgramGrammarAction(const int assignments, const int definitions, const int imaginate);
-int AssignmentsGrammarAction(const int assignment, const int assignments);
 int EmptyAssignmentsGrammarAction();
 int AssignmentGrammarAction(const int variableIdentifier, const int value);
 int ValueIntegerGrammarAction(const int ival);
 int ValueStringGrammarAction(const int sval);
-int DefinitionsGrammarAction(const int definition, const int definitions);
 int EmptyDefinitionsGrammarAction();
 int DefinitionGrammarAction(const int variableIdentifier, const int methodChain);
 int EmptyParamsGrammarAction();
-int ImaginateGrammarAction(const int focus, const int methodChain, const int render);
 int FocusAddGrammarAction(const int paramsBlock);
 int FocusForEachGrammarAction(const int paramsBlock);
 int MethodChainGrammarAction(const int method, const int methodChain);

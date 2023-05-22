@@ -4,30 +4,27 @@
 
 %}
 
-// Tipos de dato utilizados en las variables semánticas ($$, $1, $2, etc.).
 %union {
-  	int variable;
-
-// No-terminales (frontend).
 	struct ProgramNode* program;
-
-	int assignment;
-	int assignments;
-	int definitions;
+  
+  struct AssignmentsNode* assignments;
+  struct DefinitionsNode* definitions;
+  struct ImaginateNode* imaginate;
+	
+  struct AssignmentNode * assignment;
+  struct DefinitionNode * definition;
+	struct FocusNode * focus;
+  struct MethodChainNode * methodChain;
+  struct RenderNode * render;
 	int variableIdentifier;
 	int value;
-	int definition;
 	int methodIdentifier;
 	int param;
 	int params;
 	int paramsBlock;
 	int optional;
 	int emptyParams;
-	int methodChain;
-	int focus;
 	int method;
-  int render;
-  int imaginate;
   int customMethodIdentifier;
   int objectIdentifier;
   int objectContent;
@@ -131,7 +128,7 @@ params: param         { $$ = ParamGrammarAction($1); }
       | /* empty */               { $$ = EmptyParamsGrammarAction(); };
 
 param: STRING_IDENTIFIER          { $$ = ParamStringGrammarAction($1); }
-      | INTEGER                   { $$ = ParamIntegerGrammarAction($1); }
+     | INTEGER                   { $$ = ParamIntegerGrammarAction($1); }
       | variableIdentifier        { $$ = ParamVariableGrammarAction($1); }
       | objectElement             { $$ = ParamObjectElementGrammarAction($1); }
       | inlineObject              { $$ = ParamInlineObjectGrammarAction($1); };
