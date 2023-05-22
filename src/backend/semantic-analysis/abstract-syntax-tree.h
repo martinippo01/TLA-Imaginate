@@ -1,6 +1,7 @@
 #ifndef ABSTRACT_SYNTAX_TREE_HEADER
 #define ABSTRACT_SYNTAX_TREE_HEADER
 
+#include <stdlib.h>
 /**
 * Se realiza este tipo de definiciones cuando el tipo de dato debe
 * auto-referenciarse, como es el caso de una "Expression", que está compuesta
@@ -53,4 +54,9 @@ typedef struct {
 	Expression * expression;
 } Program;
 
+typedef struct ProgramNode {
+    struct AssignmentsNode* assignments;
+    struct DefinitionsNode* definitions;
+    struct ImaginateNode* imaginate;
+} ProgramNode;
 #endif

@@ -9,7 +9,8 @@
   	int variable;
 
 // No-terminales (frontend).
-	int program;
+	struct ProgramNode* program;
+
 	int assignment;
 	int assignments;
 	int definitions;

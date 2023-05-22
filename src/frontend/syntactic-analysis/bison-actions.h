@@ -25,7 +25,7 @@ int ObjectAssignmentGrammarAction(const int variableIdentifier, const int value)
 int InlineObjectGrammarAction(const int objectIdentifier);
 int ParamInlineObjectGrammarAction(const int inlineObject);
 
-int ProgramGrammarAction(const int assignments, const int definitions, const int imaginate);
+ProgramNode * ProgramGrammarAction(const int assignments, const int definitions, const int imaginate);
 int AssignmentsGrammarAction(const int assignment, const int assignments);
 int EmptyAssignmentsGrammarAction();
 int AssignmentGrammarAction(const int variableIdentifier, const int value);
@@ -53,5 +53,21 @@ int RenderGrammarAction();
 int RenderAllGrammarAction();
 int VariableIdentifierGrammarAction(const int sval);
 int MethodIdentifierGrammarAction(const int sval);
+int VariableAssignmentGrammarAction(const int variable_name, const int variable_value);
+
+
+// Expresión.
+int AdditionExpressionGrammarAction(const int leftValue, const int rightValue);
+int SubtractionExpressionGrammarAction(const int leftValue, const int rightValue);
+int MultiplicationExpressionGrammarAction(const int leftValue, const int rightValue);
+int DivisionExpressionGrammarAction(const int leftValue, const int rightValue);
+int FactorExpressionGrammarAction(const int value);
+
+// Factores.
+int ExpressionFactorGrammarAction(const int value);
+int ConstantFactorGrammarAction(const int value);
+
+// Constantes.
+int IntegerConstantGrammarAction(const int value);
 
 #endif
