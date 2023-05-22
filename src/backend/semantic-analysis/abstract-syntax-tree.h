@@ -51,15 +51,44 @@ typedef struct RenderNode {
 typedef struct MethodNode{
 } MethodNode;
 
-typedef struct IdentifierNode {
-} IdentifierNode;
-
-typedef struct ValueNode{
-} ValueNode;
 
 typedef struct ExpressionNode{
 } ExpressionNode;
 
 typedef struct ParamsNode{
 } ParamsNode;
+
+typedef struct IdentifierNode {
+    char* name;
+} IdentifierNode;
+
+typedef struct ValueNode {
+    enum {INT_VALUE, STRING_VALUE, OBJECT_VALUE} type;
+    union {
+        int intValue;
+        char* stringValue;
+        IdentifierNode* objectValue;
+    } value;
+} ValueNode;
+
+// Structure for a parameter node.
+typedef struct ParamNode {
+    ValueNode* value;
+} ParamNode;
+
+// Structure for a parameters block node.
+typedef struct ParamsBlockNode {
+    ParamNode* param;
+    struct ParamsBlockNode* next;
+} ParamsBlockNode;
+
+// Structure for an optional node.
+typedef struct OptionalNode {
+    int isQuestionMarkPresent; // boolean (1 for yes, 0 for no)
+} OptionalNode;
+
+// Structure for a method identifier node.
+typedef struct MethodIdentifierNode {
+    char* name;
+} MethodIdentifierNode;
 #endif

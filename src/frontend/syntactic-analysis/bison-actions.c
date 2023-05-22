@@ -82,20 +82,6 @@ int EmptyAssignmentsGrammarAction() {
     return 0;
 }
 
-int VariableIdentifierGrammarAction(const int variable) {
-    LogDebug("VariableIdentifierGrammarAction: variable = %d", variable);
-    return 0;
-}
-
-int ValueStringGrammarAction(const int sval) {
-    LogDebug("ValueStringGrammarAction: sval = %d", sval);
-    return 0;
-}
-
-int ValueIntegerGrammarAction(const int ival) {
-    LogDebug("ValueIntegerGrammarAction: ival = %d", ival);
-    return 0;
-}
 
 int EmptyDefinitionsGrammarAction() {
     LogDebug("EmptyDefinitionsGrammarAction");
@@ -128,27 +114,6 @@ int ParamsBlockGrammarAction(const int params) {
     return 0;
 }
 
-int OptionalQuestionSignGrammarAction() {
-    LogDebug("OptionalQuestionSignGrammarAction");
-    return 0;
-}
-
-
-int EmptyOptionalGrammarAction() {
-    LogDebug("EmptyOptionalGrammarAction");
-    return 0;
-}
-
-int ParamsGrammarAction(const int param, const int params) {
-    LogDebug("ParamsGrammarAction: param = %d, params = %d", param, params);
-    return 0;
-}
-
-int ParamGrammarAction(const int param) {
-    LogDebug("ParamsGrammarAction: param = %d", param);
-    return 0;
-}
-
 int ParamStringGrammarAction(const int sval) {
     LogDebug("ParamStringGrammarAction: sval = %d", sval);
     return 0;
@@ -161,11 +126,6 @@ int ParamIntegerGrammarAction(const int ival) {
 
 int RenderAllGrammarAction() {
     LogDebug("RenderAllGrammarAction");
-    return 0;
-}
-
-int MethodIdentifierGrammarAction(const int sval) {
-    LogDebug("MethodIdentifierGrammarAction: sval = %d", sval);
     return 0;
 }
 
@@ -232,7 +192,64 @@ ImaginateNode* ImaginateGrammarAction(FocusNode* focus, MethodChainNode* methodC
     return imaginate;
 }
 
-// Other grammar actions go here...
+IdentifierNode* VariableIdentifierGrammarAction(const char* name) {
+    LogDebug("VariableIdentifierGrammarAction: variable = %d", name);
+    IdentifierNode* node = (IdentifierNode*) malloc(sizeof(IdentifierNode));
+    //node->name = strdup(name); 
+    return node;
+}
+
+ValueNode* ValueIntegerGrammarAction(const int value) {
+    LogDebug("ValueIntegerGrammarAction: ival = %d", value);
+    ValueNode* node = (ValueNode*) malloc(sizeof(ValueNode));
+    node->type = INT_VALUE;
+    node->value.intValue = value;
+    return node;
+}
+
+ValueNode* ValueStringGrammarAction(const char* value) {
+    LogDebug("ValueStringGrammarAction: sval = %d", value);
+    ValueNode* node = (ValueNode*) malloc(sizeof(ValueNode));
+    node->type = STRING_VALUE;
+    //node->value.stringValue = strdup(value); 
+    return node;
+}
+
+MethodIdentifierNode* MethodIdentifierGrammarAction(const char* name) {
+    LogDebug("MethodIdentifierGrammarAction: sval = %d", name);
+    MethodIdentifierNode* node = (MethodIdentifierNode*) malloc(sizeof(MethodIdentifierNode));
+    //node->name = strdup(name); 
+    return node;
+}
+
+ParamNode* ParamGrammarAction(ValueNode* value) {
+    LogDebug("ParamGrammarAction: param = %d", value);
+    ParamNode* node = (ParamNode*) malloc(sizeof(ParamNode));
+    node->value = value;
+    return node;
+}
+
+ParamsBlockNode* ParamsGrammarAction(ParamNode* param, ParamsBlockNode* params) {
+    LogDebug("ParamsGrammarAction: param = %d, params = %d", param, params);
+    ParamsBlockNode* node = (ParamsBlockNode*) malloc(sizeof(ParamsBlockNode));
+    node->param = param;
+    node->next = params;
+    return node;
+}
+
+OptionalNode* OptionalQuestionSignGrammarAction() {
+    LogDebug("OptionalQuestionSignGrammarAction");
+    OptionalNode* node = (OptionalNode*) malloc(sizeof(OptionalNode));
+    node->isQuestionMarkPresent = 1;
+    return node;
+}
+
+OptionalNode* EmptyOptionalGrammarAction() {
+    LogDebug("EmptyOptionalGrammarAction");
+    OptionalNode* node = (OptionalNode*) malloc(sizeof(OptionalNode));
+    node->isQuestionMarkPresent = 0;
+    return node;
+}
 
 /**
 * Esta acción se corresponde con el no-terminal que representa el símbolo

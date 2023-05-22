@@ -23,6 +23,15 @@ FocusNode* FocusAddGrammarAction(ValueNode* var);
 MethodChainNode* MethodChainGrammarAction(MethodNode* method, MethodChainNode* next);
 RenderNode* RenderGrammarAction();
 
+IdentifierNode* VariableIdentifierGrammarAction(const char* name);
+ValueNode* ValueIntegerGrammarAction(const int value);
+ValueNode* ValueStringGrammarAction(const char* value);
+MethodIdentifierNode* MethodIdentifierGrammarAction(const char* name);
+ParamNode* ParamGrammarAction(ValueNode* value);
+ParamsBlockNode* ParamsGrammarAction(ParamNode* param, ParamsBlockNode* params);
+OptionalNode* OptionalQuestionSignGrammarAction();
+OptionalNode* EmptyOptionalGrammarAction();
+
 // TODO convert them to nodes in AST.
 int ValueObjectGrammarAction(const int valueObject);
 int ParamObjectGrammarAction(const int paramObject);
@@ -37,24 +46,16 @@ int ObjectAssignmentGrammarAction(const int variableIdentifier, const int value)
 int InlineObjectGrammarAction(const int objectIdentifier);
 int ParamInlineObjectGrammarAction(const int inlineObject);
 int EmptyAssignmentsGrammarAction();
-int ValueIntegerGrammarAction(const int ival);
-int ValueStringGrammarAction(const int sval);
 int EmptyDefinitionsGrammarAction();
 int EmptyParamsGrammarAction();
 int FocusForEachGrammarAction(const int paramsBlock);
 int EmptyMethodChainGrammarAction();
 int MethodGrammarAction(const int optional, const int methodIdentifier, const int paramsBlock);
 int ParamsBlockGrammarAction(const int params);
-int OptionalQuestionSignGrammarAction();
-int EmptyOptionalGrammarAction();
-int ParamsGrammarAction(const int param, const int params);
-int ParamGrammarAction(const int param);
 int EmptyParamsGrammarAction();
 int ParamStringGrammarAction(const int sval);
 int ParamIntegerGrammarAction(const int ival);
 int RenderAllGrammarAction();
-int VariableIdentifierGrammarAction(const int sval);
-int MethodIdentifierGrammarAction(const int sval);
 int VariableAssignmentGrammarAction(const int variable_name, const int variable_value);
 
 
