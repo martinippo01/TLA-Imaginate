@@ -18,7 +18,7 @@ ImaginateNode* ImaginateGrammarAction(FocusNode* focus, MethodChainNode* methodC
 
 AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ExpressionNode* expression);
 
-DefinitionNode* DefinitionGrammarAction(IdentifierNode * identifier, ParamsNode* params, MethodChainNode * methodChain);
+DefinitionNode* DefinitionGrammarAction(IdentifierNode * identifier, ParamsBlockNode * params, MethodChainNode * methodChain);
 FocusNode* FocusAddGrammarAction(ValueNode* var);
 MethodChainNode* MethodChainGrammarAction(MethodNode* method, MethodChainNode* next);
 RenderNode* RenderGrammarAction();
@@ -32,27 +32,27 @@ ParamsBlockNode* ParamsGrammarAction(ParamNode* param, ParamsBlockNode* params);
 OptionalNode* OptionalQuestionSignGrammarAction();
 OptionalNode* EmptyOptionalGrammarAction();
 
+EmptyParamsNode* EmptyParamsGrammarAction();
+MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode* params);
+CustomMethodIdentifierNode* CustomMethodIdentifierGrammarAction(char* name);
+ObjectIdentifierNode* ObjectIdentifierGrammarAction(char* name);
+ObjectContentNode* ObjectContentGrammarAction(ObjectAssignmentNode* assignment, ObjectContentNode* next);
+ObjectAssignmentNode* ObjectAssignmentGrammarAction(IdentifierNode* variable, ValueNode* value);
+ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, ValueNode* value);
+InlineObjectNode* InlineObjectGrammarAction(ObjectContentNode* content);
+
 // TODO convert them to nodes in AST.
 int ValueObjectGrammarAction(const int valueObject);
 int ParamObjectGrammarAction(const int paramObject);
-int ObjectIdentifierGrammarAction(const int objectIdentifier);
-int ObjectContentGrammarAction(const int objectAssignment, const int objectContent);
 int EmptyObjectContentGrammarAction();
-int ObjectAssignmentGrammarAction(const int  variableIdentifier, const int value);
 int ParamVariableGrammarAction(const int variableIdentifier);
 int ParamObjectElementGrammarAction(const int objectElement);
-int ObjectElementGrammarAction(const int variableIdentifier, const int objectElement);
-int ObjectAssignmentGrammarAction(const int variableIdentifier, const int value);
-int InlineObjectGrammarAction(const int objectIdentifier);
 int ParamInlineObjectGrammarAction(const int inlineObject);
 int EmptyAssignmentsGrammarAction();
 int EmptyDefinitionsGrammarAction();
-int EmptyParamsGrammarAction();
 int FocusForEachGrammarAction(const int paramsBlock);
 int EmptyMethodChainGrammarAction();
-int MethodGrammarAction(const int optional, const int methodIdentifier, const int paramsBlock);
 int ParamsBlockGrammarAction(const int params);
-int EmptyParamsGrammarAction();
 int ParamStringGrammarAction(const int sval);
 int ParamIntegerGrammarAction(const int ival);
 int RenderAllGrammarAction();

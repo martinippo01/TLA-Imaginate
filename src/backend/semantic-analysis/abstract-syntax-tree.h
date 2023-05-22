@@ -32,7 +32,7 @@ typedef struct AssignmentNode {
 
 typedef struct DefinitionNode {
   	struct IdentifierNode * identifier;
-    struct ParamsNode* params;
+    struct ParamsBlockNode* params;
     struct MethodChainNode * methodChain;
 } DefinitionNode;
 
@@ -48,15 +48,9 @@ typedef struct MethodChainNode {
 typedef struct RenderNode {
 } RenderNode;
 
-typedef struct MethodNode{
-} MethodNode;
-
 
 typedef struct ExpressionNode{
 } ExpressionNode;
-
-typedef struct ParamsNode{
-} ParamsNode;
 
 typedef struct IdentifierNode {
     char* name;
@@ -71,24 +65,56 @@ typedef struct ValueNode {
     } value;
 } ValueNode;
 
-// Structure for a parameter node.
 typedef struct ParamNode {
     ValueNode* value;
 } ParamNode;
 
-// Structure for a parameters block node.
 typedef struct ParamsBlockNode {
     ParamNode* param;
     struct ParamsBlockNode* next;
 } ParamsBlockNode;
 
-// Structure for an optional node.
 typedef struct OptionalNode {
-    int isQuestionMarkPresent; // boolean (1 for yes, 0 for no)
+    int isQuestionMarkPresent; 
 } OptionalNode;
 
-// Structure for a method identifier node.
 typedef struct MethodIdentifierNode {
     char* name;
 } MethodIdentifierNode;
+
+typedef struct EmptyParamsNode {
+    int isEmpty; 
+} EmptyParamsNode;
+
+typedef struct MethodNode {
+    MethodIdentifierNode* identifier;
+    ParamsBlockNode* params;
+} MethodNode;
+
+typedef struct CustomMethodIdentifierNode {
+    char* name;
+} CustomMethodIdentifierNode;
+
+typedef struct ObjectIdentifierNode {
+    char* name;
+} ObjectIdentifierNode;
+
+typedef struct ObjectContentNode {
+    struct ObjectContentNode* next;
+    struct ObjectAssignmentNode* assignment;
+} ObjectContentNode;
+
+typedef struct ObjectAssignmentNode {
+    IdentifierNode* variable;
+    ValueNode* value;
+} ObjectAssignmentNode;
+
+typedef struct ObjectElementNode {
+    IdentifierNode* identifier;
+    ValueNode* value;
+} ObjectElementNode;
+
+typedef struct InlineObjectNode {
+    ObjectContentNode* content;
+} InlineObjectNode;
 #endif

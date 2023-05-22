@@ -17,15 +17,14 @@
   struct MethodChainNode * methodChain;
   struct RenderNode * render;
 
-  
+  struct MethodIdentifierNode * methodIdentifier; 
+  struct IdentifierNode * variableIdentifier; 
+  struct ValueNode * value; 
+  struct ParamNode * param;
+  struct ParamsBlockNode * params;
+  struct ParamsBlockNode * paramsBlock;
+  struct OptionalNode * optional;
 
-	int variableIdentifier;
-	int value;
-	int methodIdentifier;
-	int param;
-	int params;
-	int paramsBlock;
-	int optional;
 	int emptyParams;
 	int method;
   int customMethodIdentifier;
@@ -34,6 +33,7 @@
   int objectAssignment;
   int objectElement;
   int inlineObject;
+
 // Terminales.
 	token token;
 	int integer;
