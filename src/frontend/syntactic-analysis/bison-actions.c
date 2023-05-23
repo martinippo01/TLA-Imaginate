@@ -86,7 +86,7 @@ ValueNode * ParamStringGrammarAction(const char * sval) {
 
     ValueNode * node = (ValueNode*) malloc(sizeof(ValueNode));
     node->type = STRING_VALUE;
-    node->value = sval;
+    node->value.stringValue = sval;
 
     return 0;
 }
@@ -95,7 +95,7 @@ ValueNode * ParamStringGrammarAction(const char * sval) {
     LogDebug("ParamIntegerGrammarAction: ival = %d", ival);
     ValueNode * node = (ValueNode*) malloc(sizeof(ValueNode));
     node->type = INT_VALUE;
-    node->value = ival;
+    node->value.intValue = ival;
     return 0;
 }
 
@@ -103,7 +103,7 @@ RenderNode * RenderAllGrammarAction() {
 
     LogDebug("RenderAllGrammarAction");
     RenderNode * node = (RenderNode*) malloc(sizeof(RenderNode));
-    node->type = RENDERALL;
+    node->type = RENDERALL__;
 
     return node;
 }

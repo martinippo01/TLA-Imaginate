@@ -24,7 +24,7 @@ str             .+
 %%
 "val"                   { return ValKeywordPatternAction(yytext); }
 ":"                     { return ColonOperatorPatternAction(yytext); }
-"\""                    { return StringDelimiterPatternAction(yytext); }
+"\""                    { return StringDelimiterPatternAction(yytext, yyleng); }
 "def"                   { return DefKeywordPatternAction(yytext); }
 "("                     { return OpenParenthesisPatternAction(yytext); }
 ")"                     { return CloseParenthesisPatternAction(yytext); }
@@ -47,5 +47,5 @@ str             .+
 {digit}+                { return IntegerPatternAction(yytext, yyleng); }
 {whitespace}+                   /* ignore whitespace */;
 {letter}({alphanumeric}|-)* { return IdentifierPatternAction(yytext); }
-\"{str}\"                   {return StringDelimiterPatternAction(yytext);}
+\"{str}\"                   {return StringDelimiterPatternAction(yytext, yyleng);}
 %%

@@ -35,7 +35,7 @@ typedef int token;
 token AddBlackAndWhitePatternAction(const char * lexeme);
 token ValKeywordPatternAction(const char * lexeme);
 token ColonOperatorPatternAction(const char * lexeme);
-token StringDelimiterPatternAction(const char * lexeme);
+token StringDelimiterPatternAction(const char * lexeme, int length);
 token IdentifierPatternAction(const char * lexeme);
 token DefKeywordPatternAction(const char * lexeme);
 token OpenParenthesisPatternAction(const char * lexeme);

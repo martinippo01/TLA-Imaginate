@@ -2,6 +2,7 @@
 #include "flex-actions.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * Implementación de "flex-actions.h".
@@ -58,7 +59,7 @@ token ColonOperatorPatternAction(const char * lexeme) {
     return COLON;
 }
 
-token StringDelimiterPatternAction(const char * lexeme) {
+token StringDelimiterPatternAction(const char * lexeme, int length) {
     LogDebug("StringDelimiterPatternAction: %s \n", lexeme);
 
     char * text = (char *) calloc(length + 1, sizeof(char));

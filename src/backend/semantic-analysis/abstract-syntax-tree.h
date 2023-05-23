@@ -44,12 +44,14 @@ typedef struct MethodChainNode {
     struct MethodNode* method;
     struct MethodChainNode* next;
 } MethodChainNode;
+
 enum renderType{
-    RENDER,
-    RENDERALL
+    RENDER__,
+    RENDERALL__
 };
+
 typedef struct RenderNode {
-    renderType type;
+    enum renderType type;
 } RenderNode;
 
 
