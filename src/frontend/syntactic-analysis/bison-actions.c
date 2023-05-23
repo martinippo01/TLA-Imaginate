@@ -77,22 +77,35 @@ int EmptyMethodChainGrammarAction() {
 
 int ParamsBlockGrammarAction(const int params) {
     LogDebug("ParamsBlockGrammarAction: params = %d", params);
+    
     return 0;
 }
 
-int ParamStringGrammarAction(const int sval) {
+ValueNode * ParamStringGrammarAction(const char * sval) {
     LogDebug("ParamStringGrammarAction: sval = %d", sval);
+
+    ValueNode * node = (ValueNode*) malloc(sizeof(ValueNode));
+    node->type = STRING_VALUE;
+    node->value = sval;
+
     return 0;
 }
 
-int ParamIntegerGrammarAction(const int ival) {
+ ValueNode * ParamIntegerGrammarAction(const int ival) {
     LogDebug("ParamIntegerGrammarAction: ival = %d", ival);
+    ValueNode * node = (ValueNode*) malloc(sizeof(ValueNode));
+    node->type = INT_VALUE;
+    node->value = ival;
     return 0;
 }
 
-int RenderAllGrammarAction() {
+RenderNode * RenderAllGrammarAction() {
+
     LogDebug("RenderAllGrammarAction");
-    return 0;
+    RenderNode * node = (RenderNode*) malloc(sizeof(RenderNode));
+    node->type = RENDERALL;
+
+    return node;
 }
 
 EmptyParamsNode* EmptyParamsGrammarAction() {

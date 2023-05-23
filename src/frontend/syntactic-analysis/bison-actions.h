@@ -40,6 +40,9 @@ ObjectContentNode* ObjectContentGrammarAction(ObjectAssignmentNode* assignment, 
 ObjectAssignmentNode* ObjectAssignmentGrammarAction(IdentifierNode* variable, ValueNode* value);
 ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, ValueNode* value);
 InlineObjectNode* InlineObjectGrammarAction(ObjectContentNode* content);
+RenderNode * RenderAllGrammarAction();
+ParamNode * ParamStringGrammarAction(const int sval);
+ParamNode * ParamIntegerGrammarAction(const char * ival);
 
 // TODO convert them to nodes in AST.
 int ValueObjectGrammarAction(const int valueObject);
@@ -53,9 +56,7 @@ int EmptyDefinitionsGrammarAction();
 int FocusForEachGrammarAction(const int paramsBlock);
 int EmptyMethodChainGrammarAction();
 int ParamsBlockGrammarAction(const int params);
-int ParamStringGrammarAction(const int sval);
-int ParamIntegerGrammarAction(const int ival);
-int RenderAllGrammarAction();
+
 int VariableAssignmentGrammarAction(const int variable_name, const int variable_value);
 
 

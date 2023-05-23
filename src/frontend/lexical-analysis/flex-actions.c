@@ -60,8 +60,10 @@ token ColonOperatorPatternAction(const char * lexeme) {
 
 token StringDelimiterPatternAction(const char * lexeme) {
     LogDebug("StringDelimiterPatternAction: %s \n", lexeme);
-    //ESTE NO VA
-    yylval.token = STRING_IDENTIFIER;
+
+    char * text = (char *) calloc(length + 1, sizeof(char));
+    strncpy(text, lexeme, length);
+    yylval.token = text;
     return STRING_IDENTIFIER;
 }
 
