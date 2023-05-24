@@ -21,7 +21,7 @@
   struct IdentifierNode * variableIdentifier; 
   struct ValueNode * value; 
   struct ParamNode * param;
-  struct ParamsBlockNode * params;
+  struct ParamsNode * params;
   struct ParamsBlockNode * paramsBlock;
   struct OptionalNode * optional;
 

@@ -32,13 +32,17 @@ typedef struct AssignmentNode {
 
 typedef struct DefinitionNode {
   	struct IdentifierNode * identifier;
-    struct ParamsBlockNode* params;
+    struct ParamsNode* params;
     struct MethodChainNode * methodChain;
 } DefinitionNode;
 
 typedef struct FocusNode {
     struct ValueNode* var;
 } FocusNode;
+
+typedef struct ForEachFocusNode {
+    struct ValueNode * * var; //un arreglo de values almacen
+} ForEachFocusNode ;
 
 typedef struct MethodChainNode {
     struct MethodNode* method;
@@ -75,9 +79,13 @@ typedef struct ParamNode {
     ValueNode* value;
 } ParamNode;
 
-typedef struct ParamsBlockNode {
+typedef struct ParamsNode {
     ParamNode* param;
-    struct ParamsBlockNode* next;
+    struct ParamsNode* next;
+} ParamsNode;
+
+typedef struct ParamsBlockNode {
+   struct ParamsNode * params; 
 } ParamsBlockNode;
 
 typedef struct OptionalNode {
@@ -94,7 +102,7 @@ typedef struct EmptyParamsNode {
 
 typedef struct MethodNode {
     MethodIdentifierNode* identifier;
-    ParamsBlockNode* params;
+    ParamsNode* params;
 } MethodNode;
 
 typedef struct CustomMethodIdentifierNode {

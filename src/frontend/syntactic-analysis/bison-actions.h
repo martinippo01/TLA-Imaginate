@@ -11,53 +11,68 @@
  * abstracta (i.e., el AST).
  */
 
+
 ProgramNode* ProgramGrammarAction(AssignmentsNode* assignments, DefinitionsNode* definitions, ImaginateNode* imaginate);
+
+
+/*
+ * Aca se divide el compilador en las tres partes principales: 
+ *   asignaciones (val abc : xyz)
+ *   definiciones (def abc(xyz):)
+ *   imaginate(Imaginate.focus().abc.render())
+ * */
 AssignmentsNode* AssignmentsGrammarAction(AssignmentNode* assignment, AssignmentsNode* next);
 DefinitionsNode* DefinitionsGrammarAction(DefinitionNode* definition, DefinitionsNode* next);
 ImaginateNode* ImaginateGrammarAction(FocusNode* focus, MethodChainNode* methodChain, RenderNode* render);
 
+/* Asignaciones */
+AssignmentNode * EmptyAssignmentsGrammarAction();
 AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ExpressionNode* expression);
-
-DefinitionNode* DefinitionGrammarAction(IdentifierNode * identifier, ParamsBlockNode * params, MethodChainNode * methodChain);
-FocusNode* FocusAddGrammarAction(ValueNode* var);
-MethodChainNode* MethodChainGrammarAction(MethodNode* method, MethodChainNode* next);
-RenderNode* RenderGrammarAction();
-
 IdentifierNode* VariableIdentifierGrammarAction(const char* name);
 ValueNode* ValueIntegerGrammarAction(const int value);
 ValueNode* ValueStringGrammarAction(const char* value);
+ValueNode * ValueObjectGrammarAction(ObjectIdentifierNode * objectIdentifier);
+
+/* Definciones */
+DefinitionNode * EmptyDefinitionsGrammarAction();
+DefinitionNode * DefinitionGrammarAction(IdentifierNode * identifier, ParamsNode * params, MethodChainNode * methodChain);
+
+MethodChainNode * MethodChainGrammarAction(MethodNode* method, MethodChainNode* next);
+MethodChainNode * EmptyMethodChainGrammarAction();
 MethodIdentifierNode* MethodIdentifierGrammarAction(const char* name);
+MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsNode* params);
+CustomMethodIdentifierNode* CustomMethodIdentifierGrammarAction(char* name);
+
 ParamNode* ParamGrammarAction(ValueNode* value);
-ParamsBlockNode* ParamsGrammarAction(ParamNode* param, ParamsBlockNode* params);
+ParamNode * ParamVariableGrammarAction(const int variableIdentifier);
+ParamNode * ParamObjectElementGrammarAction(const int objectElement);
+ParamNode * ParamInlineObjectGrammarAction(const int inlineObject);
+ParamsNode* ParamsGrammarAction(ParamNode* param, ParamsNode* params);
+ParamsBlockNode * ParamsBlockGrammarAction(const int params);
+EmptyParamsNode* EmptyParamsGrammarAction();
+
+
+/* Imaginate */
+FocusNode* FocusAddGrammarAction(ValueNode* var);
+ForEachFocusNode * FocusForEachGrammarAction(ParamsNode * paramsBlock);
+RenderNode* RenderGrammarAction();
+
 OptionalNode* OptionalQuestionSignGrammarAction();
 OptionalNode* EmptyOptionalGrammarAction();
 
-EmptyParamsNode* EmptyParamsGrammarAction();
-MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode* params);
-CustomMethodIdentifierNode* CustomMethodIdentifierGrammarAction(char* name);
+
+/* Objetos */
 ObjectIdentifierNode* ObjectIdentifierGrammarAction(char* name);
 ObjectContentNode* ObjectContentGrammarAction(ObjectAssignmentNode* assignment, ObjectContentNode* next);
 ObjectAssignmentNode* ObjectAssignmentGrammarAction(IdentifierNode* variable, ValueNode* value);
 ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, ValueNode* value);
+ObjectContentNode* EmptyObjectContentGrammarAction();
 InlineObjectNode* InlineObjectGrammarAction(ObjectContentNode* content);
+
 RenderNode * RenderAllGrammarAction();
 ValueNode * ParamStringGrammarAction(const char * sval);
 ValueNode * ParamIntegerGrammarAction(const int ival) ;
 
-// TODO convert them to nodes in AST.
-int ValueObjectGrammarAction(const int valueObject);
-int ParamObjectGrammarAction(const int paramObject);
-int EmptyObjectContentGrammarAction();
-int ParamVariableGrammarAction(const int variableIdentifier);
-int ParamObjectElementGrammarAction(const int objectElement);
-int ParamInlineObjectGrammarAction(const int inlineObject);
-int EmptyAssignmentsGrammarAction();
-int EmptyDefinitionsGrammarAction();
-int FocusForEachGrammarAction(const int paramsBlock);
-int EmptyMethodChainGrammarAction();
-int ParamsBlockGrammarAction(const int params);
-
-int VariableAssignmentGrammarAction(const int variable_name, const int variable_value);
 
 
 #endif
