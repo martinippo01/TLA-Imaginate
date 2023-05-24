@@ -22,7 +22,7 @@ void yyerror(const char * string) {
 	LogErrorRaw("\n\n");
 }
 
-ParamNode * ParamInlineObjectGrammarAction(const int inlineObject) {
+ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
     LogDebug("ParamInlineObjectGrammarAction: valueObject = %d", inlineObject);
     return 0;
 }
@@ -38,13 +38,14 @@ ObjectContentNode* EmptyObjectContentGrammarAction() {
     return 0;
 }
 
-ParamNode * ParamObjectElementGrammarAction(const int objectElement) {
-    LogDebug("ParamObjectElementGrammarAction: objectElement = %d", objectElement);
+ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement) {
+  LogDebug("ParamObjectElementGrammarAction: objectElement = %d", objectElement);
+
     return 0;
 }
 
 
-ParamNode * ParamVariableGrammarAction(const int variableIdentifier) {
+ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
     LogDebug("ParamVariableGrammarAction: variableIdentifier = %d", variableIdentifier);
  		return 0;
 }

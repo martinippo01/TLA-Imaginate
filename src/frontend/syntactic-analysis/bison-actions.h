@@ -11,7 +11,6 @@
  * abstracta (i.e., el AST).
  */
 
-
 ProgramNode* ProgramGrammarAction(AssignmentsNode* assignments, DefinitionsNode* definitions, ImaginateNode* imaginate);
 
 
@@ -44,11 +43,11 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
 CustomMethodIdentifierNode* CustomMethodIdentifierGrammarAction(char* name);
 
 ParamNode* ParamGrammarAction(ValueNode* value);
-ParamNode * ParamVariableGrammarAction(const int variableIdentifier);
-ParamNode * ParamObjectElementGrammarAction(const int objectElement);
-ParamNode * ParamInlineObjectGrammarAction(const int inlineObject);
+ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier);
+ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement);
+ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject);
 ParamsNode* ParamsGrammarAction(ParamNode* param, ParamsNode* params);
-ParamsBlockNode * ParamsBlockGrammarAction(const int params);
+ParamsBlockNode * ParamsBlockGrammarAction(ParamsNode * params);
 EmptyParamsNode* EmptyParamsGrammarAction();
 
 
