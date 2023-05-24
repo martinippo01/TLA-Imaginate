@@ -9,6 +9,26 @@
  * gramática. El objetivo de cada acción debe ser el de construir el nodo
  * adecuado que almacene la información requerida en el árbol de sintaxis
  * abstracta (i.e., el AST).
+ *
+ * A grandes rasgos el AST formado es:
+  
+  ProgramNode
+  ├── AssignmentsNode
+  │   ├── AssignmentNode
+  │   │   ├── IdentifierNode (for variableIdentifier)
+  │   │   └── ValueNode (for value, which could be a ValueStringGrammarAction, ValueIntegerGrammarAction or ValueObjectGrammarAction)
+  │   └── AssignmentsNode (recursively for multiple assignments)
+  ├── DefinitionsNode
+  │   ├── DefinitionNode
+  │   │   ├── IdentifierNode (for customMethodIdentifier)
+  │   │   ├── ParamsNode (for paramsBlock)
+  │   │   └── MethodChainNode (for methodChain)
+  │   └── DefinitionsNode (recursively for multiple definitions)
+  └── ImaginateNode
+      ├── FocusNode (for focus)
+      ├── MethodChainNode (for methodChain)
+      └── RenderNode (for render)
+
  */
 
 ProgramNode* ProgramGrammarAction(AssignmentsNode* assignments, DefinitionsNode* definitions, ImaginateNode* imaginate);
@@ -19,12 +39,15 @@ ProgramNode* ProgramGrammarAction(AssignmentsNode* assignments, DefinitionsNode*
  *   asignaciones (val abc : xyz)
  *   definiciones (def abc(xyz):)
  *   imaginate(Imaginate.focus().abc.render())
+ *
  * */
 AssignmentsNode* AssignmentsGrammarAction(AssignmentNode* assignment, AssignmentsNode* next);
 DefinitionsNode* DefinitionsGrammarAction(DefinitionNode* definition, DefinitionsNode* next);
 ImaginateNode* ImaginateGrammarAction(FocusNode* focus, MethodChainNode* methodChain, RenderNode* render);
 
-/* Asignaciones */
+/* 
+ * Asignaciones
+ * */
 AssignmentNode * EmptyAssignmentsGrammarAction();
 AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ExpressionNode* expression);
 IdentifierNode* VariableIdentifierGrammarAction(const char* name);
@@ -32,7 +55,9 @@ ValueNode* ValueIntegerGrammarAction(const int value);
 ValueNode* ValueStringGrammarAction(const char* value);
 ValueNode * ValueObjectGrammarAction(ObjectIdentifierNode * objectIdentifier);
 
-/* Definciones */
+/* 
+ * Definciones
+ * */
 DefinitionNode * EmptyDefinitionsGrammarAction();
 DefinitionNode * DefinitionGrammarAction(IdentifierNode * identifier, ParamsNode * params, MethodChainNode * methodChain);
 
@@ -42,6 +67,9 @@ MethodIdentifierNode* MethodIdentifierGrammarAction(const char* name);
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsNode* params);
 CustomMethodIdentifierNode* CustomMethodIdentifierGrammarAction(char* name);
 
+/* Parametros */
+ValueNode * ParamStringGrammarAction(const char * sval);
+ValueNode * ParamIntegerGrammarAction(const int ival) ;
 ParamNode* ParamGrammarAction(ValueNode* value);
 ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier);
 ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement);
@@ -51,26 +79,28 @@ ParamsBlockNode * ParamsBlockGrammarAction(ParamsNode * params);
 EmptyParamsNode* EmptyParamsGrammarAction();
 
 
-/* Imaginate */
+/* 
+ * Imaginate
+ * */
 FocusNode* FocusAddGrammarAction(ValueNode* var);
 ForEachFocusNode * FocusForEachGrammarAction(ParamsNode * paramsBlock);
+
 RenderNode* RenderGrammarAction();
+RenderNode * RenderAllGrammarAction();
 
 OptionalNode* OptionalQuestionSignGrammarAction();
 OptionalNode* EmptyOptionalGrammarAction();
 
 
-/* Objetos */
+/* 
+ * Objetos
+ * */
 ObjectIdentifierNode* ObjectIdentifierGrammarAction(char* name);
 ObjectContentNode* ObjectContentGrammarAction(ObjectAssignmentNode* assignment, ObjectContentNode* next);
 ObjectAssignmentNode* ObjectAssignmentGrammarAction(IdentifierNode* variable, ValueNode* value);
 ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, ValueNode* value);
 ObjectContentNode* EmptyObjectContentGrammarAction();
 InlineObjectNode* InlineObjectGrammarAction(ObjectContentNode* content);
-
-RenderNode * RenderAllGrammarAction();
-ValueNode * ParamStringGrammarAction(const char * sval);
-ValueNode * ParamIntegerGrammarAction(const int ival) ;
 
 
 

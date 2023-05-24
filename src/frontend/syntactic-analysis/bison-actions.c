@@ -72,7 +72,7 @@ MethodChainNode * EmptyMethodChainGrammarAction() {
     return 0;
 }
 
-ParamsBlockNode * ParamsBlockGrammarAction(const int params) {
+ParamsBlockNode * ParamsBlockGrammarAction(ParamsNode * params) {
     LogDebug("ParamsBlockGrammarAction: params = %d", params);
     return 0;
 }
