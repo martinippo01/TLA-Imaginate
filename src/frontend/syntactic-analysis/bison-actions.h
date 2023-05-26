@@ -53,7 +53,7 @@ AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ExpressionN
 IdentifierNode* VariableIdentifierGrammarAction(const char* name);
 ValueNode* ValueIntegerGrammarAction(const int value);
 ValueNode* ValueStringGrammarAction(const char* value);
-ValueNode * ValueObjectGrammarAction(ObjectIdentifierNode * objectIdentifier);
+ValueNode * ValueObjectGrammarAction(ObjectNode * objectIdentifier);
 
 /* 
  * Definciones
@@ -95,10 +95,11 @@ OptionalNode* EmptyOptionalGrammarAction();
 /* 
  * Objetos
  * */
-ObjectIdentifierNode* ObjectIdentifierGrammarAction(char* name);
+ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content);
 ObjectContentNode* ObjectContentGrammarAction(ObjectAssignmentNode* assignment, ObjectContentNode* next);
-ObjectAssignmentNode* ObjectAssignmentGrammarAction(IdentifierNode* variable, ValueNode* value);
-ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, ValueNode* value);
+ObjectAssignmentNode* ObjectAssignmentValueGrammarAction(IdentifierNode* variable, ValueNode * value);
+ObjectAssignmentNode* ObjectAssignmentIdentifierGrammarAction(IdentifierNode* variable, IdentifierNode * value);
+ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, IdentifierNode * value);
 ObjectContentNode* EmptyObjectContentGrammarAction();
 InlineObjectNode* InlineObjectGrammarAction(ObjectContentNode* content);
 

@@ -27,7 +27,7 @@ ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
     return 0;
 }
  
-ValueNode * ValueObjectGrammarAction(ObjectIdentifierNode * objectIdentifier) {
+ValueNode * ValueObjectGrammarAction(ObjectNode * objectIdentifier) {
     LogDebug("ValueObjectGrammarAction: valueObject = %d");
     return 0;
 }
@@ -125,9 +125,9 @@ CustomMethodIdentifierNode* CustomMethodIdentifierGrammarAction(char* name) {
     return node;
 }
 
-ObjectIdentifierNode* ObjectIdentifierGrammarAction(char* name) {
-    LogDebug("ObjectIdentifierGrammarAction: objectIdentifier = %d");
-    ObjectIdentifierNode* node = (ObjectIdentifierNode*) malloc(sizeof(ObjectIdentifierNode));
+ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
+    LogDebug(" ObjectNodeGrammarAction: objectIdentifier = %d");
+    ObjectNode* node = (ObjectNode*) malloc(sizeof(ObjectNode));
     // node->name = strdup(name); 
     return node;
 }
@@ -140,15 +140,27 @@ ObjectContentNode* ObjectContentGrammarAction(ObjectAssignmentNode* assignment, 
     return node;
 }
 
-ObjectAssignmentNode* ObjectAssignmentGrammarAction(IdentifierNode* variable, ValueNode* value) {
-    LogDebug("ObjectAssignmentGrammarAction: variableIdentifier = %d, value = %d");
+
+ObjectAssignmentNode* ObjectAssignmentIdentifierGrammarAction(IdentifierNode* variable, IdentifierNode * identifier) {
+    LogDebug("ObjectAssignmentIdentifierGrammarAction: variableIdentifier = %d, value = %d");
     ObjectAssignmentNode* node = (ObjectAssignmentNode*) malloc(sizeof(ObjectAssignmentNode));
     node->variable = variable;
-    node->value = value;
+    node->rightHandIdentifier = identifier;
+    node->rightHandValue = NULL;
     return node;
 }
 
-ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, ValueNode* value) {
+
+ObjectAssignmentNode* ObjectAssignmentValueGrammarAction(IdentifierNode* variable, ValueNode * value) {
+    LogDebug("ObjectAssignmentValueGrammarAction: variableIdentifier = %d, value = %d");
+    ObjectAssignmentNode* node = (ObjectAssignmentNode*) malloc(sizeof(ObjectAssignmentNode));
+    node->variable = variable;
+    node->rightHandValue = value;
+    node->rightHandIdentifier = NULL;
+    return node;
+}
+
+ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, IdentifierNode * value) {
     LogDebug("ObjectElementGrammarAction: variableIdentifier = %d, objectElement = %d");
     ObjectElementNode* node = (ObjectElementNode*) malloc(sizeof(ObjectElementNode));
     node->identifier = identifier;

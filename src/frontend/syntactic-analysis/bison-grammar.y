@@ -28,7 +28,7 @@
 	struct EmptyParamsNode * emptyParams;
 	struct MethodNode * method;
   struct CustomMethodIdentifierNode * customMethodIdentifier;
-  struct ObjectIdentifierNode * objectIdentifier;
+  struct ObjectNode * object;
   struct ObjectContentNode * objectContent;
   struct ObjectAssignmentNode * objectAssignment;
   struct ObjectElementNode * objectElement;
@@ -78,12 +78,11 @@
 %type <focus> focus
 %type <render> render
 %type <imaginate> imaginate
-%type <objectIdentifier> objectIdentifier
+%type <object> object
 %type <objectAssignment> objectAssignment
 %type <objectContent> objectContent
 %type <objectElement> objectElement
 %type <inlineObject> inlineObject
-// El símbolo inicial de la gramatica.
 %start program
 
 %%
@@ -99,7 +98,7 @@ variableIdentifier: IDENTIFIER    { $$ = VariableIdentifierGrammarAction($1); };
 
 value: STRING_IDENTIFIER                        { $$ = ValueStringGrammarAction($1); }
      | INTEGER                                  { $$ = ValueIntegerGrammarAction($1); }
-     | objectIdentifier                         { $$ = ValueObjectGrammarAction($1); };
+     | object                         { $$ = ValueObjectGrammarAction($1); };
 
 definitions: definition definitions             { $$ = DefinitionsGrammarAction($1, $2); }
            | /* empty */                        { $$ = EmptyDefinitionsGrammarAction(); };
@@ -129,8 +128,8 @@ params: param         { $$ = ParamGrammarAction($1); }
 	  	| param COMMA params        { $$ = ParamsGrammarAction($1, $3); }
       | /* empty */               { $$ = EmptyParamsGrammarAction(); };
 
-param: STRING_IDENTIFIER          { $$ = ParamStringGrammarAction($1); }
-     | INTEGER                   { $$ = ParamIntegerGrammarAction($1); }
+param:  STRING_IDENTIFIER          { $$ = ParamStringGrammarAction($1); }
+      | INTEGER                   { $$ = ParamIntegerGrammarAction($1); }
       | variableIdentifier        { $$ = ParamVariableGrammarAction($1); }
       | objectElement             { $$ = ParamObjectElementGrammarAction($1); }
       | inlineObject              { $$ = ParamInlineObjectGrammarAction($1); };
@@ -152,15 +151,15 @@ methodIdentifier: ADDBACKGROUND   { $$ = MethodIdentifierGrammarAction($1); }
 
 customMethodIdentifier: IDENTIFIER { $$ = VariableIdentifierGrammarAction($1); };
 
-objectIdentifier: OPEN_CURLY_BRACE objectContent CLOSE_CURLY_BRACE { $$ = ObjectIdentifierGrammarAction($2); };
+object: OPEN_CURLY_BRACE objectContent CLOSE_CURLY_BRACE { $$ = ObjectNodeGrammarAction($2); };
 
 objectContent: objectAssignment objectContent { $$ = ObjectContentGrammarAction($1, $2); }
              | /* empty */                   { $$ = EmptyObjectContentGrammarAction(); };
 
-objectAssignment: variableIdentifier COLON value COMMA { $$ = ObjectAssignmentGrammarAction($1, $3); }
-                | variableIdentifier COLON value        { $$ = ObjectAssignmentGrammarAction($1, $3); }
-								| variableIdentifier COLON variableIdentifier COMMA { $$ = ObjectAssignmentGrammarAction($1, $3); }
-                | variableIdentifier COLON variableIdentifier       { $$ = ObjectAssignmentGrammarAction($1, $3); };
+objectAssignment: variableIdentifier COLON value COMMA { $$ = ObjectAssignmentValueGrammarAction($1, $3); }
+                | variableIdentifier COLON value        { $$ = ObjectAssignmentValueGrammarAction($1, $3); }
+								| variableIdentifier COLON variableIdentifier COMMA { $$ = ObjectAssignmentIdentifierGrammarAction($1, $3); }
+                | variableIdentifier COLON variableIdentifier       { $$ = ObjectAssignmentIdentifierGrammarAction($1, $3); };
 
 
 %%

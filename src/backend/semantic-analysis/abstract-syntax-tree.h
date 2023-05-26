@@ -109,9 +109,9 @@ typedef struct CustomMethodIdentifierNode {
     char* name;
 } CustomMethodIdentifierNode;
 
-typedef struct ObjectIdentifierNode {
+typedef struct ObjectNode {
     char* name;
-} ObjectIdentifierNode;
+} ObjectNode;
 
 typedef struct ObjectContentNode {
     struct ObjectContentNode* next;
@@ -120,12 +120,13 @@ typedef struct ObjectContentNode {
 
 typedef struct ObjectAssignmentNode {
     IdentifierNode* variable;
-    ValueNode* value;
+    IdentifierNode * rightHandIdentifier;
+    ValueNode* rightHandValue;
 } ObjectAssignmentNode;
 
 typedef struct ObjectElementNode {
     IdentifierNode* identifier;
-    ValueNode* value;
+    IdentifierNode * value;
 } ObjectElementNode;
 
 typedef struct InlineObjectNode {
