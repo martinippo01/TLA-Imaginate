@@ -33,8 +33,8 @@ str             .+
 "."                     { return DotPatternAction(yytext); }
 ","                     { return CommaPatternAction(yytext); }
 "?"                     { return QuestionSignPatternAction(yytext); }
-"render"                { return RenderKeywordPatternAction(yytext); }
-"renderAll"             { return RenderAllKeywordPatternAction(yytext); }
+".render"                { return RenderKeywordPatternAction(yytext); }
+".renderAll"             { return RenderAllKeywordPatternAction(yytext); }
 "Imaginate"             { return ImaginateKeywordPatternAction(yytext); }
 "addFocus"              { return AddFocusKeywordPatternAction(yytext); }
 "forEachFocus"          { return ForEachFocusKeywordPatternAction(yytext); }
