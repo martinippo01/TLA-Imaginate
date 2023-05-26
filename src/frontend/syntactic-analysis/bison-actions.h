@@ -48,7 +48,7 @@ ImaginateNode* ImaginateGrammarAction(FocusNode* focus, MethodChainNode* methodC
 /* 
  * Asignaciones
  * */
-AssignmentNode * EmptyAssignmentsGrammarAction();
+AssignmentsNode * EmptyAssignmentsGrammarAction();
 AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ExpressionNode* expression);
 IdentifierNode* VariableIdentifierGrammarAction(const char* name);
 ValueNode* ValueIntegerGrammarAction(const int value);

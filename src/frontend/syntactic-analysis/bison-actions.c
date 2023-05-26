@@ -21,69 +21,94 @@ void yyerror(const char * string) {
 	}
 	LogErrorRaw("\n\n");
 }
-
 ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
     LogDebug("ParamInlineObjectGrammarAction: valueObject = %d", inlineObject);
-    return 0;
+    ParamNode * node = (ParamNode*) malloc(sizeof(ParamNode));
+    node->value = (ValueNode*) malloc(sizeof(ValueNode));
+    node->value->type = OBJECT_VALUE;
+    // node->value->value.objectValue = inlineObject;
+    return node;
 }
  
-ValueNode * ValueObjectGrammarAction(ObjectNode * objectIdentifier) {
-    LogDebug("ValueObjectGrammarAction: valueObject = %d");
-    return 0;
+ValueNode * ValueObjectGrammarAction(ObjectNode * object) {
+    LogDebug("ValueObjectGrammarAction: valueObject = %d", object);
+    ValueNode * node = (ValueNode*) malloc(sizeof(ValueNode));
+    node->type = OBJECT_VALUE;
+    // node->value.objectValue = object;
+    return node;
 }
-
 
 ObjectContentNode* EmptyObjectContentGrammarAction() {
     LogDebug("EmptyObjectContentGrammarAction");
-    return 0;
+    ObjectContentNode* node = (ObjectContentNode*) malloc(sizeof(ObjectContentNode));
+    node->next = NULL;
+    node->assignment = NULL;
+    return node;
 }
 
 ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement) {
   LogDebug("ParamObjectElementGrammarAction: objectElement = %d", objectElement);
-
-    return 0;
+    ParamNode * node = (ParamNode*) malloc(sizeof(ParamNode));
+    node->value = (ValueNode*) malloc(sizeof(ValueNode));
+    node->value->type = OBJECT_VALUE;
+    // node->value->value.objectValue = objectElement->identifier;
+    return node;
 }
-
 
 ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
     LogDebug("ParamVariableGrammarAction: variableIdentifier = %d", variableIdentifier);
- 		return 0;
+    ParamNode * node = (ParamNode*) malloc(sizeof(ParamNode));
+    node->value = (ValueNode*) malloc(sizeof(ValueNode));
+    node->value->type = OBJECT_VALUE;
+    // node->value->value.objectValue = variableIdentifier;
+    return node;
 }
 
-
-AssignmentNode * EmptyAssignmentsGrammarAction() {
+AssignmentsNode * EmptyAssignmentsGrammarAction() {
     LogDebug("EmptyAssignmentsGrammarAction");
-    return 0;
+    AssignmentsNode * node = (AssignmentsNode*) malloc(sizeof(AssignmentsNode));
+    node->assignment= NULL;
+    node->next = NULL;
+    return node;
 }
-
 
 DefinitionNode * EmptyDefinitionsGrammarAction() {
     LogDebug("EmptyDefinitionsGrammarAction");
-    return 0;
+    DefinitionNode * node = (DefinitionNode*) malloc(sizeof(DefinitionNode));
+    node->identifier = NULL;
+    node->params = NULL;
+    node->methodChain = NULL;
+    return node;
 }
 
 ForEachFocusNode * FocusForEachGrammarAction(ParamsNode * paramsBlock) {
     LogDebug("FocusForEachGrammarAction: paramsBlock = %d", paramsBlock);
-    return 0;
+    ForEachFocusNode * node = (ForEachFocusNode*) malloc(sizeof(ForEachFocusNode));
+    // node->var = &(paramsBlock->param->value);
+    return node;
 }
 
 MethodChainNode * EmptyMethodChainGrammarAction() {
     LogDebug("EmptyMethodChainGrammarAction");
-    return 0;
+    MethodChainNode * node = (MethodChainNode*) malloc(sizeof(MethodChainNode));
+    node->method = NULL;
+    node->next = NULL;
+    return node;
 }
 
 ParamsBlockNode * ParamsBlockGrammarAction(ParamsNode * params) {
     LogDebug("ParamsBlockGrammarAction: params = %d", params);
-    return 0;
+    ParamsBlockNode * node = (ParamsBlockNode*) malloc(sizeof(ParamsBlockNode));
+    node->params = params;
+    return node;
 }
+
 
 ValueNode * ParamStringGrammarAction(const char * sval) {
     LogDebug("ParamStringGrammarAction: sval = %d", sval);
-
     ValueNode * node = (ValueNode*) malloc(sizeof(ValueNode));
     node->type = STRING_VALUE;
-    node->value.stringValue = sval;
-
+    // node->value.stringValue = sval;
     return 0;
 }
 
@@ -91,7 +116,7 @@ ValueNode * ParamStringGrammarAction(const char * sval) {
     LogDebug("ParamIntegerGrammarAction: ival = %d", ival);
     ValueNode * node = (ValueNode*) malloc(sizeof(ValueNode));
     node->type = INT_VALUE;
-    node->value.intValue = ival;
+    // node->value.intValue = ival;
     return 0;
 }
 
