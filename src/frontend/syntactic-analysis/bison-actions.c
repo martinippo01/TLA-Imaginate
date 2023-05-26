@@ -119,8 +119,9 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
     return node;
 }
 
-CustomMethodIdentifierNode* CustomMethodIdentifierGrammarAction(char* name) {
-    CustomMethodIdentifierNode* node = (CustomMethodIdentifierNode*) malloc(sizeof(CustomMethodIdentifierNode));
+
+MethodIdentifierNode * CustomMethodIdentifierGrammarAction(char* name) {
+    MethodIdentifierNode* node = (MethodIdentifierNode*) malloc(sizeof(MethodIdentifierNode));
     // node->name = strdup(name); 
     return node;
 }

@@ -65,7 +65,7 @@ MethodChainNode * MethodChainGrammarAction(MethodNode* method, MethodChainNode* 
 MethodChainNode * EmptyMethodChainGrammarAction();
 MethodIdentifierNode* MethodIdentifierGrammarAction(const char* name);
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsNode* params);
-CustomMethodIdentifierNode* CustomMethodIdentifierGrammarAction(char* name);
+MethodIdentifierNode * CustomMethodIdentifierGrammarAction(char* name);
 
 /* Parametros */
 ValueNode * ParamStringGrammarAction(const char * sval);

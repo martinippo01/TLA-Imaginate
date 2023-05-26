@@ -66,7 +66,7 @@
 
 
 %type <definition> definition 
-%type <customMethodIdentifier> customMethodIdentifier
+%type <methodIdentifier> customMethodIdentifier
 %type <methodIdentifier> methodIdentifier
 %type <param> param
 %type <params> params
@@ -103,7 +103,7 @@ value: STRING_IDENTIFIER                        { $$ = ValueStringGrammarAction(
 definitions: definition definitions             { $$ = DefinitionsGrammarAction($1, $2); }
            | /* empty */                        { $$ = EmptyDefinitionsGrammarAction(); };
 
-definition: DEF_KEYWORD customMethodIdentifier paramsBlock COLON methodChain { $$ = DefinitionGrammarAction($2, $3, $5); };
+definition: DEF_KEYWORD IDENTIFIER paramsBlock COLON methodChain { $$ = DefinitionGrammarAction($2, $3, $5); };
 
 emptyParams: OPEN_PARENTHESES CLOSE_PARENTHESES  { $$ = EmptyParamsGrammarAction(); };
 
@@ -147,9 +147,8 @@ methodIdentifier: ADDBACKGROUND   { $$ = MethodIdentifierGrammarAction($1); }
                  | ADDGRAYSCALE    { $$ = MethodIdentifierGrammarAction($1); }
                  | ADDBLACKANDWHITE { $$ = MethodIdentifierGrammarAction($1); }
                  | ADDCONTRAST     { $$ = MethodIdentifierGrammarAction($1); } 
-                 | customMethodIdentifier { $$ = MethodIdentifierGrammarAction($1); };
+                 | IDENTIFIER { $$ = CustomMethodIdentifierGrammarAction($1); };
 
-customMethodIdentifier: IDENTIFIER { $$ = VariableIdentifierGrammarAction($1); };
 
 object: OPEN_CURLY_BRACE objectContent CLOSE_CURLY_BRACE { $$ = ObjectNodeGrammarAction($2); };
 
