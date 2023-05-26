@@ -27,12 +27,12 @@ typedef struct ImaginateNode {
 
 typedef struct AssignmentNode {
   	struct IdentifierNode * identifier;
-    struct ExpressionNode* expression;
+    struct ValueNode * expression;
 } AssignmentNode;
 
 typedef struct DefinitionNode {
   	struct IdentifierNode * identifier;
-    struct ParamsNode* params;
+    struct ParamsBlockNode * params;
     struct MethodChainNode * methodChain;
 } DefinitionNode;
 
@@ -102,7 +102,7 @@ typedef struct EmptyParamsNode {
 
 typedef struct MethodNode {
     MethodIdentifierNode* identifier;
-    ParamsNode* params;
+    ParamsBlockNode * params;
 } MethodNode;
 
 typedef struct CustomMethodIdentifierNode {

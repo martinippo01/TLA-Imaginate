@@ -43,47 +43,48 @@ ProgramNode* ProgramGrammarAction(AssignmentsNode* assignments, DefinitionsNode*
  * */
 AssignmentsNode* AssignmentsGrammarAction(AssignmentNode* assignment, AssignmentsNode* next);
 DefinitionsNode* DefinitionsGrammarAction(DefinitionNode* definition, DefinitionsNode* next);
-ImaginateNode* ImaginateGrammarAction(FocusNode* focus, MethodChainNode* methodChain, RenderNode* render);
+ImaginateNode* ImaginateGrammarActionFocus(FocusNode* focus, MethodChainNode* methodChain, RenderNode* render);
+ImaginateNode* ImaginateGrammarActionForEachFocus(ForEachFocusNode* focuses, MethodChainNode* methodChain, RenderNode* render);
 
 /* 
  * Asignaciones
  * */
 AssignmentsNode * EmptyAssignmentsGrammarAction();
-AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ExpressionNode* expression);
-IdentifierNode* VariableIdentifierGrammarAction(const char* name);
-ValueNode* ValueIntegerGrammarAction(const int value);
-ValueNode* ValueStringGrammarAction(const char* value);
+AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode * expression);
+IdentifierNode* VariableIdentifierGrammarAction(int name);
+ValueNode* ValueIntegerGrammarAction(int value);
+ValueNode* ValueStringGrammarAction(int value);
 ValueNode * ValueObjectGrammarAction(ObjectNode * objectIdentifier);
 
 /* 
  * Definciones
  * */
-DefinitionNode * EmptyDefinitionsGrammarAction();
-DefinitionNode * DefinitionGrammarAction(IdentifierNode * identifier, ParamsNode * params, MethodChainNode * methodChain);
+DefinitionsNode * EmptyDefinitionsGrammarAction();
+DefinitionNode * DefinitionGrammarAction(int identifier, ParamsBlockNode * params, MethodChainNode * methodChain);
 
 MethodChainNode * MethodChainGrammarAction(MethodNode* method, MethodChainNode* next);
 MethodChainNode * EmptyMethodChainGrammarAction();
-MethodIdentifierNode* MethodIdentifierGrammarAction(const char* name);
-MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsNode* params);
-MethodIdentifierNode * CustomMethodIdentifierGrammarAction(char* name);
+MethodIdentifierNode* MethodIdentifierGrammarAction(int name);
+MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode * params);
+MethodIdentifierNode * CustomMethodIdentifierGrammarAction(int name);
 
 /* Parametros */
-ValueNode * ParamStringGrammarAction(const char * sval);
-ValueNode * ParamIntegerGrammarAction(const int ival) ;
-ParamNode* ParamGrammarAction(ValueNode* value);
+ParamNode * ParamStringGrammarAction(int sval);
+ParamNode * ParamIntegerGrammarAction(int ival) ;
+ParamsNode* ParamGrammarAction(ParamNode * paramNode);
 ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier);
 ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement);
 ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject);
 ParamsNode* ParamsGrammarAction(ParamNode* param, ParamsNode* params);
 ParamsBlockNode * ParamsBlockGrammarAction(ParamsNode * params);
-EmptyParamsNode* EmptyParamsGrammarAction();
+ParamsNode * EmptyParamsGrammarAction();
 
 
 /* 
  * Imaginate
  * */
-FocusNode* FocusAddGrammarAction(ValueNode* var);
-ForEachFocusNode * FocusForEachGrammarAction(ParamsNode * paramsBlock);
+FocusNode* FocusAddGrammarAction(ParamsBlockNode * var);
+ForEachFocusNode * FocusForEachGrammarAction(ParamsBlockNode * paramsBlock);
 
 RenderNode* RenderGrammarAction();
 RenderNode * RenderAllGrammarAction();

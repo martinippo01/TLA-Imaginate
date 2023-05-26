@@ -61,10 +61,9 @@ token ColonOperatorPatternAction(const char * lexeme) {
 
 token StringDelimiterPatternAction(const char * lexeme, int length) {
     LogDebug("StringDelimiterPatternAction: %s \n", lexeme);
-
     char * text = (char *) calloc(length + 1, sizeof(char));
     strncpy(text, lexeme, length);
-    yylval.token = text;
+    // yylval.token = text;
     return STRING_IDENTIFIER;
 }
 

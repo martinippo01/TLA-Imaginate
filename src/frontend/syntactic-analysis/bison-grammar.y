@@ -14,6 +14,7 @@
   struct AssignmentNode * assignment;
   struct DefinitionNode * definition;
 	struct FocusNode * focus;
+	struct ForEachFocusNode * foreachFocus;
   struct MethodChainNode * methodChain;
   struct RenderNode * render;
 
@@ -25,9 +26,8 @@
   struct ParamsBlockNode * paramsBlock;
   struct OptionalNode * optional;
 
-	struct EmptyParamsNode * emptyParams;
+	struct ParamsNode * emptyParams;
 	struct MethodNode * method;
-  struct CustomMethodIdentifierNode * customMethodIdentifier;
   struct ObjectNode * object;
   struct ObjectContentNode * objectContent;
   struct ObjectAssignmentNode * objectAssignment;
@@ -66,7 +66,6 @@
 
 
 %type <definition> definition 
-%type <methodIdentifier> customMethodIdentifier
 %type <methodIdentifier> methodIdentifier
 %type <param> param
 %type <params> params
@@ -76,6 +75,7 @@
 %type <methodChain> methodChain
 %type <method> method
 %type <focus> focus
+%type <foreachFocus> foreachFocus 
 %type <render> render
 %type <imaginate> imaginate
 %type <object> object
@@ -107,10 +107,12 @@ definition: DEF_KEYWORD IDENTIFIER paramsBlock COLON methodChain { $$ = Definiti
 
 emptyParams: OPEN_PARENTHESES CLOSE_PARENTHESES  { $$ = EmptyParamsGrammarAction(); };
 
-imaginate: IMAGINATE focus methodChain render    { $$ = ImaginateGrammarAction($2, $3, $4); };
+imaginate: IMAGINATE focus methodChain render    { $$ = ImaginateGrammarActionFocus($2, $3, $4); }
+				 |IMAGINATE foreachFocus methodChain render    { $$ = ImaginateGrammarActionForEachFocus($2, $3, $4); }; 
 
-focus: DOT ADDFOCUS paramsBlock                  { $$ = FocusAddGrammarAction($3); }
-     | DOT FOREACHFOCUS paramsBlock              { $$ = FocusForEachGrammarAction($2); };
+focus: DOT ADDFOCUS paramsBlock                  { $$ = FocusAddGrammarAction($3); };
+
+foreachFocus: DOT FOREACHFOCUS paramsBlock              { $$ = FocusForEachGrammarAction($3); };
 
 methodChain: method methodChain  { $$ = MethodChainGrammarAction($1, $2); }
            | /* empty */          { $$ = EmptyMethodChainGrammarAction(); };
