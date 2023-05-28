@@ -2,6 +2,7 @@
 #define BISON_ACTIONS_HEADER
 
 #include "../../backend/support/shared.h"
+#include "../../backend/support/garbage-collector.h"
 #include "../../backend/semantic-analysis/abstract-syntax-tree.h"
 
 /**

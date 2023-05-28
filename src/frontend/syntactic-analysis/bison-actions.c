@@ -23,8 +23,8 @@ void yyerror(const char * string) {
 }
 ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
     LogDebug("ParamInlineObjectGrammarAction: valueObject = %d", inlineObject);
-    ParamNode * node = (ParamNode*) malloc(sizeof(ParamNode));
-    node->value = (ValueNode*) malloc(sizeof(ValueNode));
+    ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
+    node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->value->type = OBJECT_VALUE;
     // node->value->value.objectValue = inlineObject;
     return node;
@@ -32,7 +32,7 @@ ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
  
 ValueNode * ValueObjectGrammarAction(ObjectNode * object) {
     LogDebug("ValueObjectGrammarAction: valueObject = %d", object);
-    ValueNode * node = (ValueNode*) malloc(sizeof(ValueNode));
+    ValueNode * node = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->type = OBJECT_VALUE;
     // node->value.objectValue = object;
     return node;
@@ -40,7 +40,7 @@ ValueNode * ValueObjectGrammarAction(ObjectNode * object) {
 
 ObjectContentNode* EmptyObjectContentGrammarAction() {
     LogDebug("EmptyObjectContentGrammarAction");
-    ObjectContentNode* node = (ObjectContentNode*) malloc(sizeof(ObjectContentNode));
+    ObjectContentNode* node = (ObjectContentNode*) calloc_(1, sizeof(ObjectContentNode));
     node->next = NULL;
     node->assignment = NULL;
     return node;
@@ -48,8 +48,8 @@ ObjectContentNode* EmptyObjectContentGrammarAction() {
 
 ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement) {
   LogDebug("ParamObjectElementGrammarAction: objectElement = %d", objectElement);
-    ParamNode * node = (ParamNode*) malloc(sizeof(ParamNode));
-    node->value = (ValueNode*) malloc(sizeof(ValueNode));
+    ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
+    node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->value->type = OBJECT_VALUE;
     // node->value->value.objectValue = objectElement->identifier;
     return node;
@@ -57,8 +57,8 @@ ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement) {
 
 ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
     LogDebug("ParamVariableGrammarAction: variableIdentifier = %d", variableIdentifier);
-    ParamNode * node = (ParamNode*) malloc(sizeof(ParamNode));
-    node->value = (ValueNode*) malloc(sizeof(ValueNode));
+    ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
+    node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->value->type = OBJECT_VALUE;
     // node->value->value.objectValue = variableIdentifier;
     return node;
@@ -66,7 +66,7 @@ ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
 
 AssignmentsNode * EmptyAssignmentsGrammarAction() {
     LogDebug("EmptyAssignmentsGrammarAction");
-    AssignmentsNode * node = (AssignmentsNode*) malloc(sizeof(AssignmentsNode));
+    AssignmentsNode * node = (AssignmentsNode*) calloc_(1, sizeof(AssignmentsNode));
     node->assignment= NULL;
     node->next = NULL;
     return node;
@@ -74,7 +74,7 @@ AssignmentsNode * EmptyAssignmentsGrammarAction() {
 
 DefinitionsNode * EmptyDefinitionsGrammarAction() {
     LogDebug("EmptyDefinitionsGrammarAction");
-    DefinitionsNode * node = (DefinitionsNode*) malloc(sizeof(DefinitionsNode));
+    DefinitionsNode * node = (DefinitionsNode*) calloc_(1, sizeof(DefinitionsNode));
     node->definition = NULL;
     node->next = NULL;
     return node;
@@ -82,14 +82,14 @@ DefinitionsNode * EmptyDefinitionsGrammarAction() {
 
 ForEachFocusNode * FocusForEachGrammarAction(ParamsBlockNode * paramsBlock) {
     LogDebug("FocusForEachGrammarAction: paramsBlock = %d", paramsBlock);
-    ForEachFocusNode * node = (ForEachFocusNode*) malloc(sizeof(ForEachFocusNode));
+    ForEachFocusNode * node = (ForEachFocusNode*) calloc_(1, sizeof(ForEachFocusNode));
     // node->var = &(paramsBlock->param->value);
     return node;
 }
 
 MethodChainNode * EmptyMethodChainGrammarAction() {
     LogDebug("EmptyMethodChainGrammarAction");
-    MethodChainNode * node = (MethodChainNode*) malloc(sizeof(MethodChainNode));
+    MethodChainNode * node = (MethodChainNode*) calloc_(1, sizeof(MethodChainNode));
     node->method = NULL;
     node->next = NULL;
     return node;
@@ -97,7 +97,7 @@ MethodChainNode * EmptyMethodChainGrammarAction() {
 
 ParamsBlockNode * ParamsBlockGrammarAction(ParamsNode * params) {
     LogDebug("ParamsBlockGrammarAction: params = %d", params);
-    ParamsBlockNode * node = (ParamsBlockNode*) malloc(sizeof(ParamsBlockNode));
+    ParamsBlockNode * node = (ParamsBlockNode*) calloc_(1, sizeof(ParamsBlockNode));
     node->params = params;
     return node;
 }
@@ -105,8 +105,8 @@ ParamsBlockNode * ParamsBlockGrammarAction(ParamsNode * params) {
 
 ParamNode * ParamStringGrammarAction(int sval) {
     LogDebug("ParamStringGrammarAction: sval = %d", sval);
-    ParamNode * node = (ParamNode*) malloc(sizeof(ParamNode));
-    ValueNode * value = (ValueNode*) malloc(sizeof(ValueNode));
+    ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
+    ValueNode * value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     value->type = STRING_VALUE;
     // value->value.stringValue = sval;
     node->value = value;
@@ -116,8 +116,8 @@ ParamNode * ParamStringGrammarAction(int sval) {
 
  ParamNode * ParamIntegerGrammarAction(const int ival) {
     LogDebug("ParamIntegerGrammarAction: ival = %d", ival);
-    ParamNode * node = (ParamNode*) malloc(sizeof(ParamNode));
-    ValueNode * value = (ValueNode*) malloc(sizeof(ValueNode));
+    ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
+    ValueNode * value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     value->type = INT_VALUE;
     value->value.intValue = ival;
     node->value = value;
@@ -128,7 +128,7 @@ ParamNode * ParamStringGrammarAction(int sval) {
 RenderNode * RenderAllGrammarAction() {
 
     LogDebug("RenderAllGrammarAction");
-    RenderNode * node = (RenderNode*) malloc(sizeof(RenderNode));
+    RenderNode * node = (RenderNode*) calloc_(1, sizeof(RenderNode));
     node->type = RENDERALL__;
 
     return node;
@@ -143,7 +143,7 @@ ParamsNode * EmptyParamsGrammarAction() {
 
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode * params) {
     LogDebug("MethodGrammarAction: optional = %d, methodIdentifier = %d, paramsBlock = %d");
-    MethodNode* node = (MethodNode*) malloc(sizeof(MethodNode));
+    MethodNode* node = (MethodNode*) calloc_(1, sizeof(MethodNode));
     node->identifier = identifier;
     node->params = params;
     return node;
@@ -151,21 +151,21 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
 
 
 MethodIdentifierNode * CustomMethodIdentifierGrammarAction(int name) {
-    MethodIdentifierNode* node = (MethodIdentifierNode*) malloc(sizeof(MethodIdentifierNode));
+    MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
     // node->name = strdup(name); 
     return node;
 }
 
 ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
     LogDebug(" ObjectNodeGrammarAction: objectIdentifier = %d");
-    ObjectNode* node = (ObjectNode*) malloc(sizeof(ObjectNode));
+    ObjectNode* node = (ObjectNode*) calloc_(1, sizeof(ObjectNode));
     // node->name = strdup(name); 
     return node;
 }
 
 ObjectContentNode* ObjectContentGrammarAction(ObjectAssignmentNode* assignment, ObjectContentNode* next) {
     LogDebug("ObjectContentGrammarAction: objectAssignment = %d, objectContent = %d");
-    ObjectContentNode* node = (ObjectContentNode*) malloc(sizeof(ObjectContentNode));
+    ObjectContentNode* node = (ObjectContentNode*) calloc_(1, sizeof(ObjectContentNode));
     node->assignment = assignment;
     node->next = next;
     return node;
@@ -174,7 +174,7 @@ ObjectContentNode* ObjectContentGrammarAction(ObjectAssignmentNode* assignment, 
 
 ObjectAssignmentNode* ObjectAssignmentIdentifierGrammarAction(IdentifierNode* variable, IdentifierNode * identifier) {
     LogDebug("ObjectAssignmentIdentifierGrammarAction: variableIdentifier = %d, value = %d");
-    ObjectAssignmentNode* node = (ObjectAssignmentNode*) malloc(sizeof(ObjectAssignmentNode));
+    ObjectAssignmentNode* node = (ObjectAssignmentNode*) calloc_(1, sizeof(ObjectAssignmentNode));
     node->variable = variable;
     node->rightHandIdentifier = identifier;
     node->rightHandValue = NULL;
@@ -184,7 +184,7 @@ ObjectAssignmentNode* ObjectAssignmentIdentifierGrammarAction(IdentifierNode* va
 
 ObjectAssignmentNode* ObjectAssignmentValueGrammarAction(IdentifierNode* variable, ValueNode * value) {
     LogDebug("ObjectAssignmentValueGrammarAction: variableIdentifier = %d, value = %d");
-    ObjectAssignmentNode* node = (ObjectAssignmentNode*) malloc(sizeof(ObjectAssignmentNode));
+    ObjectAssignmentNode* node = (ObjectAssignmentNode*) calloc_(1, sizeof(ObjectAssignmentNode));
     node->variable = variable;
     node->rightHandValue = value;
     node->rightHandIdentifier = NULL;
@@ -193,7 +193,7 @@ ObjectAssignmentNode* ObjectAssignmentValueGrammarAction(IdentifierNode* variabl
 
 ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, IdentifierNode * value) {
     LogDebug("ObjectElementGrammarAction: variableIdentifier = %d, objectElement = %d");
-    ObjectElementNode* node = (ObjectElementNode*) malloc(sizeof(ObjectElementNode));
+    ObjectElementNode* node = (ObjectElementNode*) calloc_(1, sizeof(ObjectElementNode));
     node->identifier = identifier;
     node->value = value;
     return node;
@@ -201,14 +201,14 @@ ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, Identi
 
 InlineObjectNode* InlineObjectGrammarAction(ObjectContentNode* content) {
     LogDebug("InlineObject: valueObject = %d");
-    InlineObjectNode* node = (InlineObjectNode*) malloc(sizeof(InlineObjectNode));
+    InlineObjectNode* node = (InlineObjectNode*) calloc_(1, sizeof(InlineObjectNode));
     node->content = content;
     return node;
 }
 
 AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode * expression) {
     LogDebug("AssignmentGrammarAction: assignment = %d, assignments = %d", identifier, expression);
-    AssignmentNode* assignment = malloc(sizeof(AssignmentNode));
+    AssignmentNode* assignment = calloc_(1, sizeof(AssignmentNode));
     assignment->identifier = identifier;
     assignment->expression = expression;
     return assignment;
@@ -216,7 +216,7 @@ AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode *
 
 DefinitionNode* DefinitionGrammarAction(int identifier, ParamsBlockNode * params, MethodChainNode * methodChain) {
     LogDebug("DefinitionGrammarAction: variableIdentifier = %d, methodChain = %d", identifier, methodChain);
-    DefinitionNode* definition = malloc(sizeof(DefinitionNode));
+    DefinitionNode* definition = calloc_(1, sizeof(DefinitionNode));
     // definition->identifier = identifier;
     definition->params = params;
     definition->methodChain = methodChain;
@@ -225,14 +225,14 @@ DefinitionNode* DefinitionGrammarAction(int identifier, ParamsBlockNode * params
 
 FocusNode* FocusAddGrammarAction(ParamsBlockNode * val) {
     LogDebug("FocusAddGrammarAction: paramsBlock = %d", val);
-    FocusNode* focus = malloc(sizeof(FocusNode));
+    FocusNode* focus = calloc_(1, sizeof(FocusNode));
     // focus->var = val;
     return focus;
 }
 
 MethodChainNode* MethodChainGrammarAction(MethodNode* method, MethodChainNode* next) {
     LogDebug("MethodChainGrammarAction: method = %d, methodChain = %d", method, next);
-    MethodChainNode* methodChain = malloc(sizeof(MethodChainNode));
+    MethodChainNode* methodChain = calloc_(1, sizeof(MethodChainNode));
     methodChain->method = method;
     methodChain->next = next;
     return methodChain;
@@ -240,13 +240,13 @@ MethodChainNode* MethodChainGrammarAction(MethodNode* method, MethodChainNode* n
 
 RenderNode* RenderGrammarAction() {
     LogDebug("RenderGrammarAction");
-    RenderNode* render = malloc(sizeof(RenderNode));
+    RenderNode* render = calloc_(1, sizeof(RenderNode));
     return render;
 }
 
 AssignmentsNode* AssignmentsGrammarAction(AssignmentNode* assignment, AssignmentsNode* next) {
     LogDebug("AssignmentsGrammarAction: assignment = %d, assignments = %d", assignment, next);
-    AssignmentsNode* assignments = malloc(sizeof(AssignmentsNode));
+    AssignmentsNode* assignments = calloc_(1, sizeof(AssignmentsNode));
     assignments->assignment = assignment;
     assignments->next = next;
     return assignments;
@@ -254,7 +254,7 @@ AssignmentsNode* AssignmentsGrammarAction(AssignmentNode* assignment, Assignment
 
 DefinitionsNode* DefinitionsGrammarAction(DefinitionNode* definition, DefinitionsNode* next) {
     LogDebug("DefinitionsGrammarAction: definition = %d, definitions = %d", definition, next);
-    DefinitionsNode* definitions = malloc(sizeof(DefinitionsNode));
+    DefinitionsNode* definitions = calloc_(1, sizeof(DefinitionsNode));
     definitions->definition = definition;
     definitions->next = next;
     return definitions;
@@ -263,7 +263,7 @@ DefinitionsNode* DefinitionsGrammarAction(DefinitionNode* definition, Definition
 
 ImaginateNode* ImaginateGrammarActionForEachFocus(ForEachFocusNode* focuses, MethodChainNode* methodChain, RenderNode* render) {
     LogDebug("ImaginateGrammarAction: focus = %d, methodChain = %d, render = %d");
-    ImaginateNode* imaginate = malloc(sizeof(ImaginateNode));
+    ImaginateNode* imaginate = calloc_(1, sizeof(ImaginateNode));
     // imaginate->focus = focuses;
     imaginate->methodChain = methodChain;
     imaginate->render = render;
@@ -272,7 +272,7 @@ ImaginateNode* ImaginateGrammarActionForEachFocus(ForEachFocusNode* focuses, Met
 
 ImaginateNode* ImaginateGrammarActionFocus(FocusNode* focus, MethodChainNode* methodChain, RenderNode* render) {
     LogDebug("ImaginateGrammarAction: focus = %d, methodChain = %d, render = %d", focus, methodChain, render);
-    ImaginateNode* imaginate = malloc(sizeof(ImaginateNode));
+    ImaginateNode* imaginate = calloc_(1, sizeof(ImaginateNode));
     imaginate->focus = focus;
     imaginate->methodChain = methodChain;
     imaginate->render = render;
@@ -281,14 +281,14 @@ ImaginateNode* ImaginateGrammarActionFocus(FocusNode* focus, MethodChainNode* me
 
 IdentifierNode* VariableIdentifierGrammarAction(int name) {
     LogDebug("VariableIdentifierGrammarAction: variable = %d", name);
-    IdentifierNode* node = (IdentifierNode*) malloc(sizeof(IdentifierNode));
+    IdentifierNode* node = (IdentifierNode*) calloc_(1, sizeof(IdentifierNode));
     //node->name = strdup(name); 
     return node;
 }
 
 ValueNode* ValueIntegerGrammarAction(const int value) {
     LogDebug("ValueIntegerGrammarAction: ival = %d", value);
-    ValueNode* node = (ValueNode*) malloc(sizeof(ValueNode));
+    ValueNode* node = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->type = INT_VALUE;
     node->value.intValue = value;
     return node;
@@ -296,7 +296,7 @@ ValueNode* ValueIntegerGrammarAction(const int value) {
 
 ValueNode* ValueStringGrammarAction(const int value) {
     LogDebug("ValueStringGrammarAction: sval = %d", value);
-    ValueNode* node = (ValueNode*) malloc(sizeof(ValueNode));
+    ValueNode* node = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->type = STRING_VALUE;
     //node->value.stringValue = strdup(value); 
     return node;
@@ -304,14 +304,14 @@ ValueNode* ValueStringGrammarAction(const int value) {
 
 MethodIdentifierNode* MethodIdentifierGrammarAction(const int name) {
     LogDebug("MethodIdentifierGrammarAction: sval = %d", name);
-    MethodIdentifierNode* node = (MethodIdentifierNode*) malloc(sizeof(MethodIdentifierNode));
+    MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
     //node->name = strdup(name); 
     return node;
 }
 
 ParamsNode* ParamGrammarAction(ParamNode * param) {
     LogDebug("ParamGrammarAction: param = %d");
-    ParamsNode* node = (ParamsNode*) malloc(sizeof(ParamsNode));
+    ParamsNode* node = (ParamsNode*) calloc_(1, sizeof(ParamsNode));
     node->param = param;
     node->next = NULL;
     return node;
@@ -319,7 +319,7 @@ ParamsNode* ParamGrammarAction(ParamNode * param) {
 
 ParamsNode* ParamsGrammarAction(ParamNode* param, ParamsNode* params) {
     LogDebug("ParamsGrammarAction: param = %d, params = %d", param, params);
-    ParamsNode* node = (ParamsNode*) malloc(sizeof(ParamsNode));
+    ParamsNode* node = (ParamsNode*) calloc_(1, sizeof(ParamsNode));
     node->param = param;
     node->next = params;
     return node;
@@ -327,14 +327,14 @@ ParamsNode* ParamsGrammarAction(ParamNode* param, ParamsNode* params) {
 
 OptionalNode* OptionalQuestionSignGrammarAction() {
     LogDebug("OptionalQuestionSignGrammarAction");
-    OptionalNode* node = (OptionalNode*) malloc(sizeof(OptionalNode));
+    OptionalNode* node = (OptionalNode*) calloc_(1, sizeof(OptionalNode));
     node->isQuestionMarkPresent = 1;
     return node;
 }
 
 OptionalNode* EmptyOptionalGrammarAction() {
     LogDebug("EmptyOptionalGrammarAction");
-    OptionalNode* node = (OptionalNode*) malloc(sizeof(OptionalNode));
+    OptionalNode* node = (OptionalNode*) calloc_(1, sizeof(OptionalNode));
     node->isQuestionMarkPresent = 0;
     return node;
 }
@@ -362,7 +362,7 @@ OptionalNode* EmptyOptionalGrammarAction() {
 	* variable es un simple entero, en lugar de un nodo.
 	*/
 
-    ProgramNode* program = malloc(sizeof(ProgramNode));
+    ProgramNode* program = calloc_(1, sizeof(ProgramNode));
     program->assignments = assignments;
     program->definitions = definitions;
     program->imaginate = imaginate;

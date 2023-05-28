@@ -2,6 +2,7 @@
 
 List allocated_memory = NULL;
 
+
 void * calloc_(size_t nitems, size_t size) {
   List new_node = calloc(sizeof(struct Node), 1);
   void * requested_memory = calloc(nitems, size);
@@ -11,6 +12,15 @@ void * calloc_(size_t nitems, size_t size) {
   return requested_memory;
 }
 
+
+void * malloc_(size_t bytes) {
+  List new_node = calloc(sizeof(struct Node), 1);
+  void * requested_memory = malloc(bytes);
+  new_node->ptr = requested_memory;
+  new_node->next = allocated_memory;
+  allocated_memory = new_node;
+  return requested_memory;
+}
 
 static inline void free_all_rec(List node) {
   if(node == NULL) return;

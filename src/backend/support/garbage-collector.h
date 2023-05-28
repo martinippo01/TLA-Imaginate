@@ -12,6 +12,8 @@ struct Node {
 
 void * calloc_(size_t nitems, size_t size);
 
+void * malloc_(size_t bytes);
+
 void free_all();
 
 

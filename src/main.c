@@ -1,4 +1,5 @@
 #include "backend/code-generation/generator.h"
+#include "backend/support/garbage-collector.h"
 #include "backend/support/logger.h"
 #include "backend/support/shared.h"
 #include "frontend/syntactic-analysis/bison-parser.h"
@@ -46,5 +47,7 @@ const int main(const int argumentCount, const char ** arguments) {
 			LogError("Error desconocido mientras se ejecutaba el analizador Bison (codigo %d).", result);
 	}
 	LogInfo("Fin.");
+	//decirle al garbage-collector que libere toda la memoria
+	free_all();
 	return result;
 }
