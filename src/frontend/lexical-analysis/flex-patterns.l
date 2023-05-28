@@ -46,6 +46,6 @@ str             .+
 "blackAndWhite"       { return AddBlackAndWhitePatternAction(yytext); }
 {digit}+                { return IntegerPatternAction(yytext, yyleng); }
 {whitespace}+                   /* ignore whitespace */;
-{letter}({alphanumeric}|-)* { return IdentifierPatternAction(yytext); }
+{letter}({alphanumeric}|-)* { return IdentifierPatternAction(yytext, yyleng); }
 \"{str}\"                   {return StringDelimiterPatternAction(yytext, yyleng);}
 %%

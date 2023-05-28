@@ -37,15 +37,16 @@
 // Terminales.
 	token token;
 	int integer;
+	char * string;
 }
 
 // IDs y tipos de los tokens terminales generados desde Flex.
 %token <integer> INTEGER
 %token <token> VAL 
 %token <token> COLON
-%token <token> IDENTIFIER
-%token <token> STRING_IDENTIFIER 
-%token <token> STRING_DELIMITER 
+%token <string> IDENTIFIER
+%token <string> STRING_IDENTIFIER 
+%token <string> STRING_DELIMITER 
 %token <token> DEF_KEYWORD
 %token <token> OPEN_PARENTHESES CLOSE_PARENTHESES CLOSE_CURLY_BRACE OPEN_CURLY_BRACE
 %token <token> DOT COMMA QUESTION_SIGN

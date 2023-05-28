@@ -1,4 +1,5 @@
 #include "../../backend/support/logger.h"
+#include "../../backend/support/garbage-collector.h"
 #include "flex-actions.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -60,17 +61,21 @@ token ColonOperatorPatternAction(const char * lexeme) {
 }
 
 token StringDelimiterPatternAction(const char * lexeme, int length) {
-    LogDebug("StringDelimiterPatternAction: %s \n", lexeme);
-    char * text = (char *) calloc(length + 1, sizeof(char));
-    strncpy(text, lexeme, length);
-    // yylval.token = text;
-    return STRING_IDENTIFIER;
+  LogDebug("StringDelimiterPatternAction: %s \n", lexeme);
+  char * str =  calloc_(length + 1, sizeof(char));
+  strncpy(str, lexeme, length);
+  str[length] = '\0';
+	yylval.string = str;
+  return STRING_IDENTIFIER; 
 }
 
-token IdentifierPatternAction(const char * lexeme) {
-    LogDebug("IdentifierPatternAction: %s \n", lexeme);
-    yylval.token = IDENTIFIER;
-    return IDENTIFIER;
+token IdentifierPatternAction(const char * lexeme, const int length) {
+  LogDebug("IdentifierPatternAction: %s \n", lexeme);
+	char * str = calloc_(length + 1, sizeof(char));
+	strncpy(str, lexeme, length);
+	str[length] = '\0';
+	yylval.string = str;
+  return IDENTIFIER;
 }
 
 token DefKeywordPatternAction(const char * lexeme) {
