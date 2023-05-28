@@ -2,6 +2,11 @@
 
 List allocated_memory = NULL;
 
+char * strdup_(const char * str) {
+  char * alloc = malloc_(strlen(str) + 1);
+  strcpy(alloc, str); 
+  return alloc;
+}
 
 void * calloc_(size_t nitems, size_t size) {
   List new_node = calloc(sizeof(struct Node), 1);
@@ -25,6 +30,7 @@ void * malloc_(size_t bytes) {
 static inline void free_all_rec(List node) {
   if(node == NULL) return;
   free_all_rec(node->next);
+  free(node->ptr);
   free(node);
 }
 

@@ -21,6 +21,7 @@ typedef struct DefinitionsNode {
 
 typedef struct ImaginateNode {
     struct FocusNode* focus;
+    struct ForEachFocusNode * focuses;
     struct MethodChainNode* methodChain;
     struct RenderNode* render;
 } ImaginateNode;
@@ -93,7 +94,7 @@ typedef struct OptionalNode {
 } OptionalNode;
 
 typedef struct MethodIdentifierNode {
-    char* name;
+    char * name;
 } MethodIdentifierNode;
 
 typedef struct EmptyParamsNode {
