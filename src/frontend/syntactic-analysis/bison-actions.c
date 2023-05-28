@@ -1,5 +1,6 @@
 #include "../../backend/domain-specific/calculator.h"
 #include "../../backend/support/logger.h"
+#include "../../backend/semantic-analysis/adapters.h"
 #include "bison-actions.h"
 #include <stdio.h>
 #include <string.h>
@@ -26,6 +27,7 @@ ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
     node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->value->type = OBJECT_VALUE;
+    //hay que agregarlo a la tabla de simbolos y ahi darle un IdentifierNode
     // node->value->value.objectValue = inlineObject;
     return node;
 }
@@ -60,7 +62,7 @@ ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
     node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->value->type = OBJECT_VALUE;
-    // node->value->value.objectValue = variableIdentifier;
+    node->value->value.objectValue = variableIdentifier;
     return node;
 }
 
@@ -83,7 +85,7 @@ DefinitionsNode * EmptyDefinitionsGrammarAction() {
 ForEachFocusNode * FocusForEachGrammarAction(ParamsBlockNode * paramsBlock) {
     LogDebug("FocusForEachGrammarAction: paramsBlock = %d");
     ForEachFocusNode * node = (ForEachFocusNode*) calloc_(1, sizeof(ForEachFocusNode));
-    // node->var = &(paramsBlock->param->value);
+    node->var = paramsBlockToValuesBlock(paramsBlock);
     return node;
 }
 
@@ -121,7 +123,6 @@ ParamNode * ParamStringGrammarAction(const char * sval) {
     value->type = INT_VALUE;
     value->value.intValue = ival;
     node->value = value;
-    // node->value.intValue = ival;
     return 0;
 }
 
@@ -160,7 +161,8 @@ MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name) {
 ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
     LogDebug(" ObjectNodeGrammarAction: objectIdentifier = %d");
     ObjectNode* node = (ObjectNode*) calloc_(1, sizeof(ObjectNode));
-    // node->name = strdup(name); 
+    // aca tambien falta lo de tabla de simbolos
+    // node->node = content; 
     return node;
 }
 
