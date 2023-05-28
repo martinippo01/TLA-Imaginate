@@ -46,6 +46,7 @@
 %token <token> COLON
 %token <string> IDENTIFIER
 %token <string> STRING_IDENTIFIER 
+%token <string> STRING_DELIMITER 
 %token <token> DEF_KEYWORD
 %token <token> OPEN_PARENTHESES CLOSE_PARENTHESES CLOSE_CURLY_BRACE OPEN_CURLY_BRACE
 %token <token> DOT COMMA QUESTION_SIGN

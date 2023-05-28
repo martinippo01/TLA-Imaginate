@@ -52,25 +52,25 @@ ImaginateNode* ImaginateGrammarActionForEachFocus(ForEachFocusNode* focuses, Met
  * */
 AssignmentsNode * EmptyAssignmentsGrammarAction();
 AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode * expression);
-IdentifierNode* VariableIdentifierGrammarAction(int name);
+IdentifierNode* VariableIdentifierGrammarAction(const char * name);
 ValueNode* ValueIntegerGrammarAction(int value);
-ValueNode* ValueStringGrammarAction(int value);
+ValueNode* ValueStringGrammarAction(const char * value);
 ValueNode * ValueObjectGrammarAction(ObjectNode * objectIdentifier);
 
 /* 
  * Definciones
  * */
 DefinitionsNode * EmptyDefinitionsGrammarAction();
-DefinitionNode * DefinitionGrammarAction(int identifier, ParamsBlockNode * params, MethodChainNode * methodChain);
+DefinitionNode * DefinitionGrammarAction(const char * identifier, ParamsBlockNode * params, MethodChainNode * methodChain);
 
 MethodChainNode * MethodChainGrammarAction(MethodNode* method, MethodChainNode* next);
 MethodChainNode * EmptyMethodChainGrammarAction();
-MethodIdentifierNode* MethodIdentifierGrammarAction(int name);
+MethodIdentifierNode* MethodIdentifierGrammarAction(const int name);
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode * params);
-MethodIdentifierNode * CustomMethodIdentifierGrammarAction(int name);
+MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name);
 
 /* Parametros */
-ParamNode * ParamStringGrammarAction(int sval);
+ParamNode * ParamStringGrammarAction(const char * sval);
 ParamNode * ParamIntegerGrammarAction(int ival) ;
 ParamsNode* ParamGrammarAction(ParamNode * paramNode);
 ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier);

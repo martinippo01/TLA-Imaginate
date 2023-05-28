@@ -103,7 +103,7 @@ ParamsBlockNode * ParamsBlockGrammarAction(ParamsNode * params) {
 }
 
 
-ParamNode * ParamStringGrammarAction(int sval) {
+ParamNode * ParamStringGrammarAction(const char * sval) {
     LogDebug("ParamStringGrammarAction: sval = %d", sval);
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
     ValueNode * value = (ValueNode*) calloc_(1, sizeof(ValueNode));
@@ -150,7 +150,7 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
 }
 
 
-MethodIdentifierNode * CustomMethodIdentifierGrammarAction(int name) {
+MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name) {
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
     // node->name = strdup(name); 
     return node;
@@ -214,7 +214,7 @@ AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode *
     return assignment;
 }
 
-DefinitionNode* DefinitionGrammarAction(int identifier, ParamsBlockNode * params, MethodChainNode * methodChain) {
+DefinitionNode* DefinitionGrammarAction(const char * identifier, ParamsBlockNode * params, MethodChainNode * methodChain) {
     LogDebug("DefinitionGrammarAction: variableIdentifier = %d, methodChain = %d", identifier, methodChain);
     DefinitionNode* definition = calloc_(1, sizeof(DefinitionNode));
     // definition->identifier = identifier;
@@ -279,7 +279,7 @@ ImaginateNode* ImaginateGrammarActionFocus(FocusNode* focus, MethodChainNode* me
     return imaginate;
 }
 
-IdentifierNode* VariableIdentifierGrammarAction(int name) {
+IdentifierNode* VariableIdentifierGrammarAction(const char *  name) {
     LogDebug("VariableIdentifierGrammarAction: variable = %d", name);
     IdentifierNode* node = (IdentifierNode*) calloc_(1, sizeof(IdentifierNode));
     //node->name = strdup(name); 
@@ -294,7 +294,7 @@ ValueNode* ValueIntegerGrammarAction(const int value) {
     return node;
 }
 
-ValueNode* ValueStringGrammarAction(const int value) {
+ValueNode* ValueStringGrammarAction(const char * value) {
     LogDebug("ValueStringGrammarAction: sval = %d", value);
     ValueNode* node = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->type = STRING_VALUE;
