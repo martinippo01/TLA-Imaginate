@@ -7,7 +7,6 @@
 #define SIZE 101 // A prime number
 
 typedef struct value {
-    char scope[256];
     char type[256];
     char initialization[256];
 } Value;

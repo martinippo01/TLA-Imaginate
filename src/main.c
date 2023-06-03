@@ -1,5 +1,6 @@
 #include "backend/code-generation/generator.h"
 #include "backend/support/garbage-collector.h"
+#include "backend/support/hashmap.h"
 #include "backend/support/logger.h"
 #include "backend/support/shared.h"
 #include "frontend/syntactic-analysis/bison-parser.h"
@@ -15,6 +16,8 @@ const int main(const int argumentCount, const char ** arguments) {
 	state.program = NULL;
 	state.result = 0;
 	state.succeed = false;
+	state.next_inline_object_id = 0;
+	initHashMap(state.symbols_table);
 
 	// Mostrar parámetros recibidos por consola.
 	for (int i = 0; i < argumentCount; ++i) {
@@ -49,5 +52,6 @@ const int main(const int argumentCount, const char ** arguments) {
 	LogInfo("Fin.");
 	//decirle al garbage-collector que libere toda la memoria
 	free_all();
+	destroy(state.symbols_table);
 	return result;
 }

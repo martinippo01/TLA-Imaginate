@@ -1,9 +1,11 @@
 #include "../../backend/domain-specific/calculator.h"
 #include "../../backend/support/logger.h"
+#include "../../backend/support/hashmap.h"
 #include "../../backend/semantic-analysis/adapters.h"
 #include "bison-actions.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 /**
  * Implementación de "bison-grammar.h".
@@ -22,15 +24,33 @@ void yyerror(const char * string) {
 	}
 	LogErrorRaw("\n\n");
 }
+
+char* concatIntToStr(const char* str, int num) {
+    char* newStr = malloc(strlen(str) + 50); 
+    sprintf(newStr, "%s%d", str, num); 
+    return newStr;
+}
+
 ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
     LogDebug("ParamInlineObjectGrammarAction: valueObject = %d");
+
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
     node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->value->type = OBJECT_VALUE;
-    //hay que agregarlo a la tabla de simbolos y ahi darle un IdentifierNode
+
+    int id = state.next_inline_object_id++;
+    Value * value = calloc_(1, sizeof(Value));
+
+    char * concatenated_str = concatIntToStr("inlineObject", id);
+    put(state.symbols_table, concatenated_str, *value); 
+
+    //probably need to create a new symbols_table for inline objects!
+
     // node->value->value.objectValue = inlineObject;
     return node;
 }
+
+
  
 ValueNode * ValueObjectGrammarAction(ObjectNode * object) {
     LogDebug("ValueObjectGrammarAction: valueObject = %d");
