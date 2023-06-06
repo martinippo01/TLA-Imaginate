@@ -38,7 +38,7 @@ typedef struct DefinitionNode {
 } DefinitionNode;
 
 typedef struct FocusNode {
-    struct ValueNode* var;
+    struct ValueNode * var;
 } FocusNode;
 
 typedef struct ForEachFocusNode {
@@ -102,7 +102,7 @@ typedef struct EmptyParamsNode {
 } EmptyParamsNode;
 
 typedef struct MethodNode {
-    MethodIdentifierNode* identifier;
+    MethodIdentifierNode * identifier;
     ParamsBlockNode * params;
 } MethodNode;
 
