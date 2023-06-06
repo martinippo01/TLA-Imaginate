@@ -52,7 +52,8 @@ void generateMethodChain(MethodChainNode * methodChainNode){
 }
 void generateMethod(MethodNode * methodNode){
 	LogInfo("Llegue al method Node .");
-	//TODO Fijate que methodNode->params es un arreglo de ValueNode
+	//TODO Fijate que methodNode->params es un arreglo de ValueNode.
+	
 	//TODO Fijate que methodNode->identifier es un arreglo tiene internamente un string
 	if(methodNode == NULL)
 		return;
