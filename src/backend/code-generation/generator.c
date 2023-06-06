@@ -7,7 +7,7 @@
 
 void Generator(ProgramNode * program) {
 	LogInfo("Llegue al program Node .");
-
+	//TODO aca esta el segfault
 	generateImagenate(program->imaginate);
 }
 void generateImagenate(ImaginateNode * imaginateNode){
