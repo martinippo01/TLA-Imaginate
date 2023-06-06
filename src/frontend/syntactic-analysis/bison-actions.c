@@ -133,7 +133,7 @@ ParamNode * ParamStringGrammarAction(const char * sval) {
     value->value.stringValue = calloc_(strlen(sval) + 1, sizeof(char));
     strcpy(value->value.stringValue, sval);
     node->value = value;
-    return 0;
+    return node;
 }
 
  ParamNode * ParamIntegerGrammarAction(const int ival) {
@@ -143,7 +143,7 @@ ParamNode * ParamStringGrammarAction(const char * sval) {
     value->type = INT_VALUE;
     value->value.intValue = ival;
     node->value = value;
-    return 0;
+    return node;
 }
 
 RenderNode * RenderAllGrammarAction() {

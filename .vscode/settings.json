@@ -3,6 +3,14 @@
         "logger.h": "c",
         "limits": "c",
         "*.tcc": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "climits": "c",
+        "cmath": "c",
+        "cstdarg": "c",
+        "cstdio": "c",
+        "cstdlib": "c",
+        "cinttypes": "c",
+        "cstdint": "c",
+        "typeinfo": "c"
     }
 }
