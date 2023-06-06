@@ -17,13 +17,27 @@ void generateImagenate(ImaginateNode * imaginateNode){
 	generateMethodChain(imaginateNode->methodChain);
 	generateRender(imaginateNode->render);
 }
+void generateParam(ParamNode * paramNode){
+	LogInfo("Llegue al param Node .");
+	generateValue(paramNode->value);
+}
 void generateForEachFocus(ForEachFocusNode * forEachFocusNode){
 	LogInfo("Llegue al forEachFocus Node .");
 	//TODO Fijase que forEachFocusNode->var es un arreglo de ValueNode
 }
+void generateParams(ParamsNode * paramsNode){
+	LogInfo("Llegue al params Node .");
+	generateParam(paramsNode->param);
+	if(paramsNode->next != NULL)
+		generateParams(paramsNode->next);
+}
+void generateParamsBlock(ParamsBlockNode * paramsBlockNode){
+	LogInfo("Llegue al paramsBlock Node .");
+	generateParams(paramsBlockNode->params);
+}
 void generateFocus(FocusNode * focusNode){
 	LogInfo("Llegue al focus Node .");
-	generateValue(focusNode->var);
+	generateParamsBlock(focusNode->var);
 
 }
 void generateMethodChain(MethodChainNode * methodChainNode){

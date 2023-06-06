@@ -12,4 +12,9 @@ void generateForEachFocus(ForEachFocusNode * forEachFocusNode);
 void generateMethodChain(MethodChainNode * methodChainNode);
 
 void generateRender(RenderNode * renderNode);
+void generateParams(ParamsNode * paramsNode);
+void generateParamsBlock(ParamsBlockNode * paramsBlockNode);
+void generateValue(ValueNode * valueNode);
+void generateMethodChain(MethodChainNode * methodChainNode);
+void generateMethod(MethodNode * methodNode);
 #endif

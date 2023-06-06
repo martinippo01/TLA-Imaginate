@@ -252,8 +252,8 @@ DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ParamsBlockN
 
 FocusNode* FocusAddGrammarAction(ParamsBlockNode * val) {
     LogDebug("FocusAddGrammarAction: paramsBlock = %d");
-    FocusNode* focus = calloc_(1, sizeof(FocusNode));
-    // focus->var = val->params[0].param->value;
+    FocusNode * focus = calloc_(1, sizeof(FocusNode));
+    focus->var = val;
     return focus;
 }
 
@@ -371,9 +371,10 @@ ProgramNode* ProgramGrammarAction(AssignmentsNode* assignments, DefinitionsNode*
 
 	LogDebug("\tProgramGrammarAction(%d, %d, %d)");
 	state.succeed = true;
-  ProgramNode* program = calloc_(1, sizeof(ProgramNode));
-  program->assignments = assignments;
-  program->definitions = definitions;
-  program->imaginate = imaginate;
-  return program;
+    ProgramNode* program = calloc_(1, sizeof(ProgramNode));
+    state.program = program;
+    program->assignments = assignments;
+    program->definitions = definitions;
+    program->imaginate = imaginate;
+    return program;
 }

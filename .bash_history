@@ -154,3 +154,4 @@ ls script/
 ./script/build.sh
 ./script/start.sh program
 exit
+exit

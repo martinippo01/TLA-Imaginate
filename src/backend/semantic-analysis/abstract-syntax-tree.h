@@ -38,7 +38,7 @@ typedef struct DefinitionNode {
 } DefinitionNode;
 
 typedef struct FocusNode {
-    struct ValueNode * var;
+    struct ParamsBlockNode * var;
 } FocusNode;
 
 typedef struct ForEachFocusNode {
@@ -81,7 +81,7 @@ typedef struct ParamNode {
 } ParamNode;
 
 typedef struct ParamsNode {
-    ParamNode* param;
+    ParamNode * param;
     struct ParamsNode* next;
 } ParamsNode;
 
