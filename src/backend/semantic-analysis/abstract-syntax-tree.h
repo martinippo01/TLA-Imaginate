@@ -42,7 +42,8 @@ typedef struct FocusNode {
 } FocusNode;
 
 typedef struct ForEachFocusNode {
-    struct ValueNode * * var; //un arreglo de values almacen
+    //struct ValueNode * * var; //un arreglo de values almacen
+    struct ParamsBlockNode * var;
 } ForEachFocusNode ;
 
 typedef struct MethodChainNode {
@@ -94,7 +95,11 @@ typedef struct OptionalNode {
 } OptionalNode;
 
 typedef struct MethodIdentifierNode {
-    char * name;
+    enum {CUSTOM, OWN} type;
+    union{
+        char * name;
+        int id;
+    } value;
 } MethodIdentifierNode;
 
 typedef struct EmptyParamsNode {
@@ -102,6 +107,7 @@ typedef struct EmptyParamsNode {
 } EmptyParamsNode;
 
 typedef struct MethodNode {
+    OptionalNode * optional;
     MethodIdentifierNode * identifier;
     ParamsBlockNode * params;
 } MethodNode;

@@ -105,7 +105,7 @@ DefinitionsNode * EmptyDefinitionsGrammarAction() {
 ForEachFocusNode * FocusForEachGrammarAction(ParamsBlockNode * paramsBlock) {
     LogDebug("FocusForEachGrammarAction: paramsBlock = %d");
     ForEachFocusNode * node = (ForEachFocusNode*) calloc_(1, sizeof(ForEachFocusNode));
-    node->var = paramsBlockToValuesBlock(paramsBlock);
+    node->var = paramsBlock;
     return node;
 }
 
@@ -165,6 +165,7 @@ ParamsNode * EmptyParamsGrammarAction() {
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode * params) {
     LogDebug("MethodGrammarAction: optional = %d, methodIdentifier = %d, paramsBlock = %d");
     MethodNode* node = (MethodNode*) calloc_(1, sizeof(MethodNode));
+    node->optional = optional;
     node->identifier = identifier;
     node->params = params;
     return node;
@@ -173,8 +174,9 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
 
 MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name) {
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
-    node->name = calloc_(strlen(name) + 1, sizeof(char));
-    strcpy(node->name, name);
+    node->type = CUSTOM;
+    node->value.name = calloc_(strlen(name) + 1, sizeof(char));
+    strcpy(node->value.name, name);
     return node;
 }
 
@@ -333,7 +335,8 @@ ValueNode* ValueStringGrammarAction(const char * value) {
 MethodIdentifierNode* MethodIdentifierGrammarAction(const int id) {
     LogDebug("MethodIdentifierGrammarAction: sval = %d");
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
-    // node->name =  id;
+    node->type = OWN;
+    node->value.id = id;
     return node;
 }
 

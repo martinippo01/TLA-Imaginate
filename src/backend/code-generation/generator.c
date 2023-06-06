@@ -23,6 +23,9 @@ void generateParam(ParamNode * paramNode){
 void generateForEachFocus(ForEachFocusNode * forEachFocusNode){
 	LogInfo("Llegue al forEachFocus Node .");
 	//TODO Fijase que forEachFocusNode->var es un arreglo de ValueNode
+	if(forEachFocusNode == NULL)
+		return;
+	generateParamsBlock(forEachFocusNode->var);
 }
 void generateParams(ParamsNode * paramsNode){
 	LogInfo("Llegue al params Node .");
@@ -36,6 +39,8 @@ void generateParamsBlock(ParamsBlockNode * paramsBlockNode){
 }
 void generateFocus(FocusNode * focusNode){
 	LogInfo("Llegue al focus Node .");
+	if(focusNode == NULL)
+		return;
 	generateParamsBlock(focusNode->var);
 
 }
@@ -48,8 +53,17 @@ void generateMethodChain(MethodChainNode * methodChainNode){
 void generateMethod(MethodNode * methodNode){
 	LogInfo("Llegue al method Node .");
 	//TODO Fijate que methodNode->params es un arreglo de ValueNode
-
 	//TODO Fijate que methodNode->identifier es un arreglo tiene internamente un string
+	if(methodNode == NULL)
+		return;
+	
+	if(methodNode->identifier->type == OWN){
+		LogInfo("Llegue a un method own");
+		return;
+	}
+	LogInfo("Llegue a un method custom");
+
+	
 }
 void generateValue(ValueNode * valueNode){
 	LogInfo("Llegue al value Node .");
