@@ -1,57 +1,74 @@
 #include "../support/logger.h"
 #include "generator.h"
 
+#include <stdio.h>
+
 /**
  * Implementación de "generator.h".
  */
 
 void Generator(ProgramNode * program) {
-	LogInfo("Llegue al program Node .");
+	LogDebug("Llegue al program Node .");
 	generateImagenate(program->imaginate);
+
+	LogDebug("Generando archivo .py");
+
+	FILE * fd_py = fopen("generator.py", "w");
+
+	fprintf(fd_py, "from PIL import Image\noverlay_image = Image.open(\"src/backend/code-generation/python/focus/Water.png\").convert(\"RGBA\")\nbackground_image = Image.open(\"src/backend/code-generation/python/background/Bricks.png\").convert(\"RGBA\")\nbackground_image.paste(overlay_image, (0, 0), overlay_image)\nbackground_image.show()\nbackground_image.save(\"exported.png\")\n");
+
+	fclose(fd_py);
+
+	system("python3 generator.py");
+
 }
+
 void generateImagenate(ImaginateNode * imaginateNode){
-	LogInfo("Llegue al imaginate Node .");
+	LogDebug("Llegue al imaginate Node .");
 	generateFocus(imaginateNode->focus);
 	generateForEachFocus(imaginateNode->focuses);
 	generateMethodChain(imaginateNode->methodChain);
 	generateRender(imaginateNode->render);
 }
+
 void generateParam(ParamNode * paramNode){
-	LogInfo("Llegue al param Node .");
+	LogDebug("Llegue al param Node .");
 	generateValue(paramNode->value);
 }
+
 void generateForEachFocus(ForEachFocusNode * forEachFocusNode){
-	LogInfo("Llegue al forEachFocus Node .");
+	LogDebug("Llegue al forEachFocus Node .");
 	//TODO Fijase que forEachFocusNode->var es un arreglo de ValueNode
 	if(forEachFocusNode == NULL)
 		return;
 	generateParamsBlock(forEachFocusNode->var);
 }
+
 void generateParams(ParamsNode * paramsNode){
-	LogInfo("Llegue al params Node .");
+	LogDebug("Llegue al params Node .");
 	generateParam(paramsNode->param);
 	if(paramsNode->next != NULL)
 		generateParams(paramsNode->next);
 }
 void generateParamsBlock(ParamsBlockNode * paramsBlockNode){
-	LogInfo("Llegue al paramsBlock Node .");
+	LogDebug("Llegue al paramsBlock Node .");
 	generateParams(paramsBlockNode->params);
 }
 void generateFocus(FocusNode * focusNode){
-	LogInfo("Llegue al focus Node .");
+	LogDebug("Llegue al focus Node .");
 	if(focusNode == NULL)
 		return;
 	generateParamsBlock(focusNode->var);
 
 }
 void generateMethodChain(MethodChainNode * methodChainNode){
-	LogInfo("Llegue al methodChain Node .");
+	LogDebug("Llegue al methodChain Node .");
 	generateMethod(methodChainNode->method);
 	if(methodChainNode->next != NULL)
 		generateMethodChain(methodChainNode->next);
 }
 void generateMethod(MethodNode * methodNode){
-	LogInfo("Llegue al method Node .");
+	LogDebug("Llegue al method Node .");
 	//TODO Fijate que methodNode->params es un arreglo de ValueNode.
 	
 	//TODO Fijate que methodNode->identifier es un arreglo tiene internamente un string
@@ -59,39 +76,39 @@ void generateMethod(MethodNode * methodNode){
 		return;
 	
 	if(methodNode->identifier->type == OWN){
-		LogInfo("Llegue a un method own");
+		LogDebug("Llegue a un method own");
 		return;
 	}
-	LogInfo("Llegue a un method custom");
+	LogDebug("Llegue a un method custom");
 
 	
 }
 void generateValue(ValueNode * valueNode){
-	LogInfo("Llegue al value Node .");
+	LogDebug("Llegue al value Node .");
 	switch (valueNode->type)
 	{
 	case INT_VALUE:
-		LogInfo("Llegue al value Node con INT.");
+		LogDebug("Llegue al value Node con INT.");
 		break;
 	case STRING_VALUE:
-		LogInfo("Llegue al value Node con STRING.");
+		LogDebug("Llegue al value Node con STRING.");
 		break;
 	case OBJECT_VALUE:
-		LogInfo("Llegue al value Node con OBJECT.");
+		LogDebug("Llegue al value Node con OBJECT.");
 		break;
 	default:
 		break;
 	}
 }
 void generateRender(RenderNode * renderNode){
-	LogInfo("Llegue al render Node .");
+	LogDebug("Llegue al render Node .");
 	switch (renderNode->type)
 	{
 	case RENDER__:
-		LogInfo("Llegue al render Node con RENDER__.");
+		LogDebug("Llegue al render Node con RENDER__.");
 		break;
 	case RENDERALL__:
-		LogInfo("Llegue al render Node con RENDERALL__.");
+		LogDebug("Llegue al render Node con RENDERALL__.");
 		break;
 	default:
 		break;
