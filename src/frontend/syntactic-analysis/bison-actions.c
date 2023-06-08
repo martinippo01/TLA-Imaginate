@@ -213,9 +213,9 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
     LogDebug("MethodGrammarAction: optional = %d, methodIdentifier = %d, paramsBlock = %d");
 
 		if (identifier->type == CUSTOM) {
-			boolean isDefined = exists(state.symbols_table, identifier->value.name);
-			//probably need to define another table for methods (so in the value we can
-			//put the paramsBlock and check directly!)
+			if(!existsDefsTable(state.defs_table, identifier->value.name))
+				exit(1);
+
 		}
 
     MethodNode* node = (MethodNode*) calloc_(1, sizeof(MethodNode));
@@ -313,9 +313,16 @@ AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode *
 DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ArgumentsBlockNode * args, MethodChainNode * methodChain) {
     LogDebug("DefinitionGrammarAction: variableIdentifier = %d, methodChain = %d");
 
+		if(existsDefsTable(state.defs_table, identifierStr)) {
+			LogDebug("Already defined the token %s", identifierStr);
+			exit(1);
+		}
+
     IdentifierNode * identifier = calloc_(1, sizeof(IdentifierNode));
     identifier->name = strdup_(identifierStr);
     
+		putDefsTable(state.defs_table, strdup_(identifier->name), *(ValueDef *) calloc_(1, sizeof(ValueDef)));
+
     DefinitionNode* definition = calloc_(1, sizeof(DefinitionNode));
     definition->identifier = identifier;
     definition->args = args;
