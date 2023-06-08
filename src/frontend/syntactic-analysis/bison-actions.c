@@ -130,8 +130,7 @@ ParamNode * ParamStringGrammarAction(const char * sval) {
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
     ValueNode * value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     value->type = STRING_VALUE;
-    value->value.stringValue = calloc_(strlen(sval) + 1, sizeof(char));
-    strcpy(value->value.stringValue, sval);
+    value->value.stringValue = strdup_(sval);
     node->value = value;
     return node;
 }
@@ -175,8 +174,7 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
 MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name) {
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
     node->type = CUSTOM;
-    node->value.name = calloc_(strlen(name) + 1, sizeof(char));
-    strcpy(node->value.name, name);
+    node->value.name =  strdup_(name);
     return node;
 }
 
