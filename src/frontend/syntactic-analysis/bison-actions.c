@@ -212,11 +212,22 @@ ParamsNode * EmptyParamsGrammarAction() {
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode * params) {
     LogDebug("MethodGrammarAction: optional = %d, methodIdentifier = %d, paramsBlock = %d");
 
-		if (identifier->type == CUSTOM) {
-			if(!existsDefsTable(state.defs_table, identifier->value.name))
+		if (identifier->type == CUSTOM && !existsDefsTable(state.defs_table, identifier->value.name)) {
+				LogDebug("Repeated method definition %s", identifier->value.name);
 				exit(1);
-
 		}
+
+		if(identifier-> type == CUSTOM && !validateDefinitionSignature(state.defs_table, identifier->value.name, params)) {
+				LogDebug("Method def %s does not match the arguments passed", identifier->value.name);
+				exit(1);
+		}
+
+    //aca me queda llamar al backend y hacer lo que haria la definicion que estoy llamando junto con sus parametros
+    //que les pase!
+		// if(identifier->type == CUSTOM)
+		// 	applyCustomMethod(state.defs_table, identifier->value.name);
+		// else
+		// 	applyBuiltInMethod(identifier->value.id);
 
     MethodNode* node = (MethodNode*) calloc_(1, sizeof(MethodNode));
     node->optional = optional;
@@ -321,7 +332,11 @@ DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ArgumentsBlo
     IdentifierNode * identifier = calloc_(1, sizeof(IdentifierNode));
     identifier->name = strdup_(identifierStr);
     
-		putDefsTable(state.defs_table, strdup_(identifier->name), *(ValueDef *) calloc_(1, sizeof(ValueDef)));
+    ValueDef * defsEntry = calloc_(1, sizeof(ValueDef));
+    defsEntry->name = strdup_(identifierStr);
+    defsEntry->arguments = args;
+
+		putDefsTable(state.defs_table, strdup_(identifier->name), *defsEntry);
 
     DefinitionNode* definition = calloc_(1, sizeof(DefinitionNode));
     definition->identifier = identifier;

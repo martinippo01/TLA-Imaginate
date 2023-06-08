@@ -4,13 +4,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../../semantic-analysis/abstract-syntax-tree.h"
+
 #define SIZE 101 // A prime number
 #define MAX_METHOD_IDENTIFIER 256
 #define MAX_ARGUMENT_IDENTIFIER 256
 
 typedef struct valueDef {
-    char name[MAX_METHOD_IDENTIFIER];
-    //char * arguments[MAX_ARGUMENT_IDENTIFIER];
+    char * name;
+    ArgumentsBlockNode * arguments;
 } ValueDef;
 
 typedef struct defnode {
@@ -18,6 +20,8 @@ typedef struct defnode {
     ValueDef *value;
     struct defnode *next;
 } DefNode;
+
+extern ValueDef DEFAULT_VALUE_NODE;
 
 typedef DefNode * DefsTable[SIZE];
 
@@ -37,6 +41,9 @@ int existsDefsTable(DefsTable, const char *);
 
 // Función para eliminar y liberar la memoria del hashmap
 void destroyDefsTable(DefsTable);
+
+//valida si los parametros y argumentos matchean.
+int validateDefinitionSignature(DefsTable, char *, ParamsBlockNode *);
 
 #endif
 
