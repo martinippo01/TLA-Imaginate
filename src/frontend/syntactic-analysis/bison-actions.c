@@ -1,4 +1,4 @@
-#include "../../backend/domain-specific/calculator.h"
+#include "../../backend/domain-specific/def-execution.h"
 #include "../../backend/support/logger.h"
 #include "../../backend/symbols-table/values/hashmap_val.h"
 #include "../../backend/semantic-analysis/adapters.h"
@@ -222,12 +222,10 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
 				exit(1);
 		}
 
-    //aca me queda llamar al backend y hacer lo que haria la definicion que estoy llamando junto con sus parametros
-    //que les pase!
-		// if(identifier->type == CUSTOM)
-		// 	applyCustomMethod(state.defs_table, identifier->value.name);
-		// else
-		// 	applyBuiltInMethod(identifier->value.id);
+		if(identifier->type == CUSTOM)
+			applyCustomMethod(state.defs_table, identifier->value.name, params);
+		else
+			applyBuiltInMethod(identifier->value.id, params);
 
     MethodNode* node = (MethodNode*) calloc_(1, sizeof(MethodNode));
     node->optional = optional;
@@ -335,6 +333,7 @@ DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ArgumentsBlo
     ValueDef * defsEntry = calloc_(1, sizeof(ValueDef));
     defsEntry->name = strdup_(identifierStr);
     defsEntry->arguments = args;
+    defsEntry->body = methodChain;
 
 		putDefsTable(state.defs_table, strdup_(identifier->name), *defsEntry);
 

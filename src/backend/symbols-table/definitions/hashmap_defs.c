@@ -1,25 +1,6 @@
 #include "hashmap_defs.h"
 
-ValueDef DEFAULT_VALUE_NODE = { .arguments = NULL};
-
-int validateDefinitionSignature(DefsTable hashmap, char * identifier, ParamsBlockNode * params) {
-
-    ValueDef * value = getOrDefaultDefsTable(hashmap, identifier, &DEFAULT_VALUE_NODE);
-
-    // Ensure that value and params are not NULL
-    if (!value->arguments || !params) return 0;
-
-    ArgumentsNode *args = value->arguments->params;
-    ParamsNode *paramNode = params->params;
-
-    while(args != NULL && paramNode != NULL) {
-        args = args->next;
-        paramNode = paramNode->next;
-    }
-
-    // If both args and paramNode are NULL, then they have the same number of elements
-    return args == NULL && paramNode == NULL;
-}
+ValueDef DEFAULT_VALUE_NODE = { .arguments = NULL, .body = NULL};
 
 static unsigned long hash(const char *str) {
     unsigned long hash = 5381;

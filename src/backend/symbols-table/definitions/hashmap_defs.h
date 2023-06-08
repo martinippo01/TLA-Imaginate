@@ -13,6 +13,7 @@
 typedef struct valueDef {
     char * name;
     ArgumentsBlockNode * arguments;
+    MethodChainNode * body;
 } ValueDef;
 
 typedef struct defnode {
@@ -41,9 +42,6 @@ int existsDefsTable(DefsTable, const char *);
 
 // Función para eliminar y liberar la memoria del hashmap
 void destroyDefsTable(DefsTable);
-
-//valida si los parametros y argumentos matchean.
-int validateDefinitionSignature(DefsTable, char *, ParamsBlockNode *);
 
 #endif
 
