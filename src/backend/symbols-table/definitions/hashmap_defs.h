@@ -7,15 +7,13 @@
 #define SIZE 101 // A prime number
 
 typedef struct value {
-    enum {INT_TYPE, STRING_TYPE} type_enum; 
-    char type[256];
-    char initialization[256];
+    char name[256];
 } ValueDef;
 
-typedef struct hashnode {
+typedef struct defnode {
     char *id; 
     ValueDef *value;
-    struct hashnode *next;
+    struct defnode *next;
 } DefNode;
 
 typedef DefNode * DefsTable[SIZE];

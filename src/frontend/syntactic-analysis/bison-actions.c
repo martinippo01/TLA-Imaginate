@@ -31,6 +31,35 @@ char* concatIntToStr(const char* str, int num) {
     return newStr;
 }
 
+
+ArgumentsBlockNode * ArgumentsBlockGrammarAction(ArgumentsNode * arguments) {
+    ArgumentsBlockNode *node = (ArgumentsBlockNode *)calloc_(1, sizeof(ArgumentsBlockNode));
+    node->params = arguments;
+    return node;
+}
+
+ArgumentsNode * ArgumentGrammarAction(ArgumentNode * argument) {
+    ArgumentsNode *node = (ArgumentsNode *)calloc_(1, sizeof(ArgumentsNode));
+    node->arg = argument;
+    return node;
+}
+
+ArgumentsNode * ArgumentsGrammarAction(ArgumentNode * argument, ArgumentsNode * nextArgs) {
+    ArgumentsNode *node = ArgumentGrammarAction(argument);
+    node->next = nextArgs;
+    return node;
+}
+
+ArgumentNode * ArgumentIdentifierGrammarAction(const char * name) {
+    ArgumentNode *node = (ArgumentNode *)calloc_(1, sizeof(ArgumentNode));
+    node->value = (ValueNode *)calloc_(1, sizeof(ValueNode));
+    node->value->value.stringValue = strdup_(name);
+    return node;
+}
+
+ArgumentsNode * EmptyArgumentsGrammarAction() {
+    return (ArgumentsNode *)calloc_(1, sizeof(ArgumentsNode));
+}
 ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
     LogDebug("ParamInlineObjectGrammarAction: valueObject = %d");
 
@@ -282,7 +311,7 @@ AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode *
     return assignmentNode;
 }
 
-DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ParamsBlockNode * params, MethodChainNode * methodChain) {
+DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ArgumentsBlockNode * args, MethodChainNode * methodChain) {
     LogDebug("DefinitionGrammarAction: variableIdentifier = %d, methodChain = %d");
 
     IdentifierNode * identifier = calloc_(1, sizeof(IdentifierNode));
@@ -290,7 +319,7 @@ DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ParamsBlockN
     
     DefinitionNode* definition = calloc_(1, sizeof(DefinitionNode));
     definition->identifier = identifier;
-    definition->params = params;
+    definition->args = args;
     definition->methodChain = methodChain;
     return definition;
 }

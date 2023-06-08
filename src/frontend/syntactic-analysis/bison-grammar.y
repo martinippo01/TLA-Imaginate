@@ -24,6 +24,9 @@
   struct ParamNode * param;
   struct ParamsNode * params;
   struct ParamsBlockNode * paramsBlock;
+  struct ArgumentsBlockNode * argumentsBlock;
+  struct ArgumentNode * argument;
+  struct ArgumentsNode * arguments;
   struct OptionalNode * optional;
 
 	struct ParamsNode * emptyParams;
@@ -65,6 +68,9 @@
 %type <variableIdentifier> variableIdentifier
 %type <value> value
 
+%type <argumentsBlock> argumentsBlock
+%type <arguments> arguments
+%type <argument> argument
 
 %type <definition> definition 
 %type <methodIdentifier> methodIdentifier
@@ -104,7 +110,7 @@ value: STRING_IDENTIFIER                        { $$ = ValueStringGrammarAction(
 definitions: definition definitions             { $$ = DefinitionsGrammarAction($1, $2); }
            | /* empty */                        { $$ = EmptyDefinitionsGrammarAction(); };
 
-definition: DEF_KEYWORD IDENTIFIER paramsBlock COLON methodChain { $$ = DefinitionGrammarAction($2, $3, $5); };
+definition: DEF_KEYWORD IDENTIFIER argumentsBlock COLON methodChain { $$ = DefinitionGrammarAction($2, $3, $5); };
 
 emptyParams: OPEN_PARENTHESES CLOSE_PARENTHESES  { $$ = EmptyParamsGrammarAction(); };
 
@@ -123,6 +129,16 @@ method: DOT optional methodIdentifier paramsBlock
 
 paramsBlock: OPEN_PARENTHESES params CLOSE_PARENTHESES
            { $$ = ParamsBlockGrammarAction($2); };
+
+argumentsBlock: OPEN_PARENTHESES arguments CLOSE_PARENTHESES
+           { $$ = ArgumentsBlockGrammarAction($2); };
+
+
+arguments: argument         { $$ = ArgumentGrammarAction($1); }
+	  	   | argument COMMA arguments        { $$ = ArgumentsGrammarAction($1, $3); }
+         | /* empty */               { $$ = EmptyArgumentsGrammarAction(); };
+
+argument: IDENTIFIER { $$ = ArgumentIdentifierGrammarAction($1); }
 
 optional: QUESTION_SIGN           { $$ = OptionalQuestionSignGrammarAction(); }
         | /* empty */              { $$ = EmptyOptionalGrammarAction(); };
