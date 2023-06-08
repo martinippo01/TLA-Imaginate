@@ -1,0 +1,9 @@
+val flavour2: "./nubes.png"
+
+Imaginate
+    .forEachFocus("./luna.png","./zapatillas.png","./reloj.png")
+    .addBackground("./darkblue.png")
+    .addFlavour(flavour)
+    .pickFlavour("./estrellas.png", "./truenos.png", "./lluvia.png")
+    .addFlavour("./niebla.png")
+    .renderAll()

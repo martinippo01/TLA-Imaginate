@@ -76,9 +76,29 @@ ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement) {
     // node->value->value.objectValue = objectElement->identifier;
     return node;
 }
-
 ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
+
     LogDebug("ParamVariableGrammarAction: variableIdentifier = %d");
+
+    if(!exists(state.symbols_table, variableIdentifier->name)) {
+        printf("Error: Identifier %s is not defined.\n", variableIdentifier->name);
+        exit(1);
+    }
+
+    // If exists, retrieve the value
+    Value defaultVal;
+    Value* val = getOrDefault(state.symbols_table, variableIdentifier->name, &defaultVal);
+    ValueNode* valueNode = calloc_(1, sizeof(ValueNode));
+
+    // Depending on the type of the value, set the correct type and value in the ValueNode
+    if(strcmp(val->type, "int") == 0) {
+        valueNode->type = INT_VALUE;
+        valueNode->value.intValue = atoi(val->initialization);
+    } else if(strcmp(val->type, "string") == 0) {
+        valueNode->type = STRING_VALUE;
+        valueNode->value.stringValue = strdup(val->initialization);
+    }
+
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
     node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->value->type = OBJECT_VALUE;
@@ -130,8 +150,7 @@ ParamNode * ParamStringGrammarAction(const char * sval) {
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
     ValueNode * value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     value->type = STRING_VALUE;
-    value->value.stringValue = calloc_(strlen(sval) + 1, sizeof(char));
-    strcpy(value->value.stringValue, sval);
+    value->value.stringValue = strdup_(sval);
     node->value = value;
     return node;
 }
@@ -164,6 +183,13 @@ ParamsNode * EmptyParamsGrammarAction() {
 
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode * params) {
     LogDebug("MethodGrammarAction: optional = %d, methodIdentifier = %d, paramsBlock = %d");
+
+		if (identifier->type == CUSTOM) {
+			boolean isDefined = exists(state.symbols_table, identifier->value.name);
+			//probably need to define another table for methods (so in the value we can
+			//put the paramsBlock and check directly!)
+		}
+
     MethodNode* node = (MethodNode*) calloc_(1, sizeof(MethodNode));
     node->optional = optional;
     node->identifier = identifier;
@@ -175,8 +201,7 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
 MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name) {
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
     node->type = CUSTOM;
-    node->value.name = calloc_(strlen(name) + 1, sizeof(char));
-    strcpy(node->value.name, name);
+    node->value.name =  strdup_(name);
     return node;
 }
 
@@ -232,11 +257,29 @@ InlineObjectNode* InlineObjectGrammarAction(ObjectContentNode* content) {
 }
 
 AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode * expression) {
+
     LogDebug("AssignmentGrammarAction: assignment = %d, assignments = %d");
-    AssignmentNode* assignment = calloc_(1, sizeof(AssignmentNode));
-    assignment->identifier = identifier;
-    assignment->expression = expression;
-    return assignment;
+
+    Value* value = malloc(sizeof(Value));
+    if(expression->type == INT_VALUE) {
+        strcpy(value->type, "int");
+        sprintf(value->initialization, "%d", expression->value.intValue);
+    } else if(expression->type == STRING_VALUE) {
+        strcpy(value->type, "string");
+        strcpy(value->initialization, expression->value.stringValue);
+    }
+
+    int put_status = put(state.symbols_table, identifier->name, *value);
+
+    if(put_status == 0) {
+        printf("Error: Couldn't store the value in the symbol table.\n");
+    }
+
+    // Create AssignmentNode after storing the value to symbol table
+    AssignmentNode* assignmentNode = malloc(sizeof(AssignmentNode));
+    assignmentNode->identifier = identifier;
+    assignmentNode->expression = expression;
+    return assignmentNode;
 }
 
 DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ParamsBlockNode * params, MethodChainNode * methodChain) {
@@ -311,8 +354,10 @@ ImaginateNode* ImaginateGrammarActionFocus(FocusNode* focus, MethodChainNode* me
 
 IdentifierNode* VariableIdentifierGrammarAction(const char *  name) {
     LogDebug("VariableIdentifierGrammarAction: variable = %d");
+    
     IdentifierNode* node = (IdentifierNode*) calloc_(1, sizeof(IdentifierNode));
     node->name = strdup_(name); 
+
     return node;
 }
 

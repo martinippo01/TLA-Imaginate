@@ -7,6 +7,7 @@
 #define SIZE 101 // A prime number
 
 typedef struct value {
+    enum {INT_TYPE, STRING_TYPE} type_enum; 
     char type[256];
     char initialization[256];
 } Value;
