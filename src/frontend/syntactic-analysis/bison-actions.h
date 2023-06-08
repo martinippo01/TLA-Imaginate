@@ -61,13 +61,20 @@ ValueNode * ValueObjectGrammarAction(ObjectNode * objectIdentifier);
  * Definciones
  * */
 DefinitionsNode * EmptyDefinitionsGrammarAction();
-DefinitionNode * DefinitionGrammarAction(const char * identifier, ParamsBlockNode * params, MethodChainNode * methodChain);
+DefinitionNode * DefinitionGrammarAction(const char * identifier, ArgumentsBlockNode * params, MethodChainNode * methodChain);
 
 MethodChainNode * MethodChainGrammarAction(MethodNode* method, MethodChainNode* next);
 MethodChainNode * EmptyMethodChainGrammarAction();
 MethodIdentifierNode* MethodIdentifierGrammarAction(const int name);
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode * params);
 MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name);
+
+/* Argumentos */
+ArgumentsBlockNode * ArgumentsBlockGrammarAction(ArgumentsNode * arguments);
+ArgumentsNode * ArgumentGrammarAction(ArgumentNode * argument);
+ArgumentsNode * ArgumentsGrammarAction(ArgumentNode * argument, ArgumentsNode * nextArgs);
+ArgumentNode * ArgumentIdentifierGrammarAction(const char * name);
+ArgumentsNode * EmptyArgumentsGrammarAction();
 
 /* Parametros */
 ParamNode * ParamStringGrammarAction(const char * sval);

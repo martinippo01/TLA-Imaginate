@@ -1,12 +1,12 @@
-#ifndef HASHMAP_H
-#define HASHMAP_H
+#ifndef HASHMAP_VAL_H
+#define HASHMAP_VAL_H
 
 #include <stdlib.h>
 #include <string.h>
 
 #define SIZE 101 // A prime number
 
-typedef struct value {
+typedef struct valueVal {
     enum {INT_TYPE, STRING_TYPE} type_enum; 
     char type[256];
     char initialization[256];

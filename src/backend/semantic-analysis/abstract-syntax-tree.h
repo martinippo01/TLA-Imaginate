@@ -33,7 +33,7 @@ typedef struct AssignmentNode {
 
 typedef struct DefinitionNode {
   	struct IdentifierNode * identifier;
-    struct ParamsBlockNode * params;
+    struct ArgumentsBlockNode * args;
     struct MethodChainNode * methodChain;
 } DefinitionNode;
 
@@ -81,6 +81,16 @@ typedef struct ParamNode {
     ValueNode* value;
 } ParamNode;
 
+typedef struct ArgumentNode {
+    ValueNode* value;
+} ArgumentNode;
+
+typedef struct ArgumentsNode {
+    ArgumentNode * arg;
+    struct ArgumentsNode * next;
+} ArgumentsNode ;
+
+
 typedef struct ParamsNode {
     ParamNode * param;
     struct ParamsNode* next;
@@ -90,6 +100,10 @@ typedef struct ParamsBlockNode {
    struct ParamsNode * params; 
 } ParamsBlockNode;
 
+typedef struct ArgumentsBlockNode{
+   struct ArgumentsNode * params; 
+} ArgumentsBlockNode;
+ 
 typedef struct OptionalNode {
     int isQuestionMarkPresent; 
 } OptionalNode;

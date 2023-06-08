@@ -31,6 +31,35 @@ char* concatIntToStr(const char* str, int num) {
     return newStr;
 }
 
+
+ArgumentsBlockNode * ArgumentsBlockGrammarAction(ArgumentsNode * arguments) {
+    ArgumentsBlockNode *node = (ArgumentsBlockNode *)calloc_(1, sizeof(ArgumentsBlockNode));
+    node->params = arguments;
+    return node;
+}
+
+ArgumentsNode * ArgumentGrammarAction(ArgumentNode * argument) {
+    ArgumentsNode *node = (ArgumentsNode *)calloc_(1, sizeof(ArgumentsNode));
+    node->arg = argument;
+    return node;
+}
+
+ArgumentsNode * ArgumentsGrammarAction(ArgumentNode * argument, ArgumentsNode * nextArgs) {
+    ArgumentsNode *node = ArgumentGrammarAction(argument);
+    node->next = nextArgs;
+    return node;
+}
+
+ArgumentNode * ArgumentIdentifierGrammarAction(const char * name) {
+    ArgumentNode *node = (ArgumentNode *)calloc_(1, sizeof(ArgumentNode));
+    node->value = (ValueNode *)calloc_(1, sizeof(ValueNode));
+    node->value->value.stringValue = strdup_(name);
+    return node;
+}
+
+ArgumentsNode * EmptyArgumentsGrammarAction() {
+    return (ArgumentsNode *)calloc_(1, sizeof(ArgumentsNode));
+}
 ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
     LogDebug("ParamInlineObjectGrammarAction: valueObject = %d");
 
@@ -38,18 +67,17 @@ ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
     node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->value->type = OBJECT_VALUE;
 
-    int id = state.next_inline_object_id++;
-    Value * value = calloc_(1, sizeof(Value));
-
-    char * concatenated_str = concatIntToStr("inlineObject", id);
-    put(state.symbols_table, concatenated_str, *value); 
+    // int id = state.next_inline_object_id++;
+    // Value * value = calloc_(1, sizeof(Value));
+    //
+    // char * concatenated_str = concatIntToStr("inlineObject", id);
+    // put(state.symbols_table, concatenated_str, *value); 
 
     //probably need to create a new symbols_table for inline objects!
 
     // node->value->value.objectValue = inlineObject;
     return node;
 }
-
 
  
 ValueNode * ValueObjectGrammarAction(ObjectNode * object) {
@@ -185,9 +213,9 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
     LogDebug("MethodGrammarAction: optional = %d, methodIdentifier = %d, paramsBlock = %d");
 
 		if (identifier->type == CUSTOM) {
-			boolean isDefined = exists(state.symbols_table, identifier->value.name);
-			//probably need to define another table for methods (so in the value we can
-			//put the paramsBlock and check directly!)
+			if(!existsDefsTable(state.defs_table, identifier->value.name))
+				exit(1);
+
 		}
 
     MethodNode* node = (MethodNode*) calloc_(1, sizeof(MethodNode));
@@ -282,15 +310,22 @@ AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode *
     return assignmentNode;
 }
 
-DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ParamsBlockNode * params, MethodChainNode * methodChain) {
+DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ArgumentsBlockNode * args, MethodChainNode * methodChain) {
     LogDebug("DefinitionGrammarAction: variableIdentifier = %d, methodChain = %d");
+
+		if(existsDefsTable(state.defs_table, identifierStr)) {
+			LogDebug("Already defined the token %s", identifierStr);
+			exit(1);
+		}
 
     IdentifierNode * identifier = calloc_(1, sizeof(IdentifierNode));
     identifier->name = strdup_(identifierStr);
     
+		putDefsTable(state.defs_table, strdup_(identifier->name), *(ValueDef *) calloc_(1, sizeof(ValueDef)));
+
     DefinitionNode* definition = calloc_(1, sizeof(DefinitionNode));
     definition->identifier = identifier;
-    definition->params = params;
+    definition->args = args;
     definition->methodChain = methodChain;
     return definition;
 }

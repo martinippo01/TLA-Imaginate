@@ -1,21 +1,22 @@
-#ifndef HASHMAP_H
-#define HASHMAP_H
+#ifndef HASHMAP_DEF_H
+#define HASHMAP_DEF_H
 
 #include <stdlib.h>
 #include <string.h>
 
 #define SIZE 101 // A prime number
+#define MAX_METHOD_IDENTIFIER 256
+#define MAX_ARGUMENT_IDENTIFIER 256
 
-typedef struct value {
-    enum {INT_TYPE, STRING_TYPE} type_enum; 
-    char type[256];
-    char initialization[256];
+typedef struct valueDef {
+    char name[MAX_METHOD_IDENTIFIER];
+    //char * arguments[MAX_ARGUMENT_IDENTIFIER];
 } ValueDef;
 
-typedef struct hashnode {
+typedef struct defnode {
     char *id; 
     ValueDef *value;
-    struct hashnode *next;
+    struct defnode *next;
 } DefNode;
 
 typedef DefNode * DefsTable[SIZE];
