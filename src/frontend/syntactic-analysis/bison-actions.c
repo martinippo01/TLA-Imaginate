@@ -1,6 +1,6 @@
 #include "../../backend/domain-specific/calculator.h"
 #include "../../backend/support/logger.h"
-#include "../../backend/support/hashmap.h"
+#include "../../backend/symbols-table/values/hashmap_val.h"
 #include "../../backend/semantic-analysis/adapters.h"
 #include "bison-actions.h"
 #include <stdio.h>

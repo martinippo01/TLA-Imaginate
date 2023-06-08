@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include "../semantic-analysis/abstract-syntax-tree.h"
-#include "hashmap.h"
+#include "../symbols-table/values/hashmap_val.h"
 
 // Descriptor del archivo de entrada que utiliza Bison.
 extern FILE * yyin;

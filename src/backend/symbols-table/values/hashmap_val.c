@@ -1,4 +1,4 @@
-#include "hashmap.h"
+#include "hashmap_val.h"
 
 unsigned long hash(const char *str) {
     unsigned long hash = 5381;

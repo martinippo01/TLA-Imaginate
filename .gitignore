@@ -5,6 +5,7 @@ bin/
 cache/
 log/
 obj/
+.idea/
 node_modules/
 
 # Files:

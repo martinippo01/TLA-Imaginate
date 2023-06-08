@@ -1,0 +1,6 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - Unix Makefiles" "/Users/marcoscilipoti/Documents/1Q 2023/Teoria de Lenguajes y Automatas/TLA-Imaginate"
+CMake Error at CMakeLists.txt:3 (cmake_minimum_required):
+  CMake 3.22 or higher is required.  You are running version 3.20.2
+
+
+-- Configuring incomplete, errors occurred!

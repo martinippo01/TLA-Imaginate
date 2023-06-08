@@ -65,7 +65,10 @@ add_executable(Compiler
 	src/backend/support/logger.c
 	src/backend/semantic-analysis/adapters.c
 	src/backend/support/garbage-collector.c
-	src/backend/support/hashmap.c
+	
+	src/backend/symbols-table/values/hashmap_val.c
+	src/backend/symbols-table/definitions/hashmap_defs.c
+
 	src/frontend/lexical-analysis/flex-actions.c
 	src/frontend/lexical-analysis/flex-scanner.c
 	src/frontend/syntactic-analysis/bison-actions.c
