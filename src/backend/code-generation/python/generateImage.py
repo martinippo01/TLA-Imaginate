@@ -14,7 +14,7 @@ for bg in bg_list:
         overlay_image = Image.open(focus).convert("RGBA")
         background_image = Image.open(bg).convert("RGBA")
         background_image.paste(overlay_image, (0,0), overlay_image)
-        background_image.save("exported-" + str(img_count) + ".png")
+        background_image.convert("RGB").save("exported-" + str(img_count) + ".jpg")
         img_count = img_count + 1
 
 
