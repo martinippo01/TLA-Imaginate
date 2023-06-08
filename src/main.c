@@ -1,6 +1,6 @@
 #include "backend/code-generation/generator.h"
 #include "backend/support/garbage-collector.h"
-#include "backend/support/hashmap.h"
+#include "backend/symbols-table/values/hashmap_val.h"
 #include "backend/support/logger.h"
 #include "backend/support/shared.h"
 #include "frontend/syntactic-analysis/bison-parser.h"

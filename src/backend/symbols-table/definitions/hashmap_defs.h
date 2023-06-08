@@ -29,7 +29,7 @@ int putDefsTable(DefsTable, const char *, ValueDef);
 
 // Función para obtener un elemento del hashmap
 // Devuelve Value si el elemento no está en el hashmap
-Value* getOrDefaultDefsTable(DefsTable, const char *, ValueDef *);
+ValueDef * getOrDefaultDefsTable(DefsTable, const char *, ValueDef *);
 
 // Función para verificar si un elemento está en el hashmap
 int existsDefsTable(DefsTable, const char *);

@@ -1,6 +1,6 @@
 #include "hashmap_defs.h"
 
-unsigned long hash(const char *str) {
+static unsigned long hash(const char *str) {
     unsigned long hash = 5381;
     int c;
     while ((c = *str++))
@@ -56,7 +56,7 @@ int existsDefsTable(DefsTable hashmap, const char *id) {
     return 0;
 }
 
-void destroy(DefsTable hashmap) {
+void destroyDefsTable(DefsTable hashmap) {
     for (int i = 0; i < SIZE; i++) {
         DefNode *node = hashmap[i];
         while (node != NULL) {
