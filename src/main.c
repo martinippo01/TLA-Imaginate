@@ -1,5 +1,6 @@
 #include "backend/code-generation/generator.h"
 #include "backend/support/garbage-collector.h"
+#include "backend/symbols-table/definitions/hashmap_defs.h"
 #include "backend/symbols-table/values/hashmap_val.h"
 #include "backend/support/logger.h"
 #include "backend/support/shared.h"
@@ -16,8 +17,8 @@ const int main(const int argumentCount, const char ** arguments) {
 	state.program = NULL;
 	state.result = 0;
 	state.succeed = false;
-	state.next_inline_object_id = 0;
 	initHashMap(state.symbols_table);
+	initDefsTable(state.defs_table);
 
 	// Mostrar parámetros recibidos por consola.
 	for (int i = 0; i < argumentCount; ++i) {

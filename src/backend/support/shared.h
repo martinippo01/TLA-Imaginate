@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "../semantic-analysis/abstract-syntax-tree.h"
 #include "../symbols-table/values/hashmap_val.h"
+#include "../symbols-table/definitions/hashmap_defs.h"
 
 // Descriptor del archivo de entrada que utiliza Bison.
 extern FILE * yyin;
@@ -55,8 +56,8 @@ typedef struct {
 	// Agregar una tabla de símbolos.
 	HashMap symbols_table;
 
-	// Mantengo una especie de Id para los objetos inline
-	int next_inline_object_id;
+	DefsTable defs_table;
+
 
 } CompilerState;
 

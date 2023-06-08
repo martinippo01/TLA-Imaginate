@@ -67,18 +67,17 @@ ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
     node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->value->type = OBJECT_VALUE;
 
-    int id = state.next_inline_object_id++;
-    Value * value = calloc_(1, sizeof(Value));
-
-    char * concatenated_str = concatIntToStr("inlineObject", id);
-    put(state.symbols_table, concatenated_str, *value); 
+    // int id = state.next_inline_object_id++;
+    // Value * value = calloc_(1, sizeof(Value));
+    //
+    // char * concatenated_str = concatIntToStr("inlineObject", id);
+    // put(state.symbols_table, concatenated_str, *value); 
 
     //probably need to create a new symbols_table for inline objects!
 
     // node->value->value.objectValue = inlineObject;
     return node;
 }
-
 
  
 ValueNode * ValueObjectGrammarAction(ObjectNode * object) {
