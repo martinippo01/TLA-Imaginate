@@ -223,17 +223,12 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
 				exit(1);
 		}
 
-		if(identifier->type == CUSTOM)
-			applyCustomMethod(state.defs_table, identifier->value.name, params);
-		else
-			applyBuiltInMethod(identifier->value.id, params);
-
     MethodNode* node = (MethodNode*) calloc_(1, sizeof(MethodNode));
     node->optional = optional;
     node->identifier = identifier;
     node->params = params;
 
-    if(identifier->type == CUSTOM) {
+    if(identifier->type == CUSTOM_METHOD) {
       node->definition = getOrDefaultDefsTable(state.defs_table, identifier->value.name, &DEFAULT_VALUE_NODE)->definition;
     } else {
     	node->definition = NULL;
