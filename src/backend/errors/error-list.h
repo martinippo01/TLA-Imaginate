@@ -20,7 +20,7 @@ typedef struct {
     ErrorNode *tail;
 } ErrorList;
 
-int isEmpty(ErrorList list);
+int isEmpty(ErrorList * list);
 
 void initErrorsList(ErrorList list_);
 

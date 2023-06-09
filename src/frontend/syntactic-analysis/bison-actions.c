@@ -122,7 +122,7 @@ ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
   LogDebug("ParamVariableGrammarAction: variableIdentifier = ");
 
   if(!exists(state.symbols_table, variableIdentifier->name))
-    AppendError(&state.errors, "Error: Identifier %s is not defined.\n", variableIdentifier->name);
+    AppendError(&state.errors, "Identifier %s is not defined.\n", variableIdentifier->name);
 
   // If exists, retrieve the value and update it's values.
   Value defaultVal;
@@ -526,7 +526,7 @@ OptionalNode* EmptyOptionalGrammarAction() {
 ProgramNode* ProgramGrammarAction(AssignmentsNode* assignments, DefinitionsNode* definitions, ImaginateNode* imaginate) {
 
 	LogDebug("\tProgramGrammarAction(, , )");
-	state.succeed = isEmpty(state.errors);
+	state.succeed = isEmpty(&state.errors);
   ProgramNode* program = calloc_(1, sizeof(ProgramNode));
   state.program = program;
   program->assignments = assignments;

@@ -1,7 +1,7 @@
 #include "error-list.h"
 
-int isEmpty(ErrorList list) {
-    return list.head == NULL;
+int isEmpty(ErrorList * list) {
+    return list->head == NULL && list->tail == NULL;
 }
 void initErrorsList(ErrorList list) {
     list.head = NULL;
@@ -42,6 +42,6 @@ void AppendError(ErrorList *list, const char *format, ...) {
 
 void TraverseErrorList(ErrorList *list) {
     for (ErrorNode *node = list->head; node != NULL; node = node->next) {
-        yyerror_("%s\n", node->error);
+        yyerror_("%s", node->error);
     }
 }

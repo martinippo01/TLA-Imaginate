@@ -37,10 +37,6 @@ const int main(const int argumentCount, const char ** arguments) {
 				LogInfo("La compilacion fue exitosa.");
 				Generator(state.program);
 			}
-			else {
-				LogError("Se produjo un error en la aplicacion.");
-				return -1;
-			}
 			break;
 		case 1:
 			LogError("Bison finalizo debido a un error de sintaxis.");
@@ -53,7 +49,11 @@ const int main(const int argumentCount, const char ** arguments) {
 	}
 	
 	TraverseErrorList(&state.errors);
-	LogInfo("Fin.");
+	if(state.succeed) {
+		LogInfo("Compilation successfull!");
+	} else {
+		LogError("Errors found in compilation");
+	}
 
 	//decirle al garbage-collector que libere toda la memoria
 	free_all();
