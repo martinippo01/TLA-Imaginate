@@ -1,5 +1,25 @@
 #include "hashmap_val.h"
 
+void printHashMap(HashMap hashmap) {
+    LogDebug("%-15s%-10s%-20s%-20s\n", "ID", "Type", "Type Name", "Value");
+    for (int i = 0; i < SIZE; i++) {
+        for (HashNode *node = hashmap[i]; node != NULL; node = node->next) {
+            LogDebug("%-15s", node->id);
+            switch (node->value->type_enum) {
+                case INT_TYPE:
+                    LogDebug("%-10s%-20s%d\n", "INT_TYPE", node->value->type, node->value->initialization);
+                    break;
+                case STRING_TYPE:
+                    LogDebug("%-10s%-20s%s\n", "STRING_TYPE", node->value->type, node->value->initialization);
+                    break;
+                default:
+                    LogDebug("%-10s%-20s%s\n", "UNKNOWN", "UNKNOWN", "UNKNOWN");
+                    break;
+            }
+        }
+    }
+}
+
 unsigned long hash(const char *str) {
     unsigned long hash = 5381;
     int c;

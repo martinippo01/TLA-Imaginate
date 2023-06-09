@@ -51,9 +51,21 @@ ArgumentsNode * ArgumentsGrammarAction(ArgumentNode * argument, ArgumentsNode * 
 }
 
 ArgumentNode * ArgumentIdentifierGrammarAction(const char * name) {
+
+    ValueNode * value = (ValueNode *) calloc_(1, sizeof(ValueNode));
+    value->value.stringValue = strdup_(name);
+    value->type = STRING_VALUE;
+
     ArgumentNode *node = (ArgumentNode *)calloc_(1, sizeof(ArgumentNode));
-    node->value = (ValueNode *)calloc_(1, sizeof(ValueNode));
-    node->value->value.stringValue = strdup_(name);
+    node->value = value;
+
+    Value * valueEntry = (Value *) calloc_(1, sizeof(Value));
+
+    if(exists(state.symbols_table, value->value.stringValue)) {
+			LogDebug("Not allowed method definition as defined parameters collide with global variables");
+    	exit(1);
+    } 
+    put(state.symbols_table, value->value.stringValue, *valueEntry);
     return node;
 }
 
@@ -109,11 +121,12 @@ ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
     LogDebug("ParamVariableGrammarAction: variableIdentifier = %d");
 
     if(!exists(state.symbols_table, variableIdentifier->name)) {
+    	  printHashMap(state.symbols_table);
         printf("Error: Identifier %s is not defined.\n", variableIdentifier->name);
         exit(1);
     }
 
-    // If exists, retrieve the value
+    // If exists, retrieve the value and update it's values.
     Value defaultVal;
     Value* val = getOrDefault(state.symbols_table, variableIdentifier->name, &defaultVal);
     ValueNode* valueNode = calloc_(1, sizeof(ValueNode));
@@ -333,6 +346,7 @@ DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ArgumentsBlo
 			LogDebug("Already defined the token %s", identifierStr);
 			exit(1);
 		}
+
 
     IdentifierNode * identifier = calloc_(1, sizeof(IdentifierNode));
     identifier->name = strdup_(identifierStr);

@@ -1,7 +1,5 @@
 from PIL import Image, ImageEnhance
-file_paths = []
-images = [Image.open(name)) for name in file_paths]
-count = 0
-for image, file_path in zip(images, file_paths):
-	image.save("exported-" + str(count) + ".png")
-	count = count + 1
+file_paths = [, , , , , ]
+images_map = lambda image: Image.open(image)
+images = list(map(images_map, file_paths))
+images = [ ImageEnhance.Contrast(image).enhance(10, 20) for image in images]

@@ -1,14 +1,6 @@
 
 #include "def-execution.h"
 
-void applyCustomMethod(DefsTable hashmap, const char * identifier, ParamsBlockNode * params) {
-
-}
-
-void applyBuiltInMethod(int id, ParamsBlockNode * params) {
-
-}
-
 int validateDefinitionSignature(DefsTable hashmap, char * identifier, ParamsBlockNode * params) {
 
     ValueDef * value = getOrDefaultDefsTable(hashmap, identifier, &DEFAULT_VALUE_NODE);
