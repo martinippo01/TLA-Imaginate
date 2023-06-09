@@ -1,4 +1,4 @@
-#include "../../backend/domain-specific/calculator.h"
+#include "../../backend/domain-specific/def-execution.h"
 #include "../../backend/support/logger.h"
 #include "../../backend/symbols-table/values/hashmap_val.h"
 #include "../../backend/semantic-analysis/adapters.h"
@@ -213,11 +213,20 @@ ParamsNode * EmptyParamsGrammarAction() {
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode * params) {
     LogDebug("MethodGrammarAction: optional = %d, methodIdentifier = %d, paramsBlock = %d");
 
-		if (identifier->type == CUSTOM_METHOD) {
+		if (identifier->type == CUSTOM_METHOD && !existsDefsTable(state.defs_table, identifier->value.name)) {
 			if(!existsDefsTable(state.defs_table, identifier->value.name))
 				exit(1);
-
 		}
+
+		if(identifier-> type == CUSTOM && !validateDefinitionSignature(state.defs_table, identifier->value.name, params)) {
+				LogDebug("Method def %s does not match the arguments passed", identifier->value.name);
+				exit(1);
+		}
+
+		if(identifier->type == CUSTOM)
+			applyCustomMethod(state.defs_table, identifier->value.name, params);
+		else
+			applyBuiltInMethod(identifier->value.id, params);
 
     MethodNode* node = (MethodNode*) calloc_(1, sizeof(MethodNode));
     node->optional = optional;
@@ -326,7 +335,12 @@ DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ArgumentsBlo
     IdentifierNode * identifier = calloc_(1, sizeof(IdentifierNode));
     identifier->name = strdup_(identifierStr);
     
-		putDefsTable(state.defs_table, strdup_(identifier->name), *(ValueDef *) calloc_(1, sizeof(ValueDef)));
+    ValueDef * defsEntry = calloc_(1, sizeof(ValueDef));
+    defsEntry->name = strdup_(identifierStr);
+    defsEntry->arguments = args;
+    defsEntry->body = methodChain;
+
+		putDefsTable(state.defs_table, strdup_(identifier->name), *defsEntry);
 
     DefinitionNode* definition = calloc_(1, sizeof(DefinitionNode));
     definition->identifier = identifier;

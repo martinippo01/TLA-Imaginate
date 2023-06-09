@@ -1,5 +1,7 @@
 #include "hashmap_defs.h"
 
+ValueDef DEFAULT_VALUE_NODE = { .arguments = NULL, .body = NULL};
+
 static unsigned long hash(const char *str) {
     unsigned long hash = 5381;
     int c;

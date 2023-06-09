@@ -1,4 +1,4 @@
-def myOwnModifier():
+def myOwnModifier(hello):
     .addContrast(10, 20).addGrayscale(20)
 
 Imaginate
@@ -7,5 +7,5 @@ Imaginate
     .addFlavour("./nubes.png")
     .pickFlavour("./estrellas.png", "./truenos.png", "./lluvia.png")
     .addFlavour("./niebla.png")
-    .myOwnModifier()
+    .myOwnModifier("./hello")
     .renderAll()
