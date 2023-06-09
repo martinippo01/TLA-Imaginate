@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 /**
  * Implementación de "bison-grammar.h".
@@ -23,6 +24,17 @@ void yyerror(const char * string) {
 		LogErrorRaw("[%d]", yytext[i]);
 	}
 	LogErrorRaw("\n\n");
+}
+
+void yyerror_(const char *fmt, ...) {
+    char string[1024];  // Buffer to hold the generated string.
+    va_list args;
+    va_start(args, fmt);
+    vsnprintf(string, sizeof(string), fmt, args);  // Generate the string.
+    va_end(args);
+
+    LogError("Compilation Error : %s due to '%s' (line %d).", string, yytext, yylineno);
+    LogErrorRaw("\n\n");
 }
 
 char* concatIntToStr(const char* str, int num) {
@@ -227,12 +239,12 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
     LogDebug("MethodGrammarAction: optional = , methodIdentifier = , paramsBlock = ");
 
 		if (identifier->type == CUSTOM_METHOD && !existsDefsTable(state.defs_table, identifier->value.name)) {
-			if(!existsDefsTable(state.defs_table, identifier->value.name))
+				yyerror_("Method def %s already defined in the table", identifier->value.name);
 				exit(1);
 		}
 
 		if(identifier-> type == CUSTOM_METHOD && !validateDefinitionSignature(state.defs_table, identifier->value.name, params)) {
-				LogDebug("Method def %s does not match the arguments passed", identifier->value.name);
+				yyerror_("Method def %s does not match the arguments passed", identifier->value.name);
 				exit(1);
 		}
 
@@ -329,7 +341,7 @@ AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode *
     int put_status = put(state.symbols_table, identifier->name, *value);
 
     if(put_status == 0) {
-        printf("Error: Couldn't store the value in the symbol table.\n");
+        yyerror_(" Couldn't store the value in the symbol table.\n");
     }
 
     // Create AssignmentNode after storing the value to symbol table
@@ -343,7 +355,7 @@ DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ArgumentsBlo
     LogDebug("DefinitionGrammarAction: variableIdentifier = , methodChain = ");
 
 		if(existsDefsTable(state.defs_table, identifierStr)) {
-			LogDebug("Already defined the token %s", identifierStr);
+			yyerror_("Already defined the token %s", identifierStr);
 			exit(1);
 		}
 

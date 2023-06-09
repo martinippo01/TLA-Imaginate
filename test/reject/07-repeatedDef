@@ -1,0 +1,15 @@
+def myOwnModifier(hello):
+    .addContrast(10, 20).addGrayscale(20)
+
+def myOwnModifier(hello2):
+    .addGrayscale(20)
+
+Imaginate
+    .forEachFocus("./luna.png","./zapatillas.png","./reloj.png")
+    .addBackground("./darkblue.png")
+    .addFlavour("./nubes.png")
+    .pickFlavour("./estrellas.png", "./truenos.png", "./lluvia.png")
+    .addFlavour("./niebla.png")
+    .myOwnModifier("./hello")
+    .renderAll()
+
