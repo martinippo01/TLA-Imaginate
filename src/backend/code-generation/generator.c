@@ -15,8 +15,15 @@ void Generator(ProgramNode * program) {
 	fd_py = fopen("generator.py", "w");
 
 	// Importamos el paquete
-	fprintf(fd_py, "from PIL import Image, ImageEnhance\n");
+	fprintf(fd_py, "from PIL import Image, ImageEnhance\n\n");
 
+	fprintf(fd_py, "def overlay_images(background_image, overlay_image, position):\n");
+	fprintf(fd_py, "\tmodified_image = background_image.copy()\n");
+	fprintf(fd_py, "\toverlay_with_alpha = Image.new(\"RGBA\", overlay_image.size)\n");
+	fprintf(fd_py, "\toverlay_with_alpha = Image.blend(overlay_with_alpha, overlay_image, 1)\n");
+	fprintf(fd_py, "\tmodified_image.paste(overlay_with_alpha, position, overlay_with_alpha)\n");	
+
+	fprintf(fd_py, "\treturn modified_image\n");
 
 	LogDebug("Llegue al program Node .");
 	generateImagenate(program->imaginate);
@@ -28,7 +35,7 @@ void Generator(ProgramNode * program) {
 
 	int errorCode = system("python3 generator.py");
 
-	printf("\n\n\n Erro code = %d\n", errorCode);
+	printf("\n\n\n Error code = %d\n", errorCode);
 
 }
 
@@ -60,29 +67,10 @@ void generateForEachFocus(ForEachFocusNode * forEachFocusNode){
 	fprintf(fd_py, "file_paths = [");
 	generateParamsBlock(forEachFocusNode->var);
 	fprintf(fd_py, "]\n");
-	fprintf(fd_py, "images_map = lambda image: Image.open(image)\n");
+	fprintf(fd_py, "images_map = lambda image: Image.open(image).convert(\"RGBA\")\n");
 	fprintf(fd_py, "images = list(map(images_map, file_paths))\n");
 
 }
-
-
-// from PIL import Image, ImageEnhance
-
-// # Define the file paths of the images
-// file_paths = ["path/to/image1.jpg", "path/to/image2.jpg", "path/to/image3.jpg"]
-
-// # Define the desired contrast enhancement factor
-// contrast_factor = 2.0
-
-// # Define a lambda function to apply the filters to each image
-// apply_filters = lambda file_path: ImageEnhance.Contrast(Image.open(file_path)).enhance(contrast_factor)
-
-// # Apply the filters to each image using the map() function
-// modified_images = map(apply_filters, file_paths)
-
-// # Save the modified images back to the original file paths
-// for modified_image, file_path in zip(modified_images, file_paths):
-//     modified_image.save(file_path)
 
 
 
@@ -114,7 +102,7 @@ void generateFocus(FocusNode * focusNode){
 	fprintf(fd_py, "file_paths = [");
 	generateParamsBlock(focusNode->var);
 	fprintf(fd_py, "]\n");
-	fprintf(fd_py, "images = [Image.open(name)) for name in file_paths]\n");
+	fprintf(fd_py, "images = [Image.open(name).convert(\"RGBA\")) for name in file_paths]\n");
 	/*fprintf(fd_py, "images_map = lambda image: Image.open(image)\n");
 	fprintf(fd_py, "images = list(map(images_map, file_paths))\n");*/
 
@@ -122,8 +110,7 @@ void generateFocus(FocusNode * focusNode){
 
 
 
-void generateMethodChain(MethodChainNode * methodChainNode){
-	LogDebug("Llegue al methodChain Node .");
+void generateMethodChain(MethodChainNode * methodChainNode){	LogDebug("Llegue al methodChain Node .");
 	
 	generateMethod(methodChainNode->method);
 	
@@ -148,18 +135,11 @@ void generateMethod(MethodNode * methodNode){
 	
 	case ADDBLACKANDWHITE_METHOD:
 		LogDebug("Llegue a un method ADDBLACKANDWHITE");
+		fprintf(fd_py, "images = [ image.convert(\'L\') for image in images]\n");
 		break;
 
 	case ADDCONTRAST_METHOD:
 		LogDebug("Llegue a un method ADDCONTRAST");
-		
-		//fprintf(fd_py, "image = ImageEnhance.Contrast(image).enhance(");
-		/*
-		fprintf(fd_py, "apply_filters = lambda image: ImageEnhance.Contrast(image).enhance(");
-		generateParamsBlock(methodNode->params);
-		fprintf(fd_py, ")\n");
-		fprintf(fd_py, "modified_images = list(map(apply_filters, images))\n");
-		*/
 		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image).enhance(");
 		generateParamsBlock(methodNode->params);
 		fprintf(fd_py, ") for image in images]\n");
@@ -167,18 +147,36 @@ void generateMethod(MethodNode * methodNode){
 
 	case ADDGRAYSCALE_METHOD:
 		LogDebug("Llegue a un method ADDGRAYSCALE");
+		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image).enhance(");
+		generateParamsBlock(methodNode->params);
+		fprintf(fd_py, ") for image in images]\n");
 		break;
 
 	case ADDBACKGROUND_METHOD:
 		LogDebug("Llegue a un method ADDBACKGROUND");
+
+		fprintf(fd_py, "background_image = Image.open(");
+		generateParamsBlock(methodNode->params);
+		fprintf(fd_py, ").convert(\"RGBA\")\n");
+
+		fprintf(fd_py, "position = (0, 0)\n");
+		
+		fprintf(fd_py, "images = [ overlay_images(background_image, image, position) for image in images]\n");
+
 		break;
 
 	case ADDFLAVOUR_METHOD:
 		LogDebug("Llegue a un method ADDFLAVOUR");
+		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image).enhance(");
+		generateParamsBlock(methodNode->params);
+		fprintf(fd_py, ") for image in images]\n");
 		break;
 
 	case PICKFLAVOUR_METHOD:
 		LogDebug("Llegue a un method PICKFLAVOUR");
+		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image).enhance(");
+		generateParamsBlock(methodNode->params);
+		fprintf(fd_py, ") for image in images]\n");
 		break;
 
 	default:
