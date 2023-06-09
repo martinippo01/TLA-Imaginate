@@ -218,12 +218,12 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
 				exit(1);
 		}
 
-		if(identifier-> type == CUSTOM && !validateDefinitionSignature(state.defs_table, identifier->value.name, params)) {
+		if(identifier-> type == CUSTOM_METHOD && !validateDefinitionSignature(state.defs_table, identifier->value.name, params)) {
 				LogDebug("Method def %s does not match the arguments passed", identifier->value.name);
 				exit(1);
 		}
 
-		if(identifier->type == CUSTOM)
+		if(identifier->type == CUSTOM_METHOD)
 			applyCustomMethod(state.defs_table, identifier->value.name, params);
 		else
 			applyBuiltInMethod(identifier->value.id, params);
