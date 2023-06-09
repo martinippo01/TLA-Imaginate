@@ -1,6 +1,9 @@
-from PIL import Image
-overlay_image = Image.open("src/backend/code-generation/python/focus/Water.png").convert("RGBA")
-background_image = Image.open("src/backend/code-generation/python/background/Bricks.png").convert("RGBA")
-background_image.paste(overlay_image, (0, 0), overlay_image)
-background_image.show()
-background_image.save("exported.png")
+from PIL import Image, ImageEnhance
+file_paths = ["src/backend/code-generation/python/focus/Water.png", "src/backend/code-generation/python/focus/Fire.png", "src/backend/code-generation/python/focus/Plants.png"]
+images_map = lambda image: Image.open(image)
+images = list(map(images_map, file_paths))
+images = [ ImageEnhance.Contrast(image).enhance(0) for image in images]
+count = 0
+for image, file_path in zip(images, file_paths):
+	image.save("exported-" + str(count) + ".png")
+	count = count + 1

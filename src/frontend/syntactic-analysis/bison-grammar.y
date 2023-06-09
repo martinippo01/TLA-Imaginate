@@ -160,12 +160,12 @@ objectElement: variableIdentifier DOT variableIdentifier { $$ = ObjectElementGra
 render: RENDER emptyParams        { $$ = RenderGrammarAction(); }
       | RENDER_ALL emptyParams    { $$ = RenderAllGrammarAction(); };
 
-methodIdentifier: ADDBACKGROUND   { $$ = MethodIdentifierGrammarAction($1); }
-                | ADDFLAVOUR      { $$ = MethodIdentifierGrammarAction($1); }
-                 | PICKFLAVOUR     { $$ = MethodIdentifierGrammarAction($1); }
-                 | ADDGRAYSCALE    { $$ = MethodIdentifierGrammarAction($1); }
-                 | ADDBLACKANDWHITE { $$ = MethodIdentifierGrammarAction($1); }
-                 | ADDCONTRAST     { $$ = MethodIdentifierGrammarAction($1); } 
+methodIdentifier: ADDBACKGROUND   { $$ = AddBackgroundMethodIdentifierGrammarAction($1); }
+                | ADDFLAVOUR      { $$ = AddFlavourMethodIdentifierGrammarAction($1); }
+                 | PICKFLAVOUR     { $$ = PickFlavourMethodIdentifierGrammarAction($1); }
+                 | ADDGRAYSCALE    { $$ = AddGrayScaleMethodIdentifierGrammarAction($1); }
+                 | ADDBLACKANDWHITE { $$ = AddBlackAndWhiteIdentifierGrammarAction($1); }
+                 | ADDCONTRAST     { $$ = AddContrastMethodIdentifierGrammarAction($1); } 
                  | IDENTIFIER { $$ = CustomMethodIdentifierGrammarAction($1); };
 
 

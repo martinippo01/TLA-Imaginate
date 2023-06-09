@@ -208,19 +208,25 @@ ParamsNode * EmptyParamsGrammarAction() {
     return node;
 }
 
+// METHODS
 
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode * params) {
     LogDebug("MethodGrammarAction: optional = %d, methodIdentifier = %d, paramsBlock = %d");
 
-		if (identifier->type == CUSTOM && !existsDefsTable(state.defs_table, identifier->value.name)) {
-				LogDebug("Repeated method definition %s", identifier->value.name);
+		if (identifier->type == CUSTOM_METHOD && !existsDefsTable(state.defs_table, identifier->value.name)) {
+			if(!existsDefsTable(state.defs_table, identifier->value.name))
 				exit(1);
 		}
 
-		if(identifier-> type == CUSTOM && !validateDefinitionSignature(state.defs_table, identifier->value.name, params)) {
+		if(identifier-> type == CUSTOM_METHOD && !validateDefinitionSignature(state.defs_table, identifier->value.name, params)) {
 				LogDebug("Method def %s does not match the arguments passed", identifier->value.name);
 				exit(1);
 		}
+
+		if(identifier->type == CUSTOM)
+			applyCustomMethod(state.defs_table, identifier->value.name, params);
+		else
+			applyBuiltInMethod(identifier->value.id, params);
 
     MethodNode* node = (MethodNode*) calloc_(1, sizeof(MethodNode));
     node->optional = optional;
@@ -239,10 +245,14 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
 
 MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name) {
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
-    node->type = CUSTOM;
+    node->type = CUSTOM_METHOD;
     node->value.name =  strdup_(name);
     return node;
 }
+
+
+
+// ___________________________________________
 
 ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
     LogDebug(" ObjectNodeGrammarAction: objectIdentifier = %d");
@@ -331,7 +341,7 @@ DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ArgumentsBlo
 
     IdentifierNode * identifier = calloc_(1, sizeof(IdentifierNode));
     identifier->name = strdup_(identifierStr);
-    
+
 
     DefinitionNode* definition = calloc_(1, sizeof(DefinitionNode));
     definition->identifier = identifier;
@@ -429,13 +439,66 @@ ValueNode* ValueStringGrammarAction(const char * value) {
     return node;
 }
 
-MethodIdentifierNode* MethodIdentifierGrammarAction(const int id) {
+// BUILT IN METHODS
+//    enum {CUSTOM, ADDBLACKANDWHITE, ADDCONTRAST, ADDGRAYSCALE, ADDBACKGROUND, ADDFLAVOUR, PICKFLAVOUR} type;
+// MethodIdentifierNode* MethodIdentifierGrammarAction(const int id) {
+//     LogDebug("MethodIdentifierGrammarAction: sval = %d");
+//     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
+//     node->type = OWN;
+//     node->value.id = id;
+//     return node;
+// }
+
+
+MethodIdentifierNode* AddBlackAndWhiteIdentifierGrammarAction(const int id) {
     LogDebug("MethodIdentifierGrammarAction: sval = %d");
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
-    node->type = OWN;
+    node->type = ADDBLACKANDWHITE_METHOD;
     node->value.id = id;
     return node;
 }
+
+MethodIdentifierNode* AddContrastMethodIdentifierGrammarAction(const int id) {
+    LogDebug("MethodIdentifierGrammarAction: sval = %d");
+    MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
+    node->type = ADDCONTRAST_METHOD;
+    node->value.id = id;
+    return node;
+}
+
+MethodIdentifierNode* AddGrayScaleMethodIdentifierGrammarAction(const int id) {
+    LogDebug("MethodIdentifierGrammarAction: sval = %d");
+    MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
+    node->type = ADDGRAYSCALE_METHOD;
+    node->value.id = id;
+    return node;
+}
+
+MethodIdentifierNode* AddBackgroundMethodIdentifierGrammarAction(const int id) {
+    LogDebug("MethodIdentifierGrammarAction: sval = %d");
+    MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
+    node->type = ADDBACKGROUND_METHOD;
+    node->value.id = id;
+    return node;
+}
+
+MethodIdentifierNode* AddFlavourMethodIdentifierGrammarAction(const int id) {
+    LogDebug("MethodIdentifierGrammarAction: sval = %d");
+    MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
+    node->type = ADDFLAVOUR_METHOD;
+    node->value.id = id;
+    return node;
+}
+
+MethodIdentifierNode* PickFlavourMethodIdentifierGrammarAction(const int id) {
+    LogDebug("MethodIdentifierGrammarAction: sval = %d");
+    MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
+    node->type = PICKFLAVOUR_METHOD;
+    node->value.id = id;
+    return node;
+}
+
+//__________________________________________
 
 ParamsNode* ParamGrammarAction(ParamNode * param) {
     LogDebug("ParamGrammarAction: param = %d");

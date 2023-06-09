@@ -65,9 +65,18 @@ DefinitionNode * DefinitionGrammarAction(const char * identifier, ArgumentsBlock
 
 MethodChainNode * MethodChainGrammarAction(MethodNode* method, MethodChainNode* next);
 MethodChainNode * EmptyMethodChainGrammarAction();
-MethodIdentifierNode* MethodIdentifierGrammarAction(const int name);
+
+//MethodIdentifierNode* MethodIdentifierGrammarAction(const int name);
+
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode * params);
+
 MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name);
+MethodIdentifierNode * AddBackgroundMethodIdentifierGrammarAction(const int id);
+MethodIdentifierNode * AddFlavourMethodIdentifierGrammarAction(const int id);
+MethodIdentifierNode * PickFlavourMethodIdentifierGrammarAction(const int id);
+MethodIdentifierNode * AddGrayScaleMethodIdentifierGrammarAction(const int id);
+MethodIdentifierNode * AddBlackAndWhiteIdentifierGrammarAction(const int id);
+MethodIdentifierNode * AddContrastMethodIdentifierGrammarAction(const int id);
 
 /* Argumentos */
 ArgumentsBlockNode * ArgumentsBlockGrammarAction(ArgumentsNode * arguments);

@@ -109,7 +109,7 @@ typedef struct OptionalNode {
 } OptionalNode;
 
 typedef struct MethodIdentifierNode {
-    enum {CUSTOM, OWN} type;
+    enum {CUSTOM_METHOD, ADDBLACKANDWHITE_METHOD, ADDCONTRAST_METHOD, ADDGRAYSCALE_METHOD, ADDBACKGROUND_METHOD, ADDFLAVOUR_METHOD, PICKFLAVOUR_METHOD} type;
     union{
         char * name;
         int id;

@@ -21,6 +21,7 @@ for bg in bg_list:
 # ----------------------------
 # Single foco and background |
 # ---------------------------
+
 overlay_image = Image.open("focus/Water.png").convert("RGBA")
 background_image = Image.open("background/Wood.png").convert("RGBA")
 
