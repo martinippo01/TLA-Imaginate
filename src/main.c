@@ -1,4 +1,5 @@
 #include "backend/code-generation/generator.h"
+#include "backend/errors/error-list.h"
 #include "backend/support/garbage-collector.h"
 #include "backend/symbols-table/definitions/hashmap_defs.h"
 #include "backend/symbols-table/values/hashmap_val.h"
@@ -10,15 +11,15 @@
 // Estado de la aplicación.
 CompilerState state;
 
-// Punto de entrada principal del compilador.
 const int main(const int argumentCount, const char ** arguments) {
 
-	// Inicializar estado de la aplicación.
 	state.program = NULL;
 	state.result = 0;
 	state.succeed = false;
 	initHashMap(state.symbols_table);
 	initDefsTable(state.defs_table);
+	initErrorsList(state.errors);
+	
 
 	// Mostrar parámetros recibidos por consola.
 	for (int i = 0; i < argumentCount; ++i) {
@@ -36,10 +37,6 @@ const int main(const int argumentCount, const char ** arguments) {
 				LogInfo("La compilacion fue exitosa.");
 				Generator(state.program);
 			}
-			else {
-				LogError("Se produjo un error en la aplicacion.");
-				return -1;
-			}
 			break;
 		case 1:
 			LogError("Bison finalizo debido a un error de sintaxis.");
@@ -50,9 +47,18 @@ const int main(const int argumentCount, const char ** arguments) {
 		default:
 			LogError("Error desconocido mientras se ejecutaba el analizador Bison (codigo %d).", result);
 	}
-	LogInfo("Fin.");
+	
+	TraverseErrorList(&state.errors);
+	if(state.succeed) {
+		LogInfo("Compilation successfull!");
+	} else {
+		LogError("Errors found in compilation");
+	}
+
 	//decirle al garbage-collector que libere toda la memoria
 	free_all();
 	destroy(state.symbols_table);
+	destroyDefsTable(state.defs_table);
+	
 	return result;
 }

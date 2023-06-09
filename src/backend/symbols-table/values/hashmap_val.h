@@ -4,6 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../../semantic-analysis/abstract-syntax-tree.h"
+#include "../../support/garbage-collector.h"
+#include "../../support/logger.h"
+
 #define SIZE 101 // A prime number
 
 typedef struct valueVal {
@@ -37,5 +41,6 @@ int exists(HashMap, const char *);
 // Función para eliminar y liberar la memoria del hashmap
 void destroy(HashMap);
 
+void printHashMap(HashMap hashmap);
 #endif
 

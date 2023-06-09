@@ -35,12 +35,12 @@ def addSpaceStation(spaceStation):
 def addEvent(event):
     .addFlavour(event.event)
 
-def exploreSpace(setting, spaceship, characters, spaceStation, event):
-    .setLocation(setting)
-    .addSpaceship(spaceship)
-    .addCharacters(characters)
-    .addSpaceStation(spaceStation)
-    .addEvent(event)
+def exploreSpace(setting1, spaceship1, characters1, spaceStation1, event1):
+    .setLocation(setting1)
+    .addSpaceship(spaceship1)
+    .addCharacters(characters1)
+    .addSpaceStation(spaceStation1)
+    .addEvent(event1)
 
 Imaginate
     .forEachFocus(earth, mars, jupiter, saturn, neptune)
