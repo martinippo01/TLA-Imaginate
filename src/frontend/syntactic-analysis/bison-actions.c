@@ -73,7 +73,7 @@ ArgumentsNode * EmptyArgumentsGrammarAction() {
     return (ArgumentsNode *)calloc_(1, sizeof(ArgumentsNode));
 }
 ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
-    LogDebug("ParamInlineObjectGrammarAction: valueObject = %d");
+    LogDebug("ParamInlineObjectGrammarAction: valueObject = ");
 
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
     node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
@@ -93,7 +93,7 @@ ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
 
  
 ValueNode * ValueObjectGrammarAction(ObjectNode * object) {
-    LogDebug("ValueObjectGrammarAction: valueObject = %d");
+    LogDebug("ValueObjectGrammarAction: valueObject = ");
     ValueNode * node = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->type = OBJECT_VALUE;
     // node->value.objectValue = object;
@@ -109,7 +109,7 @@ ObjectContentNode* EmptyObjectContentGrammarAction() {
 }
 
 ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement) {
-  LogDebug("ParamObjectElementGrammarAction: objectElement = %d");
+  LogDebug("ParamObjectElementGrammarAction: objectElement = ");
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
     node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->value->type = OBJECT_VALUE;
@@ -118,7 +118,7 @@ ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement) {
 }
 ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
 
-    LogDebug("ParamVariableGrammarAction: variableIdentifier = %d");
+    LogDebug("ParamVariableGrammarAction: variableIdentifier = ");
 
     if(!exists(state.symbols_table, variableIdentifier->name)) {
     	  printHashMap(state.symbols_table);
@@ -164,7 +164,7 @@ DefinitionsNode * EmptyDefinitionsGrammarAction() {
 }
 
 ForEachFocusNode * FocusForEachGrammarAction(ParamsBlockNode * paramsBlock) {
-    LogDebug("FocusForEachGrammarAction: paramsBlock = %d");
+    LogDebug("FocusForEachGrammarAction: paramsBlock = ");
     ForEachFocusNode * node = (ForEachFocusNode*) calloc_(1, sizeof(ForEachFocusNode));
     node->var = paramsBlock;
     return node;
@@ -179,7 +179,7 @@ MethodChainNode * EmptyMethodChainGrammarAction() {
 }
 
 ParamsBlockNode * ParamsBlockGrammarAction(ParamsNode * params) {
-    LogDebug("ParamsBlockGrammarAction: params = %d");
+    LogDebug("ParamsBlockGrammarAction: params = ");
     ParamsBlockNode * node = (ParamsBlockNode*) calloc_(1, sizeof(ParamsBlockNode));
     node->params = params;
     return node;
@@ -187,7 +187,7 @@ ParamsBlockNode * ParamsBlockGrammarAction(ParamsNode * params) {
 
 
 ParamNode * ParamStringGrammarAction(const char * sval) {
-    LogDebug("ParamStringGrammarAction: sval = %d");
+    LogDebug("ParamStringGrammarAction: sval = ");
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
     ValueNode * value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     value->type = STRING_VALUE;
@@ -197,7 +197,7 @@ ParamNode * ParamStringGrammarAction(const char * sval) {
 }
 
  ParamNode * ParamIntegerGrammarAction(const int ival) {
-    LogDebug("ParamIntegerGrammarAction: ival = %d");
+    LogDebug("ParamIntegerGrammarAction: ival = ");
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
     ValueNode * value = (ValueNode*) calloc_(1, sizeof(ValueNode));
     value->type = INT_VALUE;
@@ -224,7 +224,7 @@ ParamsNode * EmptyParamsGrammarAction() {
 // METHODS
 
 MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* identifier, ParamsBlockNode * params) {
-    LogDebug("MethodGrammarAction: optional = %d, methodIdentifier = %d, paramsBlock = %d");
+    LogDebug("MethodGrammarAction: optional = , methodIdentifier = , paramsBlock = ");
 
 		if (identifier->type == CUSTOM_METHOD && !existsDefsTable(state.defs_table, identifier->value.name)) {
 			if(!existsDefsTable(state.defs_table, identifier->value.name))
@@ -263,7 +263,7 @@ MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name) {
 // ___________________________________________
 
 ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
-    LogDebug(" ObjectNodeGrammarAction: objectIdentifier = %d");
+    LogDebug(" ObjectNodeGrammarAction: objectIdentifier = ");
     ObjectNode* node = (ObjectNode*) calloc_(1, sizeof(ObjectNode));
     // aca tambien falta lo de tabla de simbolos
     // node->node = content; 
@@ -271,7 +271,7 @@ ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
 }
 
 ObjectContentNode* ObjectContentGrammarAction(ObjectAssignmentNode* assignment, ObjectContentNode* next) {
-    LogDebug("ObjectContentGrammarAction: objectAssignment = %d, objectContent = %d");
+    LogDebug("ObjectContentGrammarAction: objectAssignment = , objectContent = ");
     ObjectContentNode* node = (ObjectContentNode*) calloc_(1, sizeof(ObjectContentNode));
     node->assignment = assignment;
     node->next = next;
@@ -280,7 +280,7 @@ ObjectContentNode* ObjectContentGrammarAction(ObjectAssignmentNode* assignment, 
 
 
 ObjectAssignmentNode* ObjectAssignmentIdentifierGrammarAction(IdentifierNode* variable, IdentifierNode * identifier) {
-    LogDebug("ObjectAssignmentIdentifierGrammarAction: variableIdentifier = %d, value = %d");
+    LogDebug("ObjectAssignmentIdentifierGrammarAction: variableIdentifier = , value = ");
     ObjectAssignmentNode* node = (ObjectAssignmentNode*) calloc_(1, sizeof(ObjectAssignmentNode));
     node->variable = variable;
     node->rightHandIdentifier = identifier;
@@ -290,7 +290,7 @@ ObjectAssignmentNode* ObjectAssignmentIdentifierGrammarAction(IdentifierNode* va
 
 
 ObjectAssignmentNode* ObjectAssignmentValueGrammarAction(IdentifierNode* variable, ValueNode * value) {
-    LogDebug("ObjectAssignmentValueGrammarAction: variableIdentifier = %d, value = %d");
+    LogDebug("ObjectAssignmentValueGrammarAction: variableIdentifier = , value = ");
     ObjectAssignmentNode* node = (ObjectAssignmentNode*) calloc_(1, sizeof(ObjectAssignmentNode));
     node->variable = variable;
     node->rightHandValue = value;
@@ -299,7 +299,7 @@ ObjectAssignmentNode* ObjectAssignmentValueGrammarAction(IdentifierNode* variabl
 }
 
 ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, IdentifierNode * value) {
-    LogDebug("ObjectElementGrammarAction: variableIdentifier = %d, objectElement = %d");
+    LogDebug("ObjectElementGrammarAction: variableIdentifier = , objectElement = ");
     ObjectElementNode* node = (ObjectElementNode*) calloc_(1, sizeof(ObjectElementNode));
     node->identifier = identifier;
     node->value = value;
@@ -307,7 +307,7 @@ ObjectElementNode* ObjectElementGrammarAction(IdentifierNode* identifier, Identi
 }
 
 InlineObjectNode* InlineObjectGrammarAction(ObjectContentNode* content) {
-    LogDebug("InlineObject: valueObject = %d");
+    LogDebug("InlineObject: valueObject = ");
     InlineObjectNode* node = (InlineObjectNode*) calloc_(1, sizeof(InlineObjectNode));
     node->content = content;
     return node;
@@ -315,7 +315,7 @@ InlineObjectNode* InlineObjectGrammarAction(ObjectContentNode* content) {
 
 AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode * expression) {
 
-    LogDebug("AssignmentGrammarAction: assignment = %d, assignments = %d");
+    LogDebug("AssignmentGrammarAction: assignment = , assignments = ");
 
     Value* value = malloc(sizeof(Value));
     if(expression->type == INT_VALUE) {
@@ -340,7 +340,7 @@ AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode *
 }
 
 DefinitionNode* DefinitionGrammarAction(const char * identifierStr, ArgumentsBlockNode * args, MethodChainNode * methodChain) {
-    LogDebug("DefinitionGrammarAction: variableIdentifier = %d, methodChain = %d");
+    LogDebug("DefinitionGrammarAction: variableIdentifier = , methodChain = ");
 
 		if(existsDefsTable(state.defs_table, identifierStr)) {
 			LogDebug("Already defined the token %s", identifierStr);
@@ -374,7 +374,7 @@ FocusNode* FocusAddGrammarAction(ParamsBlockNode * val) {
 }
 
 MethodChainNode* MethodChainGrammarAction(MethodNode* method, MethodChainNode* next) {
-    LogDebug("MethodChainGrammarAction: method = %d, methodChain = %d");
+    LogDebug("MethodChainGrammarAction: method = , methodChain = ");
     MethodChainNode* methodChain = calloc_(1, sizeof(MethodChainNode));
     methodChain->method = method;
     methodChain->next = next;
@@ -388,7 +388,7 @@ RenderNode* RenderGrammarAction() {
 }
 
 AssignmentsNode* AssignmentsGrammarAction(AssignmentNode* assignment, AssignmentsNode* next) {
-    LogDebug("AssignmentsGrammarAction: assignment = %d, assignments = %d");
+    LogDebug("AssignmentsGrammarAction: assignment = , assignments = ");
     AssignmentsNode* assignments = calloc_(1, sizeof(AssignmentsNode));
     assignments->assignment = assignment;
     assignments->next = next;
@@ -396,7 +396,7 @@ AssignmentsNode* AssignmentsGrammarAction(AssignmentNode* assignment, Assignment
 }
 
 DefinitionsNode* DefinitionsGrammarAction(DefinitionNode* definition, DefinitionsNode* next) {
-    LogDebug("DefinitionsGrammarAction: definition = %d, definitions = %d");
+    LogDebug("DefinitionsGrammarAction: definition = , definitions = ");
     DefinitionsNode* definitions = calloc_(1, sizeof(DefinitionsNode));
     definitions->definition = definition;
     definitions->next = next;
@@ -405,7 +405,7 @@ DefinitionsNode* DefinitionsGrammarAction(DefinitionNode* definition, Definition
 
 
 ImaginateNode* ImaginateGrammarActionForEachFocus(ForEachFocusNode* focuses, MethodChainNode* methodChain, RenderNode* render) {
-    LogDebug("ImaginateGrammarAction: focus = %d, methodChain = %d, render = %d");
+    LogDebug("ImaginateGrammarAction: focus = , methodChain = , render = ");
     ImaginateNode* imaginate = calloc_(1, sizeof(ImaginateNode));
     imaginate->focuses = focuses;
     imaginate->methodChain = methodChain;
@@ -414,7 +414,7 @@ ImaginateNode* ImaginateGrammarActionForEachFocus(ForEachFocusNode* focuses, Met
 }
 
 ImaginateNode* ImaginateGrammarActionFocus(FocusNode* focus, MethodChainNode* methodChain, RenderNode* render) {
-    LogDebug("ImaginateGrammarAction: focus = %d, methodChain = %d, render = %d");
+    LogDebug("ImaginateGrammarAction: focus = , methodChain = , render = ");
     ImaginateNode* imaginate = calloc_(1, sizeof(ImaginateNode));
     imaginate->focus = focus;
     imaginate->focuses = NULL;
@@ -424,7 +424,7 @@ ImaginateNode* ImaginateGrammarActionFocus(FocusNode* focus, MethodChainNode* me
 }
 
 IdentifierNode* VariableIdentifierGrammarAction(const char *  name) {
-    LogDebug("VariableIdentifierGrammarAction: variable = %d");
+    LogDebug("VariableIdentifierGrammarAction: variable = ");
     
     IdentifierNode* node = (IdentifierNode*) calloc_(1, sizeof(IdentifierNode));
     node->name = strdup_(name); 
@@ -433,7 +433,7 @@ IdentifierNode* VariableIdentifierGrammarAction(const char *  name) {
 }
 
 ValueNode* ValueIntegerGrammarAction(const int value) {
-    LogDebug("ValueIntegerGrammarAction: ival = %d");
+    LogDebug("ValueIntegerGrammarAction: ival = ");
     ValueNode* node = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->type = INT_VALUE;
     node->value.intValue = value;
@@ -441,7 +441,7 @@ ValueNode* ValueIntegerGrammarAction(const int value) {
 }
 
 ValueNode* ValueStringGrammarAction(const char * value) {
-    LogDebug("ValueStringGrammarAction: sval = %d");
+    LogDebug("ValueStringGrammarAction: sval = ");
     ValueNode* node = (ValueNode*) calloc_(1, sizeof(ValueNode));
     node->type = STRING_VALUE;
     node->value.stringValue = strdup_(value);
@@ -449,18 +449,10 @@ ValueNode* ValueStringGrammarAction(const char * value) {
 }
 
 // BUILT IN METHODS
-//    enum {CUSTOM, ADDBLACKANDWHITE, ADDCONTRAST, ADDGRAYSCALE, ADDBACKGROUND, ADDFLAVOUR, PICKFLAVOUR} type;
-// MethodIdentifierNode* MethodIdentifierGrammarAction(const int id) {
-//     LogDebug("MethodIdentifierGrammarAction: sval = %d");
-//     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
-//     node->type = OWN;
-//     node->value.id = id;
-//     return node;
-// }
 
 
 MethodIdentifierNode* AddBlackAndWhiteIdentifierGrammarAction(const int id) {
-    LogDebug("MethodIdentifierGrammarAction: sval = %d");
+    LogDebug("MethodIdentifierGrammarAction: sval = ");
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
     node->type = ADDBLACKANDWHITE_METHOD;
     node->value.id = id;
@@ -468,7 +460,7 @@ MethodIdentifierNode* AddBlackAndWhiteIdentifierGrammarAction(const int id) {
 }
 
 MethodIdentifierNode* AddContrastMethodIdentifierGrammarAction(const int id) {
-    LogDebug("MethodIdentifierGrammarAction: sval = %d");
+    LogDebug("MethodIdentifierGrammarAction: sval = ");
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
     node->type = ADDCONTRAST_METHOD;
     node->value.id = id;
@@ -476,7 +468,7 @@ MethodIdentifierNode* AddContrastMethodIdentifierGrammarAction(const int id) {
 }
 
 MethodIdentifierNode* AddGrayScaleMethodIdentifierGrammarAction(const int id) {
-    LogDebug("MethodIdentifierGrammarAction: sval = %d");
+    LogDebug("MethodIdentifierGrammarAction: sval = ");
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
     node->type = ADDGRAYSCALE_METHOD;
     node->value.id = id;
@@ -484,7 +476,7 @@ MethodIdentifierNode* AddGrayScaleMethodIdentifierGrammarAction(const int id) {
 }
 
 MethodIdentifierNode* AddBackgroundMethodIdentifierGrammarAction(const int id) {
-    LogDebug("MethodIdentifierGrammarAction: sval = %d");
+    LogDebug("MethodIdentifierGrammarAction: sval = ");
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
     node->type = ADDBACKGROUND_METHOD;
     node->value.id = id;
@@ -492,7 +484,7 @@ MethodIdentifierNode* AddBackgroundMethodIdentifierGrammarAction(const int id) {
 }
 
 MethodIdentifierNode* AddFlavourMethodIdentifierGrammarAction(const int id) {
-    LogDebug("MethodIdentifierGrammarAction: sval = %d");
+    LogDebug("MethodIdentifierGrammarAction: sval = ");
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
     node->type = ADDFLAVOUR_METHOD;
     node->value.id = id;
@@ -500,7 +492,7 @@ MethodIdentifierNode* AddFlavourMethodIdentifierGrammarAction(const int id) {
 }
 
 MethodIdentifierNode* PickFlavourMethodIdentifierGrammarAction(const int id) {
-    LogDebug("MethodIdentifierGrammarAction: sval = %d");
+    LogDebug("MethodIdentifierGrammarAction: sval = ");
     MethodIdentifierNode* node = (MethodIdentifierNode*) calloc_(1, sizeof(MethodIdentifierNode));
     node->type = PICKFLAVOUR_METHOD;
     node->value.id = id;
@@ -510,7 +502,7 @@ MethodIdentifierNode* PickFlavourMethodIdentifierGrammarAction(const int id) {
 //__________________________________________
 
 ParamsNode* ParamGrammarAction(ParamNode * param) {
-    LogDebug("ParamGrammarAction: param = %d");
+    LogDebug("ParamGrammarAction: param = ");
     ParamsNode* node = (ParamsNode*) calloc_(1, sizeof(ParamsNode));
     node->param = param;
     node->next = NULL;
@@ -518,7 +510,7 @@ ParamsNode* ParamGrammarAction(ParamNode * param) {
 }
 
 ParamsNode* ParamsGrammarAction(ParamNode* param, ParamsNode* params) {
-    LogDebug("ParamsGrammarAction: param = %d, params = %d");
+    LogDebug("ParamsGrammarAction: param = , params = ");
     ParamsNode* node = (ParamsNode*) calloc_(1, sizeof(ParamsNode));
     node->param = param;
     node->next = params;
@@ -541,7 +533,7 @@ OptionalNode* EmptyOptionalGrammarAction() {
 
 ProgramNode* ProgramGrammarAction(AssignmentsNode* assignments, DefinitionsNode* definitions, ImaginateNode* imaginate) {
 
-	LogDebug("\tProgramGrammarAction(%d, %d, %d)");
+	LogDebug("\tProgramGrammarAction(, , )");
 	state.succeed = true;
     ProgramNode* program = calloc_(1, sizeof(ProgramNode));
     state.program = program;

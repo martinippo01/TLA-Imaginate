@@ -10,15 +10,14 @@
 // Estado de la aplicación.
 CompilerState state;
 
-// Punto de entrada principal del compilador.
 const int main(const int argumentCount, const char ** arguments) {
 
-	// Inicializar estado de la aplicación.
 	state.program = NULL;
 	state.result = 0;
 	state.succeed = false;
 	initHashMap(state.symbols_table);
 	initDefsTable(state.defs_table);
+	
 
 	// Mostrar parámetros recibidos por consola.
 	for (int i = 0; i < argumentCount; ++i) {
@@ -50,9 +49,13 @@ const int main(const int argumentCount, const char ** arguments) {
 		default:
 			LogError("Error desconocido mientras se ejecutaba el analizador Bison (codigo %d).", result);
 	}
+	
 	LogInfo("Fin.");
+
 	//decirle al garbage-collector que libere toda la memoria
 	free_all();
 	destroy(state.symbols_table);
+	destroyDefsTable(state.defs_table);
+	
 	return result;
 }

@@ -56,6 +56,7 @@ typedef struct {
 	// Agregar una tabla de símbolos.
 	HashMap symbols_table;
 
+	// Agregar la tabla para las defs del sistema.
 	DefsTable defs_table;
 
 
