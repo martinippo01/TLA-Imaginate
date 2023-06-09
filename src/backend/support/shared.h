@@ -5,6 +5,7 @@
 #include "../semantic-analysis/abstract-syntax-tree.h"
 #include "../symbols-table/values/hashmap_val.h"
 #include "../symbols-table/definitions/hashmap_defs.h"
+#include "../errors/error-list.h"
 
 // Descriptor del archivo de entrada que utiliza Bison.
 extern FILE * yyin;
@@ -59,6 +60,7 @@ typedef struct {
 	// Agregar la tabla para las defs del sistema.
 	DefsTable defs_table;
 
+	ErrorList errors;
 
 } CompilerState;
 

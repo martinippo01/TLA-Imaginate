@@ -25,4 +25,6 @@ void LogErrorRaw(const char * const format, ...);
 
 void LogInfo(const char * const format, ...);
 
+void yyerror_(const char *, ...);
+
 #endif

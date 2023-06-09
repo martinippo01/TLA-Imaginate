@@ -36,3 +36,13 @@ void LogInfo(const char * const format, ...) {
 	va_end(arguments);
 }
 
+void yyerror_(const char *fmt, ...) {
+    char string[1024];  // Buffer to hold the generated string.
+    va_list args;
+    va_start(args, fmt);
+    vsnprintf(string, sizeof(string), fmt, args);  // Generate the string.
+    va_end(args);
+
+    LogError("Compilation Error : %s .", string);
+    LogErrorRaw("\n\n");
+}

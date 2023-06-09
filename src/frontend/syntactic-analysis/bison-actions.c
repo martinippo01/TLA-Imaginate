@@ -26,17 +26,6 @@ void yyerror(const char * string) {
 	LogErrorRaw("\n\n");
 }
 
-void yyerror_(const char *fmt, ...) {
-    char string[1024];  // Buffer to hold the generated string.
-    va_list args;
-    va_start(args, fmt);
-    vsnprintf(string, sizeof(string), fmt, args);  // Generate the string.
-    va_end(args);
-
-    LogError("Compilation Error : %s due to '%s' (line %d).", string, yytext, yylineno);
-    LogErrorRaw("\n\n");
-}
-
 char* concatIntToStr(const char* str, int num) {
     char* newStr = malloc(strlen(str) + 50); 
     sprintf(newStr, "%s%d", str, num); 

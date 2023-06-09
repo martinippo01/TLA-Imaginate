@@ -1,4 +1,5 @@
 #include "backend/code-generation/generator.h"
+#include "backend/errors/error-list.h"
 #include "backend/support/garbage-collector.h"
 #include "backend/symbols-table/definitions/hashmap_defs.h"
 #include "backend/symbols-table/values/hashmap_val.h"
@@ -17,6 +18,7 @@ const int main(const int argumentCount, const char ** arguments) {
 	state.succeed = false;
 	initHashMap(state.symbols_table);
 	initDefsTable(state.defs_table);
+	initErrorsList(state.errors);
 	
 
 	// Mostrar parámetros recibidos por consola.
@@ -50,6 +52,7 @@ const int main(const int argumentCount, const char ** arguments) {
 			LogError("Error desconocido mientras se ejecutaba el analizador Bison (codigo %d).", result);
 	}
 	
+	TraverseErrorList(&state.errors);
 	LogInfo("Fin.");
 
 	//decirle al garbage-collector que libere toda la memoria
