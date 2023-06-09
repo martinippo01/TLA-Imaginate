@@ -148,9 +148,10 @@ void generateMethod(MethodNode * methodNode){
 
 	case ADDGRAYSCALE_METHOD:
 		LogDebug("Llegue a un method ADDGRAYSCALE");
-		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image).enhance(");
-		generateParamsBlock(methodNode->params);
-		fprintf(fd_py, ") for image in images]\n");
+		// TODO
+		//enhanced_image = ImageEnhance.Contrast(grayscale_image).enhance(1.5)
+		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image.convert(\'L\')).enhance(1.5) for image in images]\n");
+
 		break;
 
 	case ADDBACKGROUND_METHOD:
@@ -168,6 +169,7 @@ void generateMethod(MethodNode * methodNode){
 
 	case ADDFLAVOUR_METHOD:
 		LogDebug("Llegue a un method ADDFLAVOUR");
+		// TODO
 		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image).enhance(");
 		generateParamsBlock(methodNode->params);
 		fprintf(fd_py, ") for image in images]\n");
@@ -175,6 +177,7 @@ void generateMethod(MethodNode * methodNode){
 
 	case PICKFLAVOUR_METHOD:
 		LogDebug("Llegue a un method PICKFLAVOUR");
+		// TODO
 		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image).enhance(");
 		generateParamsBlock(methodNode->params);
 		fprintf(fd_py, ") for image in images]\n");
