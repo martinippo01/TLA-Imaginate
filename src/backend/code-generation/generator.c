@@ -15,7 +15,8 @@ void Generator(ProgramNode * program) {
 	fd_py = fopen("generator.py", "w");
 
 	// Importamos el paquete
-	fprintf(fd_py, "from PIL import Image, ImageEnhance\n\n");
+	fprintf(fd_py, "from PIL import Image, ImageEnhance\n");
+	fprintf(fd_py, "import random\n\n");
 
 	fprintf(fd_py, "def overlay_images(background_image, overlay_image, position):\n");
 	fprintf(fd_py, "\tmodified_image = background_image.copy()\n");
@@ -27,6 +28,8 @@ void Generator(ProgramNode * program) {
 
 	LogDebug("Llegue al program Node .");
 	generateImagenate(program->imaginate);
+	fprintf(fd_py, "\n"); // Some IDEs recommned having a emty last line
+
 
 	LogDebug("Generando archivo .py");
 
@@ -102,7 +105,7 @@ void generateFocus(FocusNode * focusNode){
 	fprintf(fd_py, "file_paths = [");
 	generateParamsBlock(focusNode->var);
 	fprintf(fd_py, "]\n");
-	fprintf(fd_py, "images = [Image.open(name).convert(\"RGBA\")) for name in file_paths]\n");
+	fprintf(fd_py, "images = [Image.open(name).convert(\"RGBA\") for name in file_paths]\n");
 	/*fprintf(fd_py, "images_map = lambda image: Image.open(image)\n");
 	fprintf(fd_py, "images = list(map(images_map, file_paths))\n");*/
 
@@ -136,11 +139,15 @@ void generateMethod(MethodNode * methodNode){
 	
 	case ADDBLACKANDWHITE_METHOD:
 		LogDebug("Llegue a un method ADDBLACKANDWHITE");
-		fprintf(fd_py, "images = [ image.convert(\'L\') for image in images]\n");
+		fprintf(fd_py, "\n\n# BLACK_AND_WHITE \n");
+
+		fprintf(fd_py, "images = [ image.convert(\'L\').convert(\"RGBA\") for image in images]\n");
 		break;
 
 	case ADDCONTRAST_METHOD:
 		LogDebug("Llegue a un method ADDCONTRAST");
+		fprintf(fd_py, "\n\n# ADD_CONTRAST \n");
+
 		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image).enhance(");
 		generateParamsBlock(methodNode->params);
 		fprintf(fd_py, ") for image in images]\n");
@@ -148,14 +155,15 @@ void generateMethod(MethodNode * methodNode){
 
 	case ADDGRAYSCALE_METHOD:
 		LogDebug("Llegue a un method ADDGRAYSCALE");
-		// TODO
-		//enhanced_image = ImageEnhance.Contrast(grayscale_image).enhance(1.5)
-		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image.convert(\'L\')).enhance(1.5) for image in images]\n");
+		fprintf(fd_py, "\n\n# ADD_GRAY_SCALE \n");
+
+		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image.convert(\'L\')).enhance(1.5).convert(\"RGBA\") for image in images]\n");
 
 		break;
 
 	case ADDBACKGROUND_METHOD:
 		LogDebug("Llegue a un method ADDBACKGROUND");
+		fprintf(fd_py, "\n\n# ADD_BACKGROUND \n");
 
 		fprintf(fd_py, "background_image = Image.open(");
 		generateParamsBlock(methodNode->params);
@@ -169,30 +177,37 @@ void generateMethod(MethodNode * methodNode){
 
 	case ADDFLAVOUR_METHOD:
 		LogDebug("Llegue a un method ADDFLAVOUR");
-		// TODO
-		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image).enhance(");
+		fprintf(fd_py, "\n\n# ADD_FLAVOUR \n");
+		
+		fprintf(fd_py, "flavour_image = Image.open(");
 		generateParamsBlock(methodNode->params);
-		fprintf(fd_py, ") for image in images]\n");
+		fprintf(fd_py, ").convert(\"RGBA\")\n");
+
+		fprintf(fd_py, "position = (0, 0)\n");
+		fprintf(fd_py, "images = [ overlay_images(image, flavour_image, position) for image in images]\n");
+
 		break;
 
 	case PICKFLAVOUR_METHOD:
 		LogDebug("Llegue a un method PICKFLAVOUR");
-		// TODO
-		fprintf(fd_py, "images = [ ImageEnhance.Contrast(image).enhance(");
+		fprintf(fd_py, "\n\n# PICK_FLAVOUR \n");
+
+		fprintf(fd_py, "possible_flavours = [");
 		generateParamsBlock(methodNode->params);
-		fprintf(fd_py, ") for image in images]\n");
+		fprintf(fd_py, "]\n");
+
+		fprintf(fd_py, "flavour_image = Image.open(possible_flavours[random.randint(0, len(possible_flavours) - 1)]).convert(\"RGBA\")\n");
+		
+
+		fprintf(fd_py, "position = (0, 0)\n");
+		fprintf(fd_py, "images = [ overlay_images(image, flavour_image, position) for image in images]\n");
+		
 		break;
 
 	default:
 		LogDebug("Llegue a un method NO CONOCIDO");
 		break;
 	}
-
-
-	
-
-	LogDebug("Llegue a un method custom");
-
 
 	
 }
@@ -223,13 +238,15 @@ void generateRender(RenderNode * renderNode){
 	switch (renderNode->type)
 	{
 	case RENDER__:
-		//for modified_image, file_path in zip(modified_images, file_paths):
-//     modified_image.save(file_path)
+
 		LogDebug("Llegue al render Node con RENDER__.");
+		fprintf(fd_py, "\n\n# SAVE_IMAGES \n");
+
 		fprintf(fd_py, "count = 0\nfor image, file_path in zip(images, file_paths):\n\timage.save(\"exported-\" + str(count) + \".png\")\n\tcount = count + 1");
 		break;
 	case RENDERALL__:
 		LogDebug("Llegue al render Node con RENDERALL__.");
+		fprintf(fd_py, "\n\n# SAVE_IMAGES \n");
 		break;
 	default:
 		break;
