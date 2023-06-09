@@ -131,6 +131,7 @@ void generateMethod(MethodNode * methodNode){
 	{
 	case CUSTOM_METHOD:
 		LogDebug("Llegue a un method CUSTOM");
+		// TODO
 		break;
 	
 	case ADDBLACKANDWHITE_METHOD:

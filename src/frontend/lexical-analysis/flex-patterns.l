@@ -14,7 +14,7 @@
 /* Contextos de Flex. */
 
 /* Patrones reutilizables. */
-digit			[0-9]
+digit			-?[0-9]
 endline			[\n]
 whitespace		[ \f\n\r\t\v]
 letter        [a-zA-Z]
