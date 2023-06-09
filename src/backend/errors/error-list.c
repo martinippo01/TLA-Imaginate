@@ -1,5 +1,8 @@
 #include "error-list.h"
 
+int isEmpty(ErrorList list) {
+    return list.head == NULL;
+}
 void initErrorsList(ErrorList list) {
     list.head = NULL;
     list.tail = NULL;
