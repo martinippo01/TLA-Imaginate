@@ -124,6 +124,7 @@ typedef struct MethodNode {
     OptionalNode * optional;
     MethodIdentifierNode * identifier;
     ParamsBlockNode * params;
+    DefinitionNode * definition; 
 } MethodNode;
 
 typedef struct CustomMethodIdentifierNode {

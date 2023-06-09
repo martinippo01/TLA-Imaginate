@@ -13,9 +13,9 @@ int validateDefinitionSignature(DefsTable hashmap, char * identifier, ParamsBloc
 
     ValueDef * value = getOrDefaultDefsTable(hashmap, identifier, &DEFAULT_VALUE_NODE);
 
-    if (!value->arguments || !params) return 0;
+    if (!value->definition->args || !params) return 0;
 
-    ArgumentsNode *args = value->arguments->params;
+    ArgumentsNode *args = value->definition->args->params;
     ParamsNode *paramNode = params->params;
 
     while(args != NULL && paramNode != NULL) {

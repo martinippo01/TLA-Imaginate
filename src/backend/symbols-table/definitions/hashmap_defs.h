@@ -12,8 +12,7 @@
 
 typedef struct valueDef {
     char * name;
-    ArgumentsBlockNode * arguments;
-    MethodChainNode * body;
+    DefinitionNode * definition;
 } ValueDef;
 
 typedef struct defnode {
