@@ -14,7 +14,7 @@
 /* Contextos de Flex. */
 
 /* Patrones reutilizables. */
-digit			-?[0-9]
+digit			-?[0-9]+(\.[0-9]+)?
 endline			[\n]
 whitespace		[ \f\n\r\t\v]
 letter        [a-zA-Z]
@@ -44,7 +44,7 @@ str             .+
 "addGrayscale"          { return AddGrayscaleKeywordPatternAction(yytext); }
 "addContrast"           { return AddContrastKeywordPatternAction(yytext); }
 "blackAndWhite"       { return AddBlackAndWhitePatternAction(yytext); }
-{digit}+                { return IntegerPatternAction(yytext, yyleng); }
+{digit}                { return IntegerPatternAction(yytext, yyleng); }
 {whitespace}+                   /* ignore whitespace */;
 {letter}({alphanumeric}|-)* { return IdentifierPatternAction(yytext, yyleng); }
 \"{str}\"                   {return StringDelimiterPatternAction(yytext, yyleng);}
