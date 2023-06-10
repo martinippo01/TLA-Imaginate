@@ -6,6 +6,9 @@
 static FILE * fd_py;
 int isRenderAll;
 
+
+void pickFlavourAll(MethodNode* methodNode, char* identation);
+void pickFlavourSimple(MethodNode* methodNode, char* identation);
 /**
  * Implementación de "generator.h".
  */
@@ -133,7 +136,7 @@ void generateMethod(MethodNode * methodNode){
 	fprintf(fd_py, "\n\n");
 
 	char* identation = "";
-	if(methodNode->optional->isQuestionMarkPresent){
+	if(!isRenderAll && methodNode->optional->isQuestionMarkPresent){
 		fprintf(fd_py, "# Optional\n");
 		fprintf(fd_py, "if random.randint(0, 1) == 1:\n");
 		identation = "\t";
@@ -202,15 +205,10 @@ void generateMethod(MethodNode * methodNode){
 		LogDebug("Llegue a un method PICKFLAVOUR");
 		fprintf(fd_py, "%s# PICK_FLAVOUR \n", identation);
 
-		fprintf(fd_py, "%spossible_flavours = [", identation);
-		generateParamsBlock(methodNode->params);
-		fprintf(fd_py, "]\n");
-
-		fprintf(fd_py, "%sflavour_image = Image.open(possible_flavours[random.randint(0, len(possible_flavours) - 1)]).convert(\"RGBA\")\n", identation);
-		
-
-		fprintf(fd_py, "%sposition = (0, 0)\n", identation);
-		fprintf(fd_py, "%simages = [ overlay_images(image, flavour_image, position) for image in images]\n", identation);
+		if(isRenderAll)
+			pickFlavourAll(methodNode, identation);
+		else
+			pickFlavourSimple(methodNode, identation);
 		
 		break;
 
@@ -220,6 +218,41 @@ void generateMethod(MethodNode * methodNode){
 	}
 
 	
+}
+
+void pickFlavourAll(MethodNode* methodNode, char* identation){
+
+	fprintf(fd_py, "%spossible_flavours = [", identation);
+	generateParamsBlock(methodNode->params);
+	fprintf(fd_py, "]\n");
+
+	fprintf(fd_py, "%si=0\n", identation);
+
+	fprintf(fd_py, "%snew_image_list = []\n", identation);
+
+	fprintf(fd_py, "%sfor image in images:\n", identation);
+
+	fprintf(fd_py, "%s\tfor flavour in possible_flavours:\n", identation);
+
+	fprintf(fd_py, "%s\t\tnew_image_list.append(overlay_images(image, Image.open(flavour), position))\n", identation);
+
+	fprintf(fd_py, "%s\t\ti+=1\n", identation);
+
+	fprintf(fd_py, "%simages = [new_image_list[i] for i in range(len(new_image_list))]\n", identation);
+
+}
+
+
+void pickFlavourSimple(MethodNode* methodNode, char* identation){
+	fprintf(fd_py, "%spossible_flavours = [", identation);
+	generateParamsBlock(methodNode->params);
+	fprintf(fd_py, "]\n");
+
+	fprintf(fd_py, "%sflavour_image = Image.open(possible_flavours[random.randint(0, len(possible_flavours) - 1)]).convert(\"RGBA\")\n", identation);
+	
+
+	fprintf(fd_py, "%sposition = (0, 0)\n", identation);
+	fprintf(fd_py, "%simages = [ overlay_images(image, flavour_image, position) for image in images]\n", identation);
 }
 
 
@@ -262,6 +295,11 @@ void generateRender(RenderNode * renderNode){
 	case RENDERALL__:
 		LogDebug("Llegue al render Node con RENDERALL__.");
 		fprintf(fd_py, "# SAVE_IMAGES \n");
+
+		fprintf(fd_py, "count = 0\n");
+		fprintf(fd_py, "for image in images:\n");
+		fprintf(fd_py, "\timage.save(\"exported-\" + str(count) + \".png\")\n");
+		fprintf(fd_py, "\tcount = count + 1\n");
 		break;
 	default:
 		break;
