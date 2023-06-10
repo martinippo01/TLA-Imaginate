@@ -254,7 +254,10 @@ void generateRender(RenderNode * renderNode){
 		LogDebug("Llegue al render Node con RENDER__.");
 		fprintf(fd_py, "# SAVE_IMAGES \n");
 
-		fprintf(fd_py, "count = 0\nfor image, file_path in zip(images, file_paths):\n\timage.save(\"exported-\" + str(count) + \".png\")\n\tcount = count + 1");
+		fprintf(fd_py, "count = 0\n");
+		fprintf(fd_py, "for image, file_path in zip(images, file_paths):\n");
+		fprintf(fd_py, "\timage.save(\"exported-\" + str(count) + \".png\")\n");
+		fprintf(fd_py, "\tcount = count + 1\n");
 		break;
 	case RENDERALL__:
 		LogDebug("Llegue al render Node con RENDERALL__.");
