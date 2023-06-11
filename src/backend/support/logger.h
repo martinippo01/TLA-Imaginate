@@ -5,7 +5,7 @@
 #include <stdio.h>
 
 // Uncomment to log in DEBUG mode (with more details).
-//#define DEBUG true
+#define DEBUG true
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"

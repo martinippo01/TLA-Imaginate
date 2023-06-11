@@ -7,7 +7,7 @@ void printHashMap(HashMap hashmap) {
             LogDebug("%-15s", node->id);
             switch (node->value->type_enum) {
                 case INT_TYPE:
-                    LogDebug("%-10s%-20s%d\n", "INT_TYPE", node->value->type, node->value->initialization);
+                    LogDebug("%-10s%-20s%s\n", "INT_TYPE", node->value->type, node->value->initialization);
                     break;
                 case STRING_TYPE:
                     LogDebug("%-10s%-20s%s\n", "STRING_TYPE", node->value->type, node->value->initialization);

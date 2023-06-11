@@ -288,6 +288,7 @@ ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
 	   val->initialization = strdup_(assignment->rightHandValue->value.stringValue);
 	  }
 		put(state.symbols_table, key, *val);
+  LogDebug(" WROTE TO THE SYMBOLS TABLE THE KEY: %s with VALUE %s", key, val->initialization);
 		assignments = assignments->next;
   }
 
