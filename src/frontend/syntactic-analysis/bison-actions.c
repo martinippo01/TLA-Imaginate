@@ -114,7 +114,7 @@ ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement) {
   ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
   node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
   node->value->type = OBJECT_VALUE;
-  // node->value->value.objectValue = objectElement->identifier;
+  node->value->value.objectValue = objectElement->identifier;
   return node;
 }
 ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
@@ -259,8 +259,7 @@ MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name) {
 ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
   LogDebug(" ObjectNodeGrammarAction: objectIdentifier = ");
   ObjectNode* node = (ObjectNode*) calloc_(1, sizeof(ObjectNode));
-  // aca tambien falta lo de tabla de simbolos
-  // node->node = content; 
+  node->content = content; 
   return node;
 }
 

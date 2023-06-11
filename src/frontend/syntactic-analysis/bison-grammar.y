@@ -151,9 +151,9 @@ param:  STRING_IDENTIFIER          { $$ = ParamStringGrammarAction($1); }
       | INTEGER                   { $$ = ParamIntegerGrammarAction($1); }
       | variableIdentifier        { $$ = ParamVariableGrammarAction($1); }
       | objectElement             { $$ = ParamObjectElementGrammarAction($1); }
-      | inlineObject              { $$ = ParamInlineObjectGrammarAction($1); };
-
-inlineObject: OPEN_CURLY_BRACE objectContent CLOSE_CURLY_BRACE { $$ = InlineObjectGrammarAction($2); };
+/*       | inlineObject              { $$ = ParamInlineObjectGrammarAction($1); }; */
+/**/
+/* inlineObject: OPEN_CURLY_BRACE objectContent CLOSE_CURLY_BRACE { $$ = InlineObjectGrammarAction($2); }; */
 
 objectElement: variableIdentifier DOT variableIdentifier { $$ = ObjectElementGrammarAction($1, $3); };
 

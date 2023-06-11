@@ -131,14 +131,17 @@ typedef struct CustomMethodIdentifierNode {
     char* name;
 } CustomMethodIdentifierNode;
 
-typedef struct ObjectNode {
-    char* name;
-} ObjectNode;
 
 typedef struct ObjectContentNode {
     struct ObjectContentNode* next;
     struct ObjectAssignmentNode* assignment;
 } ObjectContentNode;
+
+
+typedef struct ObjectNode {
+    ObjectContentNode * content;
+} ObjectNode;
+
 
 typedef struct ObjectAssignmentNode {
     IdentifierNode* variable;
