@@ -1,15 +1,11 @@
-def myOwnModifier(hello):
-    .addContrast(10, 20).addGrayscale(20)
-
-def myOwnModifier(hello2):
-    .addGrayscale(20)
+val flavour2: "./nubes.png"
 
 Imaginate
     .forEachFocus("./luna.png","./zapatillas.png","./reloj.png")
+    .addFlavour(flavour)
     .addBackground("./darkblue.png")
-    .addFlavour("./nubes.png")
+    .addFlavour(flavour)
     .pickFlavour("./estrellas.png", "./truenos.png", "./lluvia.png")
     .addFlavour("./niebla.png")
-    .myOwnModifier("./hello")
     .renderAll()
-
+    .renderAll()

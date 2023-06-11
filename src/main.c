@@ -24,38 +24,33 @@ const int main(const int argumentCount, const char ** arguments) {
 
 	// Mostrar parámetros recibidos por consola.
 	for (int i = 0; i < argumentCount; ++i) {
-		LogInfo("Argumento %d: '%s'", i, arguments[i]);
+		LogInfo("Argument %d: '%s'", i, arguments[i]);
 	}
 
 	// Compilar el programa de entrada.
-	LogInfo("Compilando...\n");
+	LogInfo("Compiling...\n");
 	const int result = yyparse();
 	switch (result) {
 		case 0:
 			// La variable "succeed" es la que setea Bison al identificar el símbolo
 			// inicial de la gramática satisfactoriamente.
 			if (state.succeed) {
-				LogInfo("La compilacion fue exitosa.");
+				LogInfo("Compilation successful");
 				Generator(state.program);
 			}
 			break;
 		case 1:
-			LogError("Bison finalizo debido a un error de sintaxis.");
+			LogError("There is a syntax error in the program");
 			break;
 		case 2:
-			LogError("Bison finalizo abruptamente debido a que ya no hay memoria disponible.");
+			LogError("There was not enough memory to carry out parser");
 			break;
 		default:
-			LogError("Error desconocido mientras se ejecutaba el analizador Bison (codigo %d).", result);
+			LogError("Errors found in compilation");
 	}
 	
 	printHashMap(state.symbols_table);
 	TraverseErrorList(&state.errors);
-	if(state.succeed) {
-		LogInfo("Compilation successfull!");
-	} else {
-		LogError("Errors found in compilation");
-	}
 
 	//decirle al garbage-collector que libere toda la memoria
 	free_all();

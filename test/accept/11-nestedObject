@@ -1,24 +1,5 @@
 val earth : {setting: "./earth.png"}
-val mars : {setting: "./mars.png", color: {red: 0, blue: 10}}
-val jupiter : {setting: "./jupiter.png"}
-val saturn : {setting: "./saturn.png"}
-val neptune : {setting: "./neptune.png"}
-
-val cargo : {spaceship: "./cargoSpaceship.png"}
-val exploration : {spaceship: "./explorationSpaceship.png"}
-val colony : {spaceship: "./colonySpaceship.png"}
-
-val scientists : {characters: "./scientists.png"}
-val engineers : {characters: "./engineers.png"}
-val pilots : {characters: "./pilots.png"}
-
-val researchStation : {spaceStation: "./researchStation.png"}
-val fuelStation : {spaceStation: "./fuelStation.png"}
-val colonyStation : {spaceStation: "./colonyStation.png"}
-
-val meteorShower : {event: "./meteorShower.png"}
-val solarEclipse : {event: "./solarEclipse.png"}
-val comet : {event: "./comet.png"}
+val mars : {setting: "./mars.png", color: "hello"}
 
 def setLocation(location):
     .addBackground(location.setting)
@@ -29,26 +10,9 @@ def addSpaceship(spaceship):
 def addCharacters(characters):
     .addFlavour(characters.characters)
 
-def addSpaceStation(spaceStation):
-    .addFlavour(spaceStation.spaceStation)
-
-def addEvent(event):
-    .addFlavour(event.event)
-
-def exploreSpace(setting1, spaceship1, characters1, spaceStation1, event1):
-    .setLocation(setting1)
-    .addSpaceship(spaceship1)
-    .addCharacters(characters1)
-    .addSpaceStation(spaceStation1)
-    .addEvent(event1)
-
 Imaginate
-    .forEachFocus(earth, mars, jupiter, saturn, neptune)
-    .exploreSpace(earth, cargo, scientists, researchStation, meteorShower)
-    .exploreSpace(mars, exploration, engineers, fuelStation, solarEclipse)
-    .exploreSpace(jupiter, colony, pilots, colonyStation, comet)
-    .exploreSpace(saturn, cargo, scientists, researchStation, meteorShower)
-    .exploreSpace(neptune, exploration, engineers, fuelStation, solarEclipse)
+    .forEachFocus(earth, mars)
+    .setLocation(earth)
     .renderAll()
 
 

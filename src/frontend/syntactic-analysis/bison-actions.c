@@ -284,8 +284,13 @@ ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
 		//should check whether string or int as value
 		if(assignment->rightHandValue->type == INT_VALUE) {
 
+	   val->initialization = strdup_(assignment->rightHandValue->value.stringValue);
+	   val->type_enum = INT_VALUE;
+	   strcpy(val->type, "int");
 		} else if (assignment->rightHandValue->type == STRING_VALUE) {
 	   val->initialization = strdup_(assignment->rightHandValue->value.stringValue);
+	   val->type_enum = STRING_VALUE;
+	   strcpy(val->type, "string");
 	  }
 		put(state.symbols_table, key, *val);
   LogDebug(" WROTE TO THE SYMBOLS TABLE THE KEY: %s with VALUE %s", key, val->initialization);
