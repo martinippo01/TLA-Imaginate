@@ -20,6 +20,7 @@ void printHashMap(HashMap hashmap) {
     }
 }
 
+//djb2
 unsigned long hash(const char *str) {
     unsigned long hash = 5381;
     int c;
