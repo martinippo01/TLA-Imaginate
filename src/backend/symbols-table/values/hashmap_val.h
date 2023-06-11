@@ -13,7 +13,7 @@
 typedef struct valueVal {
     enum {INT_TYPE, STRING_TYPE} type_enum; 
     char type[256];
-    char initialization[256];
+    char * initialization;
 } Value;
 
 typedef struct hashnode {

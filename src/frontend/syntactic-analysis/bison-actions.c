@@ -282,7 +282,11 @@ ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
   	state.next_object_id++;
 		Value * val = calloc_(1, sizeof(Value));
 		//should check whether string or int as value
-		// strcpy(val->initialization, assignment->rightHandValue->value.stringValue);
+		if(assignment->rightHandValue->type == INT_VALUE) {
+
+		} else if (assignment->rightHandValue->type == STRING_VALUE) {
+	   val->initialization = strdup_(assignment->rightHandValue->value.stringValue);
+	  }
 		put(state.symbols_table, key, *val);
 		assignments = assignments->next;
   }
@@ -340,10 +344,10 @@ AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode *
   Value* value = malloc(sizeof(Value));
   if(expression->type == INT_VALUE) {
     strcpy(value->type, "int");
-    sprintf(value->initialization, "%d", expression->value.intValue);
+    value->initialization = strcat_("", expression->value.intValue);
   } else if(expression->type == STRING_VALUE) {
     strcpy(value->type, "string");
-    strcpy(value->initialization, expression->value.stringValue);
+    value->initialization = strdup_(expression->value.stringValue);
   }
 
   int put_status = put(state.symbols_table, identifier->name, *value);
