@@ -15,7 +15,7 @@ const int main(const int argumentCount, const char ** arguments) {
 
 	state.program = NULL;
 	state.result = 0;
-	state.succeed = false;
+	state.succeed = UNDEFINED;
 	state.next_object_id = 0;
 	initHashMap(state.symbols_table);
 	initDefsTable(state.defs_table);
@@ -34,7 +34,7 @@ const int main(const int argumentCount, const char ** arguments) {
 		case 0:
 			// La variable "succeed" es la que setea Bison al identificar el símbolo
 			// inicial de la gramática satisfactoriamente.
-			if (state.succeed) {
+			if (state.succeed == SUCCESS) {
 				LogInfo("Compilation successful");
 				Generator(state.program);
 			}
@@ -57,5 +57,5 @@ const int main(const int argumentCount, const char ** arguments) {
 	destroy(state.symbols_table);
 	destroyDefsTable(state.defs_table);
 	
-	return result;
+	return result == 0 ? state.succeed : result;
 }

@@ -10,8 +10,12 @@
 
 #define SIZE 101 // A prime number
 
+#define OBJECT_LABEL "object"
+#define INT_LABEL "int"
+#define STR_LABEL "string"
+
 typedef struct valueVal {
-    enum {INT_TYPE, STRING_TYPE} type_enum; 
+    enum {INT_TYPE, STRING_TYPE, OBJECT} type_enum; 
     char type[256];
     char * initialization;
 } Value;

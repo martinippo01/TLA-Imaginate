@@ -35,7 +35,6 @@
   struct ObjectContentNode * objectContent;
   struct ObjectAssignmentNode * objectAssignment;
   struct ObjectElementNode * objectElement;
-  struct InlineObjectNode * inlineObject;
 
 // Terminales.
 	token token;
@@ -90,7 +89,6 @@
 %type <objectAssignment> objectAssignment
 %type <objectContent> objectContent
 %type <objectElement> objectElement
-%type <inlineObject> inlineObject
 %start program
 
 %%
@@ -154,9 +152,6 @@ param:  STRING_IDENTIFIER          { $$ = ParamStringGrammarAction($1); }
       | INTEGER                   { $$ = ParamIntegerGrammarAction($1); }
       | variableIdentifier        { $$ = ParamVariableGrammarAction($1); }
       | objectElement             { $$ = ParamObjectElementGrammarAction($1); }
-/*       | inlineObject              { $$ = ParamInlineObjectGrammarAction($1); }; */
-/**/
-/* inlineObject: OPEN_CURLY_BRACE objectContent CLOSE_CURLY_BRACE { $$ = InlineObjectGrammarAction($2); }; */
 
 objectElement: variableIdentifier DOT variableIdentifier { $$ = ObjectElementGrammarAction($1, $3); };
 

@@ -65,6 +65,7 @@ add_executable(Compiler
 	src/backend/support/logger.c
 	src/backend/semantic-analysis/adapters.c
 	src/backend/support/garbage-collector.c
+	src/backend/support/lib.c
 	
 	src/backend/errors/error-list.c
 	src/backend/symbols-table/values/hashmap_val.c

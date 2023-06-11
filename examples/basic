@@ -1,0 +1,4 @@
+Imaginate
+    .addFocus("src/backend/code-generation/python/focos/Nike.png")
+    .addBackground("src/backend/code-generation/python/background/Bricks.png")
+    .render()

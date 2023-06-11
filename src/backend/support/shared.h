@@ -46,7 +46,7 @@ typedef int token;
 typedef struct {
 
 	// Indica si la compilación tuvo problemas hasta el momento.
-	boolean succeed;
+	enum succeed {SUCCESS, UNDEFINED, ERROR} succeed;
 
 	// Indica el resultado de la compilación (para la calculadora).
 	int result;
