@@ -16,6 +16,7 @@ const int main(const int argumentCount, const char ** arguments) {
 	state.program = NULL;
 	state.result = 0;
 	state.succeed = false;
+	state.next_object_id = 0;
 	initHashMap(state.symbols_table);
 	initDefsTable(state.defs_table);
 	initErrorsList(state.errors);
@@ -48,6 +49,7 @@ const int main(const int argumentCount, const char ** arguments) {
 			LogError("Error desconocido mientras se ejecutaba el analizador Bison (codigo %d).", result);
 	}
 	
+	printHashMap(state.symbols_table);
 	TraverseErrorList(&state.errors);
 	if(state.succeed) {
 		LogInfo("Compilation successfull!");

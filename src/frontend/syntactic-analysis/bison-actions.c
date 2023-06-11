@@ -97,7 +97,7 @@ ValueNode * ValueObjectGrammarAction(ObjectNode * object) {
   LogDebug("ValueObjectGrammarAction: valueObject = ");
   ValueNode * node = (ValueNode*) calloc_(1, sizeof(ValueNode));
   node->type = OBJECT_VALUE;
-  // node->value.objectValue = object;
+  node->value.objectValue = object->identifier;
   return node;
 }
 
@@ -252,7 +252,21 @@ MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name) {
   return node;
 }
 
+char* strcat_(const char* str, int num) {
+    int str_len = strlen(str);
+    int num_len = snprintf(NULL, 0, "%d", num);
 
+    // allocate memory for the new string
+    char* result = calloc_(str_len + num_len + 1, sizeof(char)); 
+
+    // copy str into result
+    strcpy(result, str);
+
+    // append num to result
+    sprintf(result + str_len, "%d", num);
+
+    return result;
+}
 
 // ___________________________________________
 
@@ -260,6 +274,19 @@ ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
   LogDebug(" ObjectNodeGrammarAction: objectIdentifier = ");
   ObjectNode* node = (ObjectNode*) calloc_(1, sizeof(ObjectNode));
   node->content = content; 
+
+  ObjectContentNode * assignments = node->content;
+  while(assignments->assignment != NULL) {
+  	ObjectAssignmentNode * assignment = assignments->assignment;
+  	char * key = strcat_(assignment->variable->name, state.next_object_id); 
+  	state.next_object_id++;
+		Value * val = calloc_(1, sizeof(Value));
+		//should check whether string or int as value
+		// strcpy(val->initialization, assignment->rightHandValue->value.stringValue);
+		put(state.symbols_table, key, *val);
+		assignments = assignments->next;
+  }
+
   return node;
 }
 

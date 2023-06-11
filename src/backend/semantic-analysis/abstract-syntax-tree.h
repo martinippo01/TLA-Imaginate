@@ -140,6 +140,7 @@ typedef struct ObjectContentNode {
 
 typedef struct ObjectNode {
     ObjectContentNode * content;
+    IdentifierNode * identifier;
 } ObjectNode;
 
 

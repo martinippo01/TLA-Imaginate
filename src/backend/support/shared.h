@@ -60,7 +60,10 @@ typedef struct {
 	// Agregar la tabla para las defs del sistema.
 	DefsTable defs_table;
 
+	// Lista para mantener los errores de compilacion y imprimirlos todos.
 	ErrorList errors;
+
+	int next_object_id;
 
 } CompilerState;
 

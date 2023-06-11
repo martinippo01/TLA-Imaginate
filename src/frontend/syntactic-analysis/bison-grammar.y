@@ -176,8 +176,8 @@ objectContent: objectAssignment objectContent { $$ = ObjectContentGrammarAction(
 
 objectAssignment: variableIdentifier COLON value COMMA { $$ = ObjectAssignmentValueGrammarAction($1, $3); }
                 | variableIdentifier COLON value        { $$ = ObjectAssignmentValueGrammarAction($1, $3); }
-								| variableIdentifier COLON variableIdentifier COMMA { $$ = ObjectAssignmentIdentifierGrammarAction($1, $3); }
-                | variableIdentifier COLON variableIdentifier       { $$ = ObjectAssignmentIdentifierGrammarAction($1, $3); };
+								/* | variableIdentifier COLON variableIdentifier COMMA { $$ = ObjectAssignmentIdentifierGrammarAction($1, $3); } */
+        /*         | variableIdentifier COLON variableIdentifier       { $$ = ObjectAssignmentIdentifierGrammarAction($1, $3); }; */
 
 
 %%
