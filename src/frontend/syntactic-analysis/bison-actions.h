@@ -113,6 +113,8 @@ OptionalNode* EmptyOptionalGrammarAction();
 /* 
  * Objetos
  * */
+ObjectContentNode *  ObjectAssignmentGrammarAction(ObjectAssignmentNode * assignment);
+ObjectContentNode *  ObjectAssignmentsGrammarAction(ObjectAssignmentNode * assignment, ObjectContentNode * next);
 ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content);
 ObjectContentNode* ObjectContentGrammarAction(ObjectAssignmentNode* assignment, ObjectContentNode* next);
 ObjectAssignmentNode* ObjectAssignmentValueGrammarAction(IdentifierNode* variable, ValueNode * value);

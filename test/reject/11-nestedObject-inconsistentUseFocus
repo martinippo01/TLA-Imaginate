@@ -1,5 +1,5 @@
 val earth : {setting: "./earth.png"}
-val mars : {setting: "./mars.png", color: "hello"}
+val mars : {setting: "./mars.png"}
 
 def setLocation(location):
     .addBackground(location.setting)

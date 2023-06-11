@@ -174,13 +174,10 @@ methodIdentifier: ADDBACKGROUND   { $$ = AddBackgroundMethodIdentifierGrammarAct
 
 object: OPEN_CURLY_BRACE objectContent CLOSE_CURLY_BRACE { $$ = ObjectNodeGrammarAction($2); };
 
-objectContent: objectAssignment objectContent { $$ = ObjectContentGrammarAction($1, $2); }
-             | /* empty */                   { $$ = EmptyObjectContentGrammarAction(); };
+objectContent: objectAssignment COMMA objectContent { $$ = ObjectAssignmentsGrammarAction($1, $3); }
+             | objectAssignment                     { $$ = ObjectAssignmentGrammarAction($1); }
+             | /* empty */                          { $$ = EmptyObjectContentGrammarAction(); };
 
-objectAssignment: variableIdentifier COLON value COMMA { $$ = ObjectAssignmentValueGrammarAction($1, $3); }
-                | variableIdentifier COLON value        { $$ = ObjectAssignmentValueGrammarAction($1, $3); }
-								/* | variableIdentifier COLON variableIdentifier COMMA { $$ = ObjectAssignmentIdentifierGrammarAction($1, $3); } */
-        /*         | variableIdentifier COLON variableIdentifier       { $$ = ObjectAssignmentIdentifierGrammarAction($1, $3); }; */
-
+objectAssignment: variableIdentifier COLON value { $$ = ObjectAssignmentValueGrammarAction($1, $3); };
 
 %%

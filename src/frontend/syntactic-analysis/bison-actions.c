@@ -74,6 +74,19 @@ char* concatIntToStr(const char* str, int num) {
   return newStr;
 }
 
+ObjectContentNode *  ObjectAssignmentGrammarAction(ObjectAssignmentNode * assignment) {
+  ObjectContentNode* node = (ObjectContentNode*) calloc_(1, sizeof(ObjectContentNode));
+  node->assignment = assignment;
+  node->next = NULL;
+  return node;
+}
+
+ObjectContentNode *  ObjectAssignmentsGrammarAction(ObjectAssignmentNode * assignment, ObjectContentNode * next) {
+  ObjectContentNode* node = (ObjectContentNode*) calloc_(1, sizeof(ObjectContentNode));
+  node->assignment = assignment;
+  node->next = next;
+  return node;
+}
 
 ArgumentsBlockNode * ArgumentsBlockGrammarAction(ArgumentsNode * arguments) {
   ArgumentsBlockNode *node = (ArgumentsBlockNode *)calloc_(1, sizeof(ArgumentsBlockNode));
@@ -162,15 +175,17 @@ AssignmentNode * ValueObjectGrammarAction(IdentifierNode * identifier, ObjectNod
 	//insert the object in itself
   char * key = identifier->name;
   Value * val = calloc_(1, sizeof(Value));
-	put(state.symbols_table, key, *val);
+  put(state.symbols_table, key, *val);
 
 	//insert the body of the object
   ObjectContentNode * assignments = object->content;
-  while(assignments->assignment != NULL) {
+  while(assignments != NULL && assignments->assignment != NULL) {
   	char * key = strcat_(identifier->name, assignments->assignment->variable->name); 
-		put(state.symbols_table, key, *initialiseValueSymbolsTable(assignments->assignment->rightHandValue));
-		assignments = assignments->next;
+	put(state.symbols_table, key, *initialiseValueSymbolsTable(assignments->assignment->rightHandValue));
+	printHashMap(state.symbols_table);
+	assignments = assignments->next;
   }
+
 
   AssignmentNode* assignmentNode = malloc(sizeof(AssignmentNode));
   assignmentNode->identifier = identifier;
@@ -358,7 +373,7 @@ ObjectAssignmentNode* ObjectAssignmentIdentifierGrammarAction(IdentifierNode* va
 
 
 ObjectAssignmentNode* ObjectAssignmentValueGrammarAction(IdentifierNode* variable, ValueNode * value) {
-  LogDebug("ObjectAssignmentValueGrammarAction: variableIdentifier = , value = ");
+  LogDebug("ObjectAssignmentValueGrammarAction: variableIdentifier = %s", variable->name);
   ObjectAssignmentNode* node = (ObjectAssignmentNode*) calloc_(1, sizeof(ObjectAssignmentNode));
   node->variable = variable;
   node->rightHandValue = value;

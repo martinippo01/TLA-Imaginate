@@ -47,5 +47,6 @@ str             .+
 {digit}                { return IntegerPatternAction(yytext, yyleng); }
 {whitespace}+                   /* ignore whitespace */;
 {letter}({alphanumeric}|-)* { return IdentifierPatternAction(yytext, yyleng); }
-\"{str}\"                   {return StringDelimiterPatternAction(yytext, yyleng);}
+\"[^"]*\"                   {return StringDelimiterPatternAction(yytext, yyleng);}
+
 %%
