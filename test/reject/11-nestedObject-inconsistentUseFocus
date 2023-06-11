@@ -1,4 +1,3 @@
-
 val earth : {setting: "./earth.png"}
 val mars : {setting: "./mars.png", color: "hello"}
 

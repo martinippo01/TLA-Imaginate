@@ -86,6 +86,7 @@
 %type <render> render
 %type <imaginate> imaginate
 %type <object> object
+%type <assignment> assignmentObject 
 %type <objectAssignment> objectAssignment
 %type <objectContent> objectContent
 %type <objectElement> objectElement
@@ -99,13 +100,15 @@ program: assignments definitions imaginate   { $$ = ProgramGrammarAction($1, $2,
 assignments: assignment assignments             { $$ =  AssignmentsGrammarAction($1, $2); }
            | /* empty */                        { $$ = EmptyAssignmentsGrammarAction(); };
 
-assignment: VAL variableIdentifier COLON value  { $$ = AssignmentGrammarAction($2, $4); };
+assignment: VAL variableIdentifier COLON value  { $$ = AssignmentGrammarAction($2, $4); }
+					| assignmentObject {};
+
+assignmentObject: VAL variableIdentifier COLON object { $$ = ValueObjectGrammarAction($2, $4); };
 
 variableIdentifier: IDENTIFIER    { $$ = VariableIdentifierGrammarAction($1); };
 
 value: STRING_IDENTIFIER                        { $$ = ValueStringGrammarAction($1); }
      | INTEGER                                  { $$ = ValueIntegerGrammarAction($1); }
-     | object                         { $$ = ValueObjectGrammarAction($1); };
 
 definitions: definition definitions             { $$ = DefinitionsGrammarAction($1, $2); }
            | /* empty */                        { $$ = EmptyDefinitionsGrammarAction(); };

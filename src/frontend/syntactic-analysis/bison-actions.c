@@ -8,6 +8,48 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
+
+char* strcatint_(const char* str, int num) {
+    int str_len = strlen(str);
+    int num_len = snprintf(NULL, 0, "%d", num);
+
+    // allocate memory for the new string
+    char* result = calloc_(str_len + num_len + 1, sizeof(char)); 
+
+    // copy str into result
+    strcpy(result, str);
+
+    // append num to result
+    sprintf(result + str_len, "%d", num);
+
+    return result;
+}
+
+char * strcat_(const char* str1, const char* str2) {
+ // calculate lengths of both strings
+    int str1_len = strlen(str1);
+    int str2_len = strlen(str2);
+
+    // allocate memory for the new string
+    // +2 for the null-terminator and the period
+    char* result = calloc(str1_len + str2_len + 2, sizeof(char)); 
+
+    // check if memory allocation was successful
+    if (result == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return NULL;
+    }
+
+    // copy str1 into result
+    strcpy(result, str1);
+
+    // add a period after str1
+    result[str1_len] = '.';
+
+    // append str2 to result
+    strcpy(result + str1_len + 1, str2);
+    return result;
+}
 /**
  * Implementación de "bison-grammar.h".
  */
@@ -73,6 +115,7 @@ ArgumentNode * ArgumentIdentifierGrammarAction(const char * name) {
 ArgumentsNode * EmptyArgumentsGrammarAction() {
   return (ArgumentsNode *)calloc_(1, sizeof(ArgumentsNode));
 }
+
 ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
   LogDebug("ParamInlineObjectGrammarAction: valueObject = ");
 
@@ -93,12 +136,46 @@ ParamNode * ParamInlineObjectGrammarAction(InlineObjectNode * inlineObject) {
 }
 
 
-ValueNode * ValueObjectGrammarAction(ObjectNode * object) {
+Value * initialiseValueSymbolsTable(ValueNode * assignment) {
+		Value * val = calloc_(1, sizeof(Value));
+		//should check whether string or int as value
+		if(assignment->type == INT_VALUE) {
+	   val->initialization = strdup_(assignment->value.stringValue);
+	   val->type_enum = INT_VALUE;
+	   strcpy(val->type, "int");
+		} else if (assignment->type == STRING_VALUE) {
+	   val->initialization = strdup_(assignment->value.stringValue);
+	   val->type_enum = STRING_VALUE;
+	   strcpy(val->type, "string");
+	  }
+	  return val;
+}
+
+AssignmentNode * ValueObjectGrammarAction(IdentifierNode * identifier, ObjectNode * object) {
   LogDebug("ValueObjectGrammarAction: valueObject = ");
+
   ValueNode * node = (ValueNode*) calloc_(1, sizeof(ValueNode));
   node->type = OBJECT_VALUE;
   node->value.objectValue = object->identifier;
-  return node;
+
+
+	//insert the object in itself
+  char * key = identifier->name;
+  Value * val = calloc_(1, sizeof(Value));
+	put(state.symbols_table, key, *val);
+
+	//insert the body of the object
+  ObjectContentNode * assignments = object->content;
+  while(assignments->assignment != NULL) {
+  	char * key = strcat_(identifier->name, assignments->assignment->variable->name); 
+		put(state.symbols_table, key, *initialiseValueSymbolsTable(assignments->assignment->rightHandValue));
+		assignments = assignments->next;
+  }
+
+  AssignmentNode* assignmentNode = malloc(sizeof(AssignmentNode));
+  assignmentNode->identifier = identifier;
+  assignmentNode->expression = node;
+  return assignmentNode;
 }
 
 ObjectContentNode* EmptyObjectContentGrammarAction() {
@@ -252,51 +329,12 @@ MethodIdentifierNode * CustomMethodIdentifierGrammarAction(const char * name) {
   return node;
 }
 
-char* strcat_(const char* str, int num) {
-    int str_len = strlen(str);
-    int num_len = snprintf(NULL, 0, "%d", num);
-
-    // allocate memory for the new string
-    char* result = calloc_(str_len + num_len + 1, sizeof(char)); 
-
-    // copy str into result
-    strcpy(result, str);
-
-    // append num to result
-    sprintf(result + str_len, "%d", num);
-
-    return result;
-}
-
 // ___________________________________________
 
 ObjectNode* ObjectNodeGrammarAction(ObjectContentNode * content) {
   LogDebug(" ObjectNodeGrammarAction: objectIdentifier = ");
   ObjectNode* node = (ObjectNode*) calloc_(1, sizeof(ObjectNode));
   node->content = content; 
-
-  ObjectContentNode * assignments = node->content;
-  while(assignments->assignment != NULL) {
-  	ObjectAssignmentNode * assignment = assignments->assignment;
-  	char * key = strcat_(assignment->variable->name, state.next_object_id); 
-  	state.next_object_id++;
-		Value * val = calloc_(1, sizeof(Value));
-		//should check whether string or int as value
-		if(assignment->rightHandValue->type == INT_VALUE) {
-
-	   val->initialization = strdup_(assignment->rightHandValue->value.stringValue);
-	   val->type_enum = INT_VALUE;
-	   strcpy(val->type, "int");
-		} else if (assignment->rightHandValue->type == STRING_VALUE) {
-	   val->initialization = strdup_(assignment->rightHandValue->value.stringValue);
-	   val->type_enum = STRING_VALUE;
-	   strcpy(val->type, "string");
-	  }
-		put(state.symbols_table, key, *val);
-  LogDebug(" WROTE TO THE SYMBOLS TABLE THE KEY: %s with VALUE %s", key, val->initialization);
-		assignments = assignments->next;
-  }
-
   return node;
 }
 
@@ -350,7 +388,7 @@ AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode *
   Value* value = malloc(sizeof(Value));
   if(expression->type == INT_VALUE) {
     strcpy(value->type, "int");
-    value->initialization = strcat_("", expression->value.intValue);
+    value->initialization = strcatint_("", expression->value.intValue);
   } else if(expression->type == STRING_VALUE) {
     strcpy(value->type, "string");
     value->initialization = strdup_(expression->value.stringValue);

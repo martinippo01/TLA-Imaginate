@@ -55,7 +55,7 @@ AssignmentNode* AssignmentGrammarAction(IdentifierNode * identifier, ValueNode *
 IdentifierNode* VariableIdentifierGrammarAction(const char * name);
 ValueNode* ValueIntegerGrammarAction(int value);
 ValueNode* ValueStringGrammarAction(const char * value);
-ValueNode * ValueObjectGrammarAction(ObjectNode * objectIdentifier);
+AssignmentNode * ValueObjectGrammarAction(IdentifierNode * identifier, ObjectNode * objectIdentifier);
 
 /* 
  * Definciones
