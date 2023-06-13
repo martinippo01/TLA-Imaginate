@@ -8,8 +8,6 @@ def overlay_images(background_image, overlay_image, position):
 	modified_image.paste(overlay_with_alpha, position, overlay_with_alpha)
 	return modified_image
 
-str1 = 
-str2 = 
 
 file_paths = ["hola", "holaaa"]
 images_map = lambda image: Image.open(image).convert("RGBA")
