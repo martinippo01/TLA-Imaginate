@@ -29,9 +29,14 @@ void Generator(ProgramNode * program) {
 
 	fprintf(fd_py, "\treturn modified_image\n");
 
+	fprintf(fd_py, "\n");
+	generateVariables(program->assignments);
+	fprintf(fd_py, "\n");
+
 	LogDebug("Llegue al program Node .");
 	generateImagenate(program->imaginate);
-	fprintf(fd_py, "\n"); // Some IDEs recommned having a emty last line
+
+	fprintf(fd_py, "\n"); // Some IDEs recommned having an emty last line
 
 
 	LogDebug("Generando archivo .py");
@@ -44,6 +49,54 @@ void Generator(ProgramNode * program) {
 	printf("\n\n\n Error code = %d\n", errorCode);
 
 }
+
+	void generateVariables(AssignmentsNode * assignmentsNode){
+		if(assignmentsNode->assignment == NULL)
+			return;
+
+		LogDebug("Llegue a assignmets");
+
+		
+		generateIdentifier(assignmentsNode->assignment->identifier);
+		fprintf(fd_py, " = ");
+		generateExpression(assignmentsNode->assignment->expression);
+		fprintf(fd_py, "\n");
+		
+		generateVariables(assignmentsNode->next);
+	}
+
+
+	void generateIdentifier(IdentifierNode * identifierNode){
+		
+		LogDebug("Llegue a identifier");
+
+		fprintf(fd_py, identifierNode->name);
+	}
+
+
+	void generateExpression(ValueNode * valueNode){
+		
+		LogDebug("Llegue a value");
+		switch (valueNode->type)
+		{
+		case INT_VALUE:
+			fprintf(fd_py, "%d", valueNode->value.intValue);
+			break;
+		
+		case STRING_VALUE:
+			fprintf(fd_py, "%s", valueNode->value.stringValue);
+			break;
+
+		case OBJECT_VALUE:
+			fprintf(fd_py, "%s", valueNode->value.objectValue->name);
+			break;	
+
+		default:
+			break;
+		}
+		
+
+	}
 
 void generateImagenate(ImaginateNode * imaginateNode){
 	LogDebug("Llegue al imaginate Node .");
