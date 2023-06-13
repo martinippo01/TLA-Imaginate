@@ -148,7 +148,7 @@ ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement) {
     LogDebug("ParamObjectElementGrammarAction: objectElement = ");
 		char * key = strcat_(objectElement->identifier->name, objectElement->value->name);
 
-    if(!exists(state.symbols_table, key)) {
+    if(!exists(state.symbols_table, key) && !exists(state.symbols_table, objectElement->identifier->name)) {
         AppendError(&state.errors, "Identifier %s is not defined.\n", key);
         state.succeed = ERROR;
     }
