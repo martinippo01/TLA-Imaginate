@@ -30,7 +30,7 @@ void Generator(ProgramNode * program) {
 	fprintf(fd_py, "\treturn modified_image\n");
 
 	fprintf(fd_py, "\n");
-	generateVariables(program->assignments);
+	//generateVariables(program->assignments);
 	fprintf(fd_py, "\n");
 
 	LogDebug("Llegue al program Node .");
@@ -88,7 +88,7 @@ void Generator(ProgramNode * program) {
 			break;
 
 		case OBJECT_VALUE:
-			fprintf(fd_py, "%s", valueNode->value.objectValue->name);
+			//fprintf(fd_py, "%s", valueNode->value.objectValue->name);
 			break;	
 
 		default:

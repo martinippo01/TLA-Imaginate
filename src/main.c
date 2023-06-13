@@ -30,6 +30,7 @@ const int main(const int argumentCount, const char ** arguments) {
 	// Compilar el programa de entrada.
 	LogInfo("Compiling...\n");
 	const int result = yyparse();
+	printHashMap(state.symbols_table);
 	switch (result) {
 		case 0:
 			// La variable "succeed" es la que setea Bison al identificar el símbolo
