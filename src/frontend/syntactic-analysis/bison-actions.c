@@ -156,10 +156,14 @@ ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
         AppendError(&state.errors, "Identifier %s is not defined.\n", variableIdentifier->name);
         state.succeed = ERROR;
     }
+
     // If exists, retrieve the value and update it's values.
     Value defaultVal;
     Value* val = getOrDefault(state.symbols_table, variableIdentifier->name, &defaultVal);
     ValueNode* valueNode = calloc_(1, sizeof(ValueNode));
+    ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
+    node->value = valueNode;
+
 
     // Depending on the type of the value, set the correct type and value in the ValueNode
     if(strcmp(val->type, "int") == 0) {
@@ -169,11 +173,6 @@ ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
         valueNode->type = STRING_VALUE;
         valueNode->value.stringValue = strdup(val->initialization);
     }
-
-    ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
-    node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
-    node->value->type = OBJECT_VALUE;
-    node->value->value.objectValue = variableIdentifier;
     return node;
 }
 
