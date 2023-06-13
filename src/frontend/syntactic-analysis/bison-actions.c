@@ -140,12 +140,36 @@ ObjectContentNode* EmptyObjectContentGrammarAction() {
     return node;
 }
 
+//earth.setting
+//identifier = earth
+//value = setting
+//ObjectElementNode
 ParamNode * ParamObjectElementGrammarAction(ObjectElementNode * objectElement) {
     LogDebug("ParamObjectElementGrammarAction: objectElement = ");
+		char * key = strcat_(objectElement->identifier->name, objectElement->value->name);
+
+    if(!exists(state.symbols_table, key)) {
+        AppendError(&state.errors, "Identifier %s is not defined.\n", key);
+        state.succeed = ERROR;
+    }
+
+    // If exists, retrieve the value and update it's values.
+    Value defaultVal;
+    Value* val = getOrDefault(state.symbols_table, key, &defaultVal);
+    ValueNode* valueNode = calloc_(1, sizeof(ValueNode));
     ParamNode * node = (ParamNode*) calloc_(1, sizeof(ParamNode));
-    node->value = (ValueNode*) calloc_(1, sizeof(ValueNode));
-    node->value->type = OBJECT_VALUE;
-    node->value->value.objectValue = objectElement->identifier;
+    node->value = valueNode;
+
+
+    // Depending on the type of the value, set the correct type and value in the ValueNode
+    if(strcmp(val->type, "int") == 0) {
+        valueNode->type = INT_VALUE;
+        valueNode->value.intValue = atoi(val->initialization);
+    } else if(strcmp(val->type, "string") == 0) {
+        valueNode->type = STRING_VALUE;
+        valueNode->value.stringValue = strdup(val->initialization);
+    }
+
     return node;
 }
 ParamNode * ParamVariableGrammarAction(IdentifierNode * variableIdentifier) {
