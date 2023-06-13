@@ -9,13 +9,13 @@ def overlay_images(background_image, overlay_image, position):
 	return modified_image
 
 
-file_paths = ["hola", "holaaa"]
+file_paths = ["src/backend/code-generation/python/background/Bricks.png", "src/backend/code-generation/python/background/Green.png"]
 images_map = lambda image: Image.open(image).convert("RGBA")
 images = list(map(images_map, file_paths))
 
 
 # ADD_FLAVOUR 
-flavour_image = Image.open("objetou.num").convert("RGBA")
+flavour_image = Image.open("src/backend/code-generation/python/flavours/Swirl.png").convert("RGBA")
 position = (0, 0)
 images = [ overlay_images(image, flavour_image, position) for image in images]
 
