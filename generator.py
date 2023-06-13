@@ -14,6 +14,8 @@ images_map = lambda image: Image.open(image).convert("RGBA")
 images = list(map(images_map, file_paths))
 
 
+
+
 # ADD_FLAVOUR 
 flavour_image = Image.open("src/backend/code-generation/python/flavours/Swirl.png").convert("RGBA")
 position = (0, 0)

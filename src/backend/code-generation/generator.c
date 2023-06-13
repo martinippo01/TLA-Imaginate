@@ -180,9 +180,7 @@ void generateMethodChain(MethodChainNode * methodChainNode){	LogDebug("Llegue al
 
 void generateMethod(MethodNode * methodNode){
 	LogDebug("Llegue al method Node .");
-	//TODO Fijate que methodNode->params es un arreglo de ValueNode.
-	
-	//TODO Fijate que methodNode->identifier es un arreglo tiene internamente un string
+
 	if(methodNode == NULL)
 		return;
 	
@@ -200,7 +198,7 @@ void generateMethod(MethodNode * methodNode){
 	{
 	case CUSTOM_METHOD:
 		LogDebug("Llegue a un method CUSTOM");
-		// TODO
+		generateMethodChain(methodNode->definition->methodChain);
 		break;
 	
 	case ADDBLACKANDWHITE_METHOD:
