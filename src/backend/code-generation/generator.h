@@ -4,6 +4,10 @@
 
 void Generator(ProgramNode * program);
 
+void generateVariables(AssignmentsNode * assignmentsNode);
+void generateIdentifier(IdentifierNode * identifierNode);
+void generateExpression(ValueNode * valueNode);
+
 void generateImagenate(ImaginateNode * imaginateNode);
 
 void generateFocus(FocusNode * FocusNode);
