@@ -11,6 +11,7 @@
         "cstdlib": "c",
         "cinttypes": "c",
         "cstdint": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "generator.h": "c"
     }
 }

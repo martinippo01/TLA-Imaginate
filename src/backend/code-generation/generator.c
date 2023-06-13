@@ -13,9 +13,9 @@ void pickFlavourSimple(MethodNode* methodNode, char* identation);
  * Implementación de "generator.h".
  */
 
-void Generator(ProgramNode * program) {
+void Generator(ProgramNode * program, int execute, char *outputFileName) {
 	// Creamos el archivo output
-	fd_py = fopen("generator.py", "w");
+	fd_py = fopen(outputFileName, "w");
 
 	// Importamos el paquete
 	fprintf(fd_py, "from PIL import Image, ImageEnhance\n");
@@ -39,9 +39,8 @@ void Generator(ProgramNode * program) {
 
 	fclose(fd_py);
 
-	int errorCode = system("python3 generator.py");
-
-	printf("\n\n\n Error code = %d\n", errorCode);
+	if(execute)
+		system("python3 generator.py");
 
 }
 
@@ -77,8 +76,6 @@ void generateForEachFocus(ForEachFocusNode * forEachFocusNode){
 	fprintf(fd_py, "images = list(map(images_map, file_paths))\n");
 
 }
-
-
 
 void generateParams(ParamsNode * paramsNode){
 	LogDebug("Llegue al params Node .");
