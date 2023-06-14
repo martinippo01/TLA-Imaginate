@@ -10,20 +10,20 @@ def overlay_images(background_image, overlay_image, position):
 
 
 
-# ADD_CONTRAST 
-images = [ ImageEnhance.Contrast(image).enhance(0) for image in images]
+	# ADD_CONTRAST 
+	images = [ ImageEnhance.Contrast(image).enhance(0) for image in images]
 
 
-# ADD_GRAY_SCALE 
-images = [ ImageEnhance.Contrast(image.convert('L')).enhance(1.5).convert("RGBA") for image in images]
+	# ADD_GRAY_SCALE 
+	images = [ ImageEnhance.Contrast(image.convert('L')).enhance(1.5).convert("RGBA") for image in images]
 
 
-# ADD_CONTRAST 
-images = [ ImageEnhance.Contrast(image).enhance(0) for image in images]
+	# ADD_CONTRAST 
+	images = [ ImageEnhance.Contrast(image).enhance(0) for image in images]
 
 
-# ADD_GRAY_SCALE 
-images = [ ImageEnhance.Contrast(image.convert('L')).enhance(1.5).convert("RGBA") for image in images]
+	# ADD_GRAY_SCALE 
+	images = [ ImageEnhance.Contrast(image.convert('L')).enhance(1.5).convert("RGBA") for image in images]
 
 file_paths = ["src/backend/code-generation/python/background/Bricks.png"]
 images = [Image.open(name).convert("RGBA") for name in file_paths]

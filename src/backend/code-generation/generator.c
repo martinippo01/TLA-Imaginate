@@ -7,8 +7,8 @@ static FILE * fd_py;
 int isRenderAll;
 
 
-void pickFlavourAll(MethodNode* methodNode, char* identation);
-void pickFlavourSimple(MethodNode* methodNode, char* identation);
+void pickFlavourAll(MethodNode* methodNode, char* identation, char* defIdentation);
+void pickFlavourSimple(MethodNode* methodNode, char* identation, char* defIdentation);
 /**
  * Implementación de "generator.h".
  */
@@ -70,7 +70,7 @@ void generateDefinition(DefinitionNode * definitionNode){
 
 	printf("EN GENERATEDEFINITION -> %s\n", definitionNode->identifier->name);
 
-	generateMethodChain(definitionNode->methodChain);
+	generateMethodChain(definitionNode->methodChain, "\t");
 	
 }
 
@@ -140,7 +140,7 @@ void generateImagenate(ImaginateNode * imaginateNode){
 
 	generateForEachFocus(imaginateNode->focuses);
 	
-	generateMethodChain(imaginateNode->methodChain);
+	generateMethodChain(imaginateNode->methodChain, "");
 	
 	generateRender(imaginateNode->render);
 }
@@ -217,18 +217,18 @@ void customGenerateMethod(MethodNode * methodNode, ParamsBlockNode * paramsBlock
 	printf("%d\n", methodNode->params->params->param->value->value.intValue);
 }
 
-void generateMethodChain(MethodChainNode * methodChainNode){	
+void generateMethodChain(MethodChainNode * methodChainNode, char * defIdentation){	
 	
 	LogDebug("Llegue al methodChain Node .");
 	
-	generateMethod(methodChainNode->method);
+	generateMethod(methodChainNode->method, defIdentation);
 	
 	if(methodChainNode->next != NULL)
-		generateMethodChain(methodChainNode->next);
+		generateMethodChain(methodChainNode->next, defIdentation);
 }
 
 
-void generateMethod(MethodNode * methodNode){
+void generateMethod(MethodNode * methodNode, char * defIdentation){
 	LogDebug("Llegue al method Node .");
 
 	if(methodNode == NULL)
@@ -256,63 +256,63 @@ void generateMethod(MethodNode * methodNode){
 	
 	case ADDBLACKANDWHITE_METHOD:
 		LogDebug("Llegue a un method ADDBLACKANDWHITE");
-		fprintf(fd_py, "%s# BLACK_AND_WHITE \n", identation);
+		fprintf(fd_py, "%s%s# BLACK_AND_WHITE \n", defIdentation, identation);
 
-		fprintf(fd_py, "%simages = [ image.convert(\'L\').convert(\"RGBA\") for image in images]\n", identation);
+		fprintf(fd_py, "%s%simages = [ image.convert(\'L\').convert(\"RGBA\") for image in images]\n", defIdentation, identation);
 		break;
 
 	case ADDCONTRAST_METHOD:
 		LogDebug("Llegue a un method ADDCONTRAST");
-		fprintf(fd_py, "%s# ADD_CONTRAST \n", identation);
+		fprintf(fd_py, "%s%s# ADD_CONTRAST \n", defIdentation, identation);
 
-		fprintf(fd_py, "%simages = [ ImageEnhance.Contrast(image).enhance(", identation);
+		fprintf(fd_py, "%s%simages = [ ImageEnhance.Contrast(image).enhance(", defIdentation, identation);
 		generateParamsBlock(methodNode->params);
 		fprintf(fd_py, ") for image in images]\n");
 		break;
 
 	case ADDGRAYSCALE_METHOD:
 		LogDebug("Llegue a un method ADDGRAYSCALE");
-		fprintf(fd_py, "%s# ADD_GRAY_SCALE \n", identation);
+		fprintf(fd_py, "%s%s# ADD_GRAY_SCALE \n", defIdentation, identation);
 
-		fprintf(fd_py, "%simages = [ ImageEnhance.Contrast(image.convert(\'L\')).enhance(1.5).convert(\"RGBA\") for image in images]\n", identation);
+		fprintf(fd_py, "%s%simages = [ ImageEnhance.Contrast(image.convert(\'L\')).enhance(1.5).convert(\"RGBA\") for image in images]\n", defIdentation, identation);
 
 		break;
 
 	case ADDBACKGROUND_METHOD:
 		LogDebug("Llegue a un method ADDBACKGROUND");
-		fprintf(fd_py, "%s# ADD_BACKGROUND \n", identation);
+		fprintf(fd_py, "%s%s# ADD_BACKGROUND \n", defIdentation, identation);
 
-		fprintf(fd_py, "%sbackground_image = Image.open(", identation);
+		fprintf(fd_py, "%s%sbackground_image = Image.open(", defIdentation, identation);
 		generateParamsBlock(methodNode->params);
 		fprintf(fd_py, ").convert(\"RGBA\")\n");
 
-		fprintf(fd_py, "%sposition = (0, 0)\n", identation);
+		fprintf(fd_py, "%s%sposition = (0, 0)\n", defIdentation, identation);
 		
-		fprintf(fd_py, "%simages = [ overlay_images(background_image, image, position) for image in images]\n", identation);
+		fprintf(fd_py, "%s%simages = [ overlay_images(background_image, image, position) for image in images]\n", defIdentation, identation);
 
 		break;
 
 	case ADDFLAVOUR_METHOD:
 		LogDebug("Llegue a un method ADDFLAVOUR");
-		fprintf(fd_py, "%s# ADD_FLAVOUR \n", identation);
+		fprintf(fd_py, "%s%s# ADD_FLAVOUR \n", defIdentation, identation);
 		
-		fprintf(fd_py, "%sflavour_image = Image.open(", identation);
+		fprintf(fd_py, "%s%sflavour_image = Image.open(", defIdentation, identation);
 		generateParamsBlock(methodNode->params);
 		fprintf(fd_py, ").convert(\"RGBA\")\n");
 
-		fprintf(fd_py, "%sposition = (0, 0)\n", identation);
-		fprintf(fd_py, "%simages = [ overlay_images(image, flavour_image, position) for image in images]\n", identation);
+		fprintf(fd_py, "%s%sposition = (0, 0)\n", defIdentation, identation);
+		fprintf(fd_py, "%s%simages = [ overlay_images(image, flavour_image, position) for image in images]\n", defIdentation, identation);
 
 		break;
 
 	case PICKFLAVOUR_METHOD:
 		LogDebug("Llegue a un method PICKFLAVOUR");
-		fprintf(fd_py, "%s# PICK_FLAVOUR \n", identation);
+		fprintf(fd_py, "%s%s# PICK_FLAVOUR \n", defIdentation, identation);
 
 		if(isRenderAll)
-			pickFlavourAll(methodNode, identation);
+			pickFlavourAll(methodNode, identation, defIdentation);
 		else
-			pickFlavourSimple(methodNode, identation);
+			pickFlavourSimple(methodNode, identation, defIdentation);
 		
 		break;
 
@@ -324,39 +324,39 @@ void generateMethod(MethodNode * methodNode){
 	
 }
 
-void pickFlavourAll(MethodNode* methodNode, char* identation){
+void pickFlavourAll(MethodNode* methodNode, char* identation, char *defIdentation){
 
-	fprintf(fd_py, "%spossible_flavours = [", identation);
+	fprintf(fd_py, "%s%spossible_flavours = [", defIdentation, identation);
 	generateParamsBlock(methodNode->params);
 	fprintf(fd_py, "]\n");
 
-	fprintf(fd_py, "%si=0\n", identation);
+	fprintf(fd_py, "%s%si=0\n", defIdentation, identation);
 
-	fprintf(fd_py, "%snew_image_list = []\n", identation);
+	fprintf(fd_py, "%s%snew_image_list = []\n", defIdentation, identation);
 
-	fprintf(fd_py, "%sfor image in images:\n", identation);
+	fprintf(fd_py, "%s%sfor image in images:\n", defIdentation, identation);
 
-	fprintf(fd_py, "%s\tfor flavour in possible_flavours:\n", identation);
+	fprintf(fd_py, "%s%s\tfor flavour in possible_flavours:\n", defIdentation, identation);
 
-	fprintf(fd_py, "%s\t\tnew_image_list.append(overlay_images(image, Image.open(flavour), position))\n", identation);
+	fprintf(fd_py, "%s%s\t\tnew_image_list.append(overlay_images(image, Image.open(flavour), position))\n", defIdentation, identation);
 
-	fprintf(fd_py, "%s\t\ti+=1\n", identation);
+	fprintf(fd_py, "%s%s\t\ti+=1\n", defIdentation, identation);
 
-	fprintf(fd_py, "%simages = [new_image_list[i] for i in range(len(new_image_list))]\n", identation);
+	fprintf(fd_py, "%s%simages = [new_image_list[i] for i in range(len(new_image_list))]\n", defIdentation, identation);
 
 }
 
 
-void pickFlavourSimple(MethodNode* methodNode, char* identation){
-	fprintf(fd_py, "%spossible_flavours = [", identation);
+void pickFlavourSimple(MethodNode* methodNode, char* identation, char * defIdentation){
+	fprintf(fd_py, "%s%spossible_flavours = [", defIdentation, identation);
 	generateParamsBlock(methodNode->params);
 	fprintf(fd_py, "]\n");
 
-	fprintf(fd_py, "%sflavour_image = Image.open(possible_flavours[random.randint(0, len(possible_flavours) - 1)]).convert(\"RGBA\")\n", identation);
+	fprintf(fd_py, "%s%sflavour_image = Image.open(possible_flavours[random.randint(0, len(possible_flavours) - 1)]).convert(\"RGBA\")\n", defIdentation, identation);
 	
 
-	fprintf(fd_py, "%sposition = (0, 0)\n", identation);
-	fprintf(fd_py, "%simages = [ overlay_images(image, flavour_image, position) for image in images]\n", identation);
+	fprintf(fd_py, "%s%sposition = (0, 0)\n", defIdentation, identation);
+	fprintf(fd_py, "%s%simages = [ overlay_images(image, flavour_image, position) for image in images]\n", defIdentation, identation);
 }
 
 
