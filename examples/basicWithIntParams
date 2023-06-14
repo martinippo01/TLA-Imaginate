@@ -1,0 +1,9 @@
+def function(parametro1, parametro2):
+    .addContrast(parametro1)
+
+Imaginate
+    .addFocus("src/backend/code-generation/python/background/Bricks.png")
+    .function(100, 2)
+    .render()
+
+    
