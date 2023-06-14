@@ -81,6 +81,10 @@ void generateArgumentsBlockNode(ArgumentsBlockNode * argumentsBlockNode){
 	LogDebug("Llegue a generateArgumentsBlockNode");
 	
 	ArgumentsNode * paramNode = argumentsBlockNode->params;
+	fprintf(fd_py, "images");
+	
+	if(paramNode != NULL)
+		fprintf(fd_py, ", ");
 
     while(paramNode != NULL) {
 		generateArgumentsNode(paramNode);
@@ -264,12 +268,16 @@ void generateMethod(MethodNode * methodNode, char * defIdentation){
 	case CUSTOM_METHOD:
 		LogDebug("Llegue al CUSTOM type");
 		
-		fprintf(fd_py, "%s%s%s(", defIdentation, identation, methodNode->identifier->value.name);
+		fprintf(fd_py, "%s%s%s(images", defIdentation, identation, methodNode->identifier->value.name);
 		
+
 		ParamsNode *params = methodNode->params->params;
 		
+		if(params != NULL)
+			fprintf(fd_py, ", ");
+
 		while(params != NULL){
-			printf("hola");			
+			
 			switch (params->param->value->type)
 			{
 			case STRING_VALUE:
@@ -291,9 +299,7 @@ void generateMethod(MethodNode * methodNode, char * defIdentation){
 			params = params->next;
 		}
 		fprintf(fd_py, ")\n", defIdentation, identation, methodNode->identifier->value.name);
-		//generateCustomMethodChain(methodNode->definition->methodChain, methodNode->params);
-		// methodNode->params; // effect, 
-		// methodNode->definition->args; // fire, 
+
 		break;
 	
 	case ADDBLACKANDWHITE_METHOD:
