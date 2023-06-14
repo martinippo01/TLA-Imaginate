@@ -1,0 +1,13 @@
+val str1: {setting: "src/backend/code-generation/python/background/Bricks.png"}
+val str2: {setting: "src/backend/code-generation/python/background/Green.png"}
+
+def function():
+    .addFlavour("src/backend/code-generation/python/flavours/Swirl.png")
+
+
+Imaginate
+    .forEachFocus(str1.setting, str2.setting)
+    .function()
+    .render()
+
+    
