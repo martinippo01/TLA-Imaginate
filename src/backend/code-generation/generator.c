@@ -47,7 +47,6 @@ void Generator(ProgramNode * program) {
 
 	int errorCode = system("python3 generator.py");
 
-	printf("\n\n\n Error code = %d\n", errorCode);
 
 }
 
@@ -96,7 +95,6 @@ void generateArgumentsBlockNode(ArgumentsBlockNode * argumentsBlockNode){
 void generateArgumentsNode(ArgumentsNode * argumentsNode){
 	LogDebug("Llegue a generateArgumentsNode");
 
-	printf("%s\n", argumentsNode->arg->value->value.stringValue);
 	fprintf(fd_py, "%s", argumentsNode->arg->value->value.stringValue);
 
 }
@@ -267,11 +265,9 @@ void generateMethod(MethodNode * methodNode, char * defIdentation){
 			switch (params->param->value->type)
 			{
 			case STRING_VALUE:
-				printf("%s", params->param->value->value.stringValue);
 				fprintf(fd_py, "%s", params->param->value->value.stringValue);
 				break;
 			case INT_VALUE:
-				printf("%d", params->param->value->value.intValue);
 				fprintf(fd_py, "%d", params->param->value->value.intValue);
 				break;
 			case OBJECT_VALUE:
