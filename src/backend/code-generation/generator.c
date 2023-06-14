@@ -31,6 +31,7 @@ void Generator(ProgramNode * program) {
 
 	fprintf(fd_py, "\n");
 	//generateVariables(program->assignments);
+	generateDefinitions(program->definitions);
 	fprintf(fd_py, "\n");
 
 	LogDebug("Llegue al program Node .");
@@ -48,6 +49,37 @@ void Generator(ProgramNode * program) {
 
 	printf("\n\n\n Error code = %d\n", errorCode);
 
+}
+
+
+void generateDefinitions(DefinitionsNode * definitionsNode){
+	
+	LogDebug("Llegue a generateDefinitions");
+	if(definitionsNode->next == NULL)
+		return;
+
+	generateDefinition(definitionsNode->definition);
+
+	generateDefinitions(definitionsNode->next);
+
+}
+
+
+void generateDefinition(DefinitionNode * definitionNode){
+	LogDebug("Llegue a generateDefinition");
+
+	printf("EN GENERATEDEFINITION -> %s\n", definitionNode->identifier->name);
+
+	generateMethodChain(definitionNode->methodChain);
+	
+}
+
+void generateArgumentsBlockNode(ArgumentsBlockNode * argumentsBlockNode){
+	LogDebug("Llegue a generateArgumentsBlockNode");
+	if(argumentsBlockNode == NULL)
+		return;
+
+	
 }
 
 	void generateVariables(AssignmentsNode * assignmentsNode){
@@ -168,10 +200,28 @@ void generateFocus(FocusNode * focusNode){
 }
 
 
+void generateCustomMethodChain(MethodChainNode *methodChainNode, ParamsBlockNode *paramsBlockNode){
+	LogDebug("Llegue al CUSTOM methodChain .");
 
-void generateMethodChain(MethodChainNode * methodChainNode){	LogDebug("Llegue al methodChain Node .");
+	customGenerateMethod(methodChainNode->method, paramsBlockNode);
 	
-		generateMethod(methodChainNode->method);
+	if(methodChainNode->next != NULL)
+		customGenerateMethod(methodChainNode->next, paramsBlockNode);	
+
+}
+
+
+void customGenerateMethod(MethodNode * methodNode, ParamsBlockNode * paramsBlockNode){
+	LogDebug("Llegue al CUSTOM method .");
+	//LogDebug(methodNode->identifier->value.name);
+	printf("%d\n", methodNode->params->params->param->value->value.intValue);
+}
+
+void generateMethodChain(MethodChainNode * methodChainNode){	
+	
+	LogDebug("Llegue al methodChain Node .");
+	
+	generateMethod(methodChainNode->method);
 	
 	if(methodChainNode->next != NULL)
 		generateMethodChain(methodChainNode->next);
@@ -197,8 +247,11 @@ void generateMethod(MethodNode * methodNode){
 	switch (methodNode->identifier->type)
 	{
 	case CUSTOM_METHOD:
-		LogDebug("Llegue a un method CUSTOM");
-		generateMethodChain(methodNode->definition->methodChain);
+		LogDebug("Llegue al CUSTOM type");
+		// TODO call custom method, how? TBD
+		//generateCustomMethodChain(methodNode->definition->methodChain, methodNode->params);
+		// methodNode->params; // effect, 
+		// methodNode->definition->args; // fire, 
 		break;
 	
 	case ADDBLACKANDWHITE_METHOD:

@@ -293,6 +293,11 @@ MethodNode* MethodGrammarAction(OptionalNode * optional, MethodIdentifierNode* i
     node->optional = optional;
     node->identifier = identifier;
     node->params = params;
+    
+    if(params->params->param->value->type == STRING_TYPE)
+        printf("EN METHOD GRAMMAR ACTION %s \n", params->params->param->value->value.stringValue);
+    else
+        printf("EN METHOD GRAMMAR ACTION %d \n",params->params->param->value->value.intValue);
 
     if(identifier->type == CUSTOM_METHOD) {
         node->definition = getOrDefaultDefsTable(state.defs_table, identifier->value.name, &DEFAULT_VALUE_NODE)->definition;
