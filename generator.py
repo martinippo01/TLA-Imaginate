@@ -8,21 +8,17 @@ def overlay_images(background_image, overlay_image, position):
 	modified_image.paste(overlay_with_alpha, position, overlay_with_alpha)
 	return modified_image
 
-def function(parametro1parametro1parametro2):
+def function(parametro1, parametro2):
 
-	# ADD_BACKGROUND 
-	background_image = Image.open(0).convert("RGBA")
-	position = (0, 0)
-	images = [ overlay_images(background_image, image, position) for image in images]
-
-file_paths = ["./eiffelTower.png", "./bigBen.png", "./colosseum.png", "./istanbul.png", "./tajMahal.png", "./greatWall.png"]
-images_map = lambda image: Image.open(image).convert("RGBA")
-images = list(map(images_map, file_paths))
+	# ADD_CONTRAST 
+	images = [ ImageEnhance.Contrast(image).enhance(0) for image in images]
 
 
-def function2(parametro10parametro10paramentro20paramentro30):
+	# ADD_GRAY_SCALE 
+	images = [ ImageEnhance.Contrast(image.convert('L')).enhance(1.5).convert("RGBA") for image in images]
 
-<<<<<<< HEAD
+def function2(parametro10, paramentro20, paramentro30):
+
 	# Optional
 	if random.randint(0, 1) == 1:
 		# ADD_CONTRAST 
@@ -35,26 +31,17 @@ def function2(parametro10parametro10paramentro20paramentro30):
 
 file_paths = ["src/backend/code-generation/python/background/Bricks.png"]
 images = [Image.open(name).convert("RGBA") for name in file_paths]
-=======
-
-# ADD_GRAY_SCALE 
-images = [ ImageEnhance.Contrast(image.convert('L')).enhance(1.5).convert("RGBA") for image in images]
->>>>>>> 99934fd0a7fadcf9208b4b977cd091e244495921
 
 
-# ADD_CONTRAST 
-images = [ ImageEnhance.Contrast(image).enhance(10, 20) for image in images]
+function(1, "2")
 
 
-# ADD_FLAVOUR 
-flavour_image = Image.open("./hotAirBalloon.png").convert("RGBA")
-position = (0, 0)
-images = [ overlay_images(image, flavour_image, position) for image in images]
+function2(1, "2", "3")
 
 
 # SAVE_IMAGES 
 count = 0
-for image in images:
+for image, file_path in zip(images, file_paths):
 	image.save("exported-" + str(count) + ".png")
 	count = count + 1
 

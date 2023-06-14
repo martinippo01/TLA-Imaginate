@@ -80,14 +80,13 @@ void generateDefinition(DefinitionNode * definitionNode){
 void generateArgumentsBlockNode(ArgumentsBlockNode * argumentsBlockNode){
 	LogDebug("Llegue a generateArgumentsBlockNode");
 	
-	printf("%s\n", argumentsBlockNode->params->arg->value->value.stringValue);
-	fprintf(fd_py, "%s", argumentsBlockNode->params->arg->value->value.stringValue);
-	
-	
 	ArgumentsNode * paramNode = argumentsBlockNode->params;
 
     while(paramNode != NULL) {
 		generateArgumentsNode(paramNode);
+		
+		if(paramNode->next != NULL)
+			fprintf(fd_py, ", ");
         paramNode = paramNode->next;
     }
 }
@@ -264,7 +263,34 @@ void generateMethod(MethodNode * methodNode, char * defIdentation){
 	{
 	case CUSTOM_METHOD:
 		LogDebug("Llegue al CUSTOM type");
-		// TODO call custom method, how? TBD
+		
+		fprintf(fd_py, "%s%s%s(", defIdentation, identation, methodNode->identifier->value.name);
+		
+		ParamsNode *params = methodNode->params->params;
+		
+		while(params != NULL){
+			printf("hola");			
+			switch (params->param->value->type)
+			{
+			case STRING_VALUE:
+				printf("%s", params->param->value->value.stringValue);
+				fprintf(fd_py, "%s", params->param->value->value.stringValue);
+				break;
+			case INT_VALUE:
+				printf("%d", params->param->value->value.intValue);
+				fprintf(fd_py, "%d", params->param->value->value.intValue);
+				break;
+			case OBJECT_VALUE:
+				/* code */
+				break;							
+			default:
+				break;
+			}
+			if(params->next != NULL)
+				fprintf(fd_py, ", ");
+			params = params->next;
+		}
+		fprintf(fd_py, ")\n", defIdentation, identation, methodNode->identifier->value.name);
 		//generateCustomMethodChain(methodNode->definition->methodChain, methodNode->params);
 		// methodNode->params; // effect, 
 		// methodNode->definition->args; // fire, 
