@@ -10,14 +10,11 @@ def overlay_images(background_image, overlay_image, position):
 
 def function(parametro1parametro1parametro2):
 
-	# ADD_BACKGROUND 
-	background_image = Image.open(0).convert("RGBA")
-	position = (0, 0)
-	images = [ overlay_images(background_image, image, position) for image in images]
+	# ADD_GRAY_SCALE 
+	images = [ ImageEnhance.Contrast(image.convert('L')).enhance(1.5).convert("RGBA") for image in images]
 
-file_paths = ["./eiffelTower.png", "./bigBen.png", "./colosseum.png", "./istanbul.png", "./tajMahal.png", "./greatWall.png"]
-images_map = lambda image: Image.open(image).convert("RGBA")
-images = list(map(images_map, file_paths))
+file_paths = ["src/backend/code-generation/python/focos/luna.png"]
+images = [Image.open(name).convert("RGBA") for name in file_paths]
 
 
 def function2(parametro10parametro10paramentro20paramentro30):
@@ -37,6 +34,7 @@ file_paths = ["src/backend/code-generation/python/background/Bricks.png"]
 images = [Image.open(name).convert("RGBA") for name in file_paths]
 =======
 
+<<<<<<< Updated upstream
 # ADD_GRAY_SCALE 
 images = [ ImageEnhance.Contrast(image.convert('L')).enhance(1.5).convert("RGBA") for image in images]
 >>>>>>> 99934fd0a7fadcf9208b4b977cd091e244495921
@@ -52,9 +50,11 @@ position = (0, 0)
 images = [ overlay_images(image, flavour_image, position) for image in images]
 
 
+=======
+>>>>>>> Stashed changes
 # SAVE_IMAGES 
 count = 0
-for image in images:
+for image, file_path in zip(images, file_paths):
 	image.save("exported-" + str(count) + ".png")
 	count = count + 1
 
