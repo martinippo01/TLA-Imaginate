@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-
+#define MAX_INT_LENGTH 12
 
 /**
  * Implementación de "bison-grammar.h".
@@ -90,9 +90,11 @@ Value * initialiseValueSymbolsTable(ValueNode * assignment) {
 	Value * val = calloc_(1, sizeof(Value));
 	//should check whether string or int as value
 	if(assignment->type == INT_VALUE) {
-	    val->initialization = strdup_(assignment->value.stringValue);
-	    val->type_enum = INT_VALUE;
-	    strcpy(val->type, INT_LABEL);
+		char intStr[MAX_INT_LENGTH]; 
+    sprintf(intStr, "%d", assignment->value.intValue);
+    val->initialization = strdup(intStr);
+    val->type_enum = INT_VALUE;
+    strcpy(val->type, INT_LABEL);
 	} else if (assignment->type == STRING_VALUE) {
 	    val->initialization = strdup_(assignment->value.stringValue);
 	    val->type_enum = STRING_VALUE;
@@ -121,7 +123,6 @@ AssignmentNode * ValueObjectGrammarAction(IdentifierNode * identifier, ObjectNod
     while(assignments != NULL && assignments->assignment != NULL) {
   	    char * key = strcat_(identifier->name, assignments->assignment->variable->name); 
 	    put(state.symbols_table, key, *initialiseValueSymbolsTable(assignments->assignment->rightHandValue));
-	    printHashMap(state.symbols_table);
 	    assignments = assignments->next;
     }
 
