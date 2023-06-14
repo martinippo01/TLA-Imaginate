@@ -572,6 +572,7 @@ ParamsNode* ParamsGrammarAction(ParamNode* param, ParamsNode* params) {
     ParamsNode* node = (ParamsNode*) calloc_(1, sizeof(ParamsNode));
     node->param = param;
     node->next = params;
+    
     return node;
 }
 

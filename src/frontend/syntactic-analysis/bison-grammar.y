@@ -144,7 +144,7 @@ optional: QUESTION_SIGN           { $$ = OptionalQuestionSignGrammarAction(); }
         | /* empty */              { $$ = EmptyOptionalGrammarAction(); };
 
 params: param         { $$ = ParamGrammarAction($1); }
-	  	| param COMMA params        { $$ = ParamsGrammarAction($1, $3); }
+	| param COMMA params        { $$ = ParamsGrammarAction($1, $3); }
       | /* empty */               { $$ = EmptyParamsGrammarAction(); };
 
 param:  STRING_IDENTIFIER          { $$ = ParamStringGrammarAction($1); }

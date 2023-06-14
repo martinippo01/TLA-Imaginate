@@ -8,15 +8,7 @@ def overlay_images(background_image, overlay_image, position):
 	modified_image.paste(overlay_with_alpha, position, overlay_with_alpha)
 	return modified_image
 
-
-
-	# ADD_CONTRAST 
-	images = [ ImageEnhance.Contrast(image).enhance(0) for image in images]
-
-
-	# ADD_GRAY_SCALE 
-	images = [ ImageEnhance.Contrast(image.convert('L')).enhance(1.5).convert("RGBA") for image in images]
-
+def function(parametro1parametro1parametro2):
 
 	# ADD_CONTRAST 
 	images = [ ImageEnhance.Contrast(image).enhance(0) for image in images]
@@ -24,6 +16,18 @@ def overlay_images(background_image, overlay_image, position):
 
 	# ADD_GRAY_SCALE 
 	images = [ ImageEnhance.Contrast(image.convert('L')).enhance(1.5).convert("RGBA") for image in images]
+
+def function2(parametro10parametro10paramentro20paramentro30):
+
+	# Optional
+	if random.randint(0, 1) == 1:
+		# ADD_CONTRAST 
+		images = [ ImageEnhance.Contrast(image).enhance(0) for image in images]
+
+
+	# ADD_GRAY_SCALE 
+	images = [ ImageEnhance.Contrast(image.convert('L')).enhance(1.5).convert("RGBA") for image in images]
+
 
 file_paths = ["src/backend/code-generation/python/background/Bricks.png"]
 images = [Image.open(name).convert("RGBA") for name in file_paths]

@@ -55,7 +55,7 @@ void Generator(ProgramNode * program) {
 void generateDefinitions(DefinitionsNode * definitionsNode){
 	
 	LogDebug("Llegue a generateDefinitions");
-	if(definitionsNode->next == NULL)
+	if(definitionsNode->definition == NULL)
 		return;
 
 	generateDefinition(definitionsNode->definition);
@@ -69,17 +69,33 @@ void generateDefinition(DefinitionNode * definitionNode){
 	LogDebug("Llegue a generateDefinition");
 
 	printf("EN GENERATEDEFINITION -> %s\n", definitionNode->identifier->name);
-
+	fprintf(fd_py, "def %s(", definitionNode->identifier->name);
+	generateArgumentsBlockNode(definitionNode->args);
+	fprintf(fd_py, "):");
 	generateMethodChain(definitionNode->methodChain, "\t");
+	fprintf(fd_py, "\n");
 	
 }
 
 void generateArgumentsBlockNode(ArgumentsBlockNode * argumentsBlockNode){
 	LogDebug("Llegue a generateArgumentsBlockNode");
-	if(argumentsBlockNode == NULL)
-		return;
-
 	
+	printf("%s\n", argumentsBlockNode->params->arg->value->value.stringValue);
+	fprintf(fd_py, "%s", argumentsBlockNode->params->arg->value->value.stringValue);
+	
+	
+	ArgumentsNode * paramNode = argumentsBlockNode->params;
+
+    while(paramNode != NULL) {
+		generateArgumentsNode(paramNode);
+        paramNode = paramNode->next;
+    }
+}
+void generateArgumentsNode(ArgumentsNode * argumentsNode){
+	
+	printf("%s\n", argumentsNode->arg->value->value.stringValue);
+	fprintf(fd_py, "%s", argumentsNode->arg->value->value.stringValue);
+
 }
 
 	void generateVariables(AssignmentsNode * assignmentsNode){
@@ -238,8 +254,8 @@ void generateMethod(MethodNode * methodNode, char * defIdentation){
 
 	char* identation = "";
 	if(!isRenderAll && methodNode->optional->isQuestionMarkPresent){
-		fprintf(fd_py, "# Optional\n");
-		fprintf(fd_py, "if random.randint(0, 1) == 1:\n");
+		fprintf(fd_py, "%s# Optional\n", defIdentation);
+		fprintf(fd_py, "%sif random.randint(0, 1) == 1:\n", defIdentation);
 		identation = "\t";
 	}
 

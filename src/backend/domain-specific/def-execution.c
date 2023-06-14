@@ -7,13 +7,17 @@ int validateDefinitionSignature(DefsTable hashmap, char * identifier, ParamsBloc
 
     if (!value->definition->args || !params) return 0;
 
+    int i = 0;
+
     ArgumentsNode *args = value->definition->args->params;
     ParamsNode *paramNode = params->params;
 
     while(args != NULL && paramNode != NULL) {
+        i++;
         args = args->next;
         paramNode = paramNode->next;
     }
 
+    printf("count of parameters is %d\n", i);
     return args == NULL && paramNode == NULL;
 }

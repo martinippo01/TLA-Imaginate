@@ -6,6 +6,8 @@ void Generator(ProgramNode * program);
 
 void generateDefinitions(DefinitionsNode * definitionsNode);
 void generateDefinition(DefinitionNode * definitionNode);
+void generateArgumentsBlockNode(ArgumentsBlockNode * argumentsBlockNode);
+void generateArgumentsNode(ArgumentsNode * argumentsNode);
 
 void generateVariables(AssignmentsNode * assignmentsNode);
 void generateIdentifier(IdentifierNode * identifierNode);
