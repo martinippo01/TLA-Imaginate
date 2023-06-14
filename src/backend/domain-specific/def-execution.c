@@ -18,6 +18,5 @@ int validateDefinitionSignature(DefsTable hashmap, char * identifier, ParamsBloc
         paramNode = paramNode->next;
     }
 
-    printf("count of parameters is %d\n", i);
     return args == NULL && paramNode == NULL;
 }

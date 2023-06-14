@@ -68,7 +68,6 @@ void generateDefinitions(DefinitionsNode * definitionsNode){
 void generateDefinition(DefinitionNode * definitionNode){
 	LogDebug("Llegue a generateDefinition");
 
-	printf("EN GENERATEDEFINITION -> %s\n", definitionNode->identifier->name);
 	fprintf(fd_py, "def %s(", definitionNode->identifier->name);
 	generateArgumentsBlockNode(definitionNode->args);
 	fprintf(fd_py, "):");
@@ -82,11 +81,11 @@ void generateArgumentsBlockNode(ArgumentsBlockNode * argumentsBlockNode){
 	
 	ArgumentsNode * paramNode = argumentsBlockNode->params;
 	fprintf(fd_py, "images");
-	
+
 	if(paramNode != NULL)
 		fprintf(fd_py, ", ");
 
-    while(paramNode != NULL) {
+    while(paramNode != NULL && paramNode->arg != NULL) {
 		generateArgumentsNode(paramNode);
 		
 		if(paramNode->next != NULL)
@@ -95,7 +94,8 @@ void generateArgumentsBlockNode(ArgumentsBlockNode * argumentsBlockNode){
     }
 }
 void generateArgumentsNode(ArgumentsNode * argumentsNode){
-	
+	LogDebug("Llegue a generateArgumentsNode");
+
 	printf("%s\n", argumentsNode->arg->value->value.stringValue);
 	fprintf(fd_py, "%s", argumentsNode->arg->value->value.stringValue);
 
@@ -121,7 +121,7 @@ void generateArgumentsNode(ArgumentsNode * argumentsNode){
 		
 		LogDebug("Llegue a identifier");
 
-		fprintf(fd_py, identifierNode->name);
+		fprintf(fd_py, "%s", identifierNode->name);
 	}
 
 
@@ -219,22 +219,8 @@ void generateFocus(FocusNode * focusNode){
 }
 
 
-void generateCustomMethodChain(MethodChainNode *methodChainNode, ParamsBlockNode *paramsBlockNode){
-	LogDebug("Llegue al CUSTOM methodChain .");
-
-	customGenerateMethod(methodChainNode->method, paramsBlockNode);
-	
-	if(methodChainNode->next != NULL)
-		customGenerateMethod(methodChainNode->next, paramsBlockNode);	
-
-}
 
 
-void customGenerateMethod(MethodNode * methodNode, ParamsBlockNode * paramsBlockNode){
-	LogDebug("Llegue al CUSTOM method .");
-	//LogDebug(methodNode->identifier->value.name);
-	printf("%d\n", methodNode->params->params->param->value->value.intValue);
-}
 
 void generateMethodChain(MethodChainNode * methodChainNode, char * defIdentation){	
 	
@@ -276,7 +262,7 @@ void generateMethod(MethodNode * methodNode, char * defIdentation){
 		if(params != NULL)
 			fprintf(fd_py, ", ");
 
-		while(params != NULL){
+		while(params != NULL && params->param != NULL){
 			
 			switch (params->param->value->type)
 			{
@@ -298,7 +284,7 @@ void generateMethod(MethodNode * methodNode, char * defIdentation){
 				fprintf(fd_py, ", ");
 			params = params->next;
 		}
-		fprintf(fd_py, ")\n", defIdentation, identation, methodNode->identifier->value.name);
+		fprintf(fd_py, ")\n");
 
 		break;
 	
