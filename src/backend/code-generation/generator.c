@@ -257,7 +257,7 @@ void generateMethod(MethodNode * methodNode, char * defIdentation){
 
 		ParamsNode *params = methodNode->params->params;
 		
-		if(params != NULL)
+		if(params != NULL && params->param != NULL)
 			fprintf(fd_py, ", ");
 
 		while(params != NULL && params->param != NULL){
