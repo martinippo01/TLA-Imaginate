@@ -71,6 +71,7 @@ void generateDefinition(DefinitionNode * definitionNode){
 	generateArgumentsBlockNode(definitionNode->args);
 	fprintf(fd_py, "):");
 	generateMethodChain(definitionNode->methodChain, "\t");
+	fprintf(fd_py, "\n\treturn images\n");
 	fprintf(fd_py, "\n");
 	
 }
@@ -252,7 +253,7 @@ void generateMethod(MethodNode * methodNode, char * defIdentation){
 	case CUSTOM_METHOD:
 		LogDebug("Llegue al CUSTOM type");
 		
-		fprintf(fd_py, "%s%s%s(images", defIdentation, identation, methodNode->identifier->value.name);
+		fprintf(fd_py, "%s%simages = %s(images", defIdentation, identation, methodNode->identifier->value.name);
 		
 
 		ParamsNode *params = methodNode->params->params;
