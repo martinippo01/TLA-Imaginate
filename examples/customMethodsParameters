@@ -1,0 +1,14 @@
+val bricks: {path: "src/backend/code-generation/python/background/Bricks.png"}
+val str2: {setting: "src/backend/code-generation/python/background/Green.png"}
+
+def function(obj):
+    .addFlavour(obj)
+
+
+Imaginate
+    .forEachFocus(bricks.path , str2.setting)
+    .function(bricks)
+    .render()
+
+    
+
