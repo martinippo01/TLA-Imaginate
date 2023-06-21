@@ -20,6 +20,9 @@ $ ./script/build.sh
 
 Este comando va a abrir una sesion en el contenedor donde se va podra correr los scripts .sh directamente desde ahi.
 
+```
+Nota: El docker de Alejo Flores Lucey ha sido actualizado para incluir las dependencias necesarias. Por lo que puede ser necesario actualizar dicha imagen previamente descargada. Simplemente seria hacer un nuevo docker pull alejofl/tla-compiler. Nuevamente, muchas gracias al Grupo de Alejo.
+```
 
 ## Ejecución
 
