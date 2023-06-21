@@ -13,7 +13,7 @@ void pickFlavourSimple(MethodNode* methodNode, char* identation, char* defIdenta
  * Implementación de "generator.h".
  */
 
-void Generator(ProgramNode * program) {
+void Generator(ProgramNode * program, int executePython) {
 	// Creamos el archivo output
 	fd_py = fopen("generator.py", "w");
 
@@ -45,8 +45,9 @@ void Generator(ProgramNode * program) {
 
 	fclose(fd_py);
 
-	int errorCode = system("python3 generator.py");
-
+	int errorCode;
+	if(executePython)
+		errorCode = system("python3 generator.py");
 
 }
 

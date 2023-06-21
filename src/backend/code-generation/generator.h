@@ -2,7 +2,7 @@
 #define GENERATOR_HEADER
 #include "../semantic-analysis/abstract-syntax-tree.h"
 
-void Generator(ProgramNode * program);
+void Generator(ProgramNode * program, int executePython);
 
 void generateDefinitions(DefinitionsNode * definitionsNode);
 void generateDefinition(DefinitionNode * definitionNode);

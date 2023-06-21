@@ -21,6 +21,13 @@ const int main(const int argumentCount, const char ** arguments) {
 	initDefsTable(state.defs_table);
 	initErrorsList(state.errors);
 	
+	int executePython = 0;
+	if(argumentCount >= 2){
+		if(strcmp(arguments[1], "-x") == 0)
+			executePython = 1;
+		else
+			LogError("Invalid flag '%s'. (Use -x for generate image)", arguments[1]);
+	}
 
 	// Mostrar parámetros recibidos por consola.
 	for (int i = 0; i < argumentCount; ++i) {
@@ -37,7 +44,7 @@ const int main(const int argumentCount, const char ** arguments) {
 			// inicial de la gramática satisfactoriamente.
 			if (state.succeed == SUCCESS) {
 				LogInfo("Compilation successful");
-				Generator(state.program);
+				Generator(state.program, executePython);
 			}
 			break;
 		case 1:
