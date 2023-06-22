@@ -43,6 +43,17 @@ root@docker-session:path/ $ ./script/start.sh program
 
 Debería obtener el valor de retorno valido (0) para dicho programa. En caso de que se modifque la sintaxis del programa por una incorrecta, el valor de retorno sera diferente de 0.
 
+El resultado sera un codigo en python que sera capaz de generar la imagen deseada. Para ejecutar dicho codigo puede hacerlo a mano:
+
+```bash
+$ python3 python3 generator.py
+```
+Alternativamente, a la hora de compilar el programa Imaginate se puede utilizar el flag '-x' para que dicho codigo Pyhton sea ejecutado automaticamente:
+
+```bash
+root@docker-session:path/ $ ./script/start.sh program -x
+```
+
 ## Testing
 
 Para poder testear el correcto funcionamiento del compilador interpretando la sintaxis, se proveen en el directorio test casos de aceptacion y rechazo. Para validar esto, la catedra ha provisto el siguiente script `./script/test.sh` que tratara de compilar todos los casos de aceptacion y rechazo y mostrara por stdout en cuales se acepto y cuales se rechazo.
@@ -53,3 +64,20 @@ root@docker-session:path/ $ ./script/test.sh
 
 
 Si desea agregar nuevos casos de uso, deberá crear un archivo por cada uno, que contenga el programa a testear dentro de las carpetas `test/accept` o `test/reject` según corresponda (es decir, si el mismo debe ser aceptado o rechazado por el compilador).
+
+## Casos de uso
+
+Para poder poner a prueba el compilador con casos de uso real, en el repositorio hay un directorio con ejemplos basicos en "./examples" que utilizan imagenes tambien presentes en el repositorio.
+Un ejemplo seria:
+
+```bash
+root@docker-session:path/ $ ./script/start.sh examples/basic -x
+...
+root@docker-session:path/ $ ./script/start.sh examples/customMethodAndObjects -x 
+...
+root@docker-session:path/ $ ./script/start.sh examples/forEachFocus2objects -x
+```
+
+> Notar el uso del flag -x para la generacion automatica de las imagenes.
+>
+> Recordar ejectura dentro del docker
