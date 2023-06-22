@@ -64,3 +64,20 @@ root@docker-session:path/ $ ./script/test.sh
 
 
 Si desea agregar nuevos casos de uso, deberá crear un archivo por cada uno, que contenga el programa a testear dentro de las carpetas `test/accept` o `test/reject` según corresponda (es decir, si el mismo debe ser aceptado o rechazado por el compilador).
+
+## Casos de uso
+
+Para poder poner a prueba el compilador con casos de uso real, en el repositorio hay un directorio con ejemplos basicos en "./examples" que utilizan imagenes tambien presentes en el repositorio.
+Un ejemplo seria:
+
+```bash
+root@docker-session:path/ $ ./script/start.sh examples/basic -x
+...
+root@docker-session:path/ $ ./script/start.sh examples/customMethodAndObjects -x 
+...
+root@docker-session:path/ $ ./script/start.sh examples/forEachFocus2objects -x
+```
+
+> Notar el uso del flag -x para la generacion automatica de las imagenes.
+>
+> Recordar ejectura dentro del docker
